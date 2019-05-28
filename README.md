@@ -4,13 +4,16 @@
 
 Check the [installation guide](#installation) for help setting up your environment to use the tools in the repository.
 
+
 ## Description
+
 
 
 ## Content
 
 
 [numerical-tour]: https://nbviewer.jupyter.org/github/rodrigo-pena/gssr/blob/outputs/phd-thesis/numerical-tour.ipynb
+
 
 ## Installation
 
@@ -37,6 +40,7 @@ After the (one-time) creation of the environment, you can do the following every
 1. Start Jupyter with `jupyter lab`. The command should open a new tab in your web browser.
 1. Edit and run the scripts and notebooks from your browser.
 
+
 ## Acknowledgments
 
 The contents of this repository benefitted from the following resources:
@@ -46,9 +50,11 @@ The contents of this repository benefitted from the following resources:
 * [Voting patterns in the Swiss National Council][swiss_council].
 * [Finding Continents from a Flight Routes Network][flight_routes].
 
+
 ## License
 
 The content is released under the terms of the [MIT License](LICENSE.txt).
+
 
 [anaconda]: https://www.anaconda.com/distribution/
 [conda]: https://conda.io
