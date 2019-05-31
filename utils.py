@@ -10,17 +10,24 @@ import numpy as np
 
 
 def interpolation_projection(signal, sampled_vertices, sampled_values):
+    r"""
+    Orthogonal projection of a vector onto the interpolation set.
+    """
+    
     projection = np.copy(signal)
     projection[sampled_vertices] = sampled_values
     return projection
 
 
 def sampling_restriction(signal, sampled_vertices):
+    r"""
+    Restrict a vector to the coordinates contained in the sampling set.
+    """
     return signal[sampled_vertices]
 
 
 def spectral_norm(shape, L, Lt):
-    """
+    r"""
     Estimate largest singular value of L using ARPACK as an eigensolver.
 
     Parameters

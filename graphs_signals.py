@@ -11,8 +11,8 @@ import pygsp
 
 
 def sbm(n_vertices, n_communities, n_vert_per_comm=None, comm_prob_mat=None, intra_comm_prob=None,
-        inter_comm_prob=None):
-    """
+        inter_comm_prob=None, seed=None):
+    r"""
     Draw a graph from the Stochastic Block Model (SBM).
     
     Parameters
@@ -36,6 +36,9 @@ def sbm(n_vertices, n_communities, n_vert_per_comm=None, comm_prob_mat=None, int
     inter_comm_prob : array_like
         A list containing the inter-community connectivity probabilities. If scalar, then uniform 
         connection probabilities of this value are assumed.
+    seed : float
+        A seed for the random number generators, to generate reproducible graphs.
+        (default is None)
     
     Returns
     -------
@@ -73,7 +76,7 @@ def sbm(n_vertices, n_communities, n_vert_per_comm=None, comm_prob_mat=None, int
     
     # Call SBM object from `pygsp`
     graph = pygsp.graphs.StochasticBlockModel(N=n_vertices, k=n_communities, z=z, 
-                                              M=comm_prob_mat, p=p, q=q)
+                                              M=comm_prob_mat, p=p, q=q, seed=seed)
     graph.set_coordinates(kind='community2D')
     graph.compute_differential_operator()
     graph.estimate_lmax()
@@ -86,8 +89,8 @@ def sbm(n_vertices, n_communities, n_vert_per_comm=None, comm_prob_mat=None, int
     return graph, indicator_vectors
 
 
-def ssbm(n_vertices, n_communities=2, a=2., b=1.):
-    """
+def ssbm(n_vertices, n_communities=2, a=2., b=1., seed=None):
+    r"""
     Draw a graph from the Symetric Stochastic Block Model (SBM).
     
     Parameters
@@ -106,6 +109,9 @@ def ssbm(n_vertices, n_communities=2, a=2., b=1.):
         A scalar multiplying `np.log(n_vertices)/n_vertices` to yield the inter-community 
         connection probabilities.
         (default is `2.`)
+    seed : float
+        A seed for the random number generators, to generate reproducible graphs.
+        (default is None)
     
     Returns
     -------
@@ -123,4 +129,4 @@ def ssbm(n_vertices, n_communities=2, a=2., b=1.):
     p = a * np.log(n_vertices)/n_vertices
     q = b * np.log(n_vertices)/n_vertices
     
-    return sbm(n_vertices, n_communities, intra_comm_prob=p, inter_comm_prob=q)
+    return sbm(n_vertices, n_communities, intra_comm_prob=p, inter_comm_prob=q, seed=seed)

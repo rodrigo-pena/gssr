@@ -13,7 +13,7 @@ from scipy import sparse
 
 
 def sample_coordinates(n_coordinates, n_samples, probs=None, replace=False):
-    """
+    r"""
     Sample a given number of coordinates from a specified probability mass function
 
     Parameters
@@ -23,7 +23,7 @@ def sample_coordinates(n_coordinates, n_samples, probs=None, replace=False):
     n_samples : int
         Number of samples to take from the set `{1, 2, ..., n_coordinates}`.
     probs : array, optional
-        A vector with the probability masses of each coordinate. Must sum to one.
+        A vector with the probability weights for each coordinate.
         (the default is None, which results in uniform sampling)
     replace : bool, optional
         Whether to sample with replacement
@@ -33,13 +33,20 @@ def sample_coordinates(n_coordinates, n_samples, probs=None, replace=False):
     -------
     array
         The indices of the sampled coordinates
+        
     """
-
+    
+    n_coordinates = int(n_coordinates)
+    n_samples = int(n_samples)
+    
+    if probs is not None:
+        probs = np.true_divide(probs, np.sum(probs))
+    
     return np.random.choice(n_coordinates, n_samples, replace=replace, p=probs)
 
 
 def sample_coordinates_bernoulli(n_coordinates, probs=None):
-    """
+    r"""
     Sample coordinates using Bernoulli selectors
 
     Parameters
@@ -54,8 +61,10 @@ def sample_coordinates_bernoulli(n_coordinates, probs=None):
     -------
     array
         The indices of the sampled coordinates
+        
     """
-
+    
+    n_coordinates = int(n_coordinates)
     sample_idx = []
     probs = np.ones((n_coordinates,))/2. if probs is None else probs
 
@@ -67,7 +76,7 @@ def sample_coordinates_bernoulli(n_coordinates, probs=None):
 
 
 def uniform_vertex(graph, n_samples, replace=False):
-    """
+    r"""
     Uniform sampling over the vertices
 
     Parameters
@@ -83,7 +92,8 @@ def uniform_vertex(graph, n_samples, replace=False):
     Returns
     -------
     (n_samples, ) array
-        Indices of the sampled nodes
+        Indices of the sampled vertices
+        
     """
 
     return sample_coordinates(graph.n_vertices,
@@ -93,7 +103,7 @@ def uniform_vertex(graph, n_samples, replace=False):
 
 
 def degree_vertex(graph, n_samples, replace=False):
-    """
+    r"""
     Sample vertices proportionally to their degree
 
     Parameters
@@ -109,20 +119,18 @@ def degree_vertex(graph, n_samples, replace=False):
     Returns
     -------
     (n_samples, ) array
-        Indices of the sampled nodes
+        Indices of the sampled vertices
+        
     """
-
-    probs = graph.dw
-    probs = np.true_divide(probs, np.sum(probs))
-
+    
     return sample_coordinates(graph.n_vertices,
                               n_samples,
-                              probs=probs,
+                              probs=graph.dw,
                               replace=replace)
 
 
 def inv_degree_vertex(graph, n_samples, replace=False):
-    """
+    r"""
     Sample vertices proportionally to the inverse of their degree
 
     Parameters
@@ -138,20 +146,18 @@ def inv_degree_vertex(graph, n_samples, replace=False):
     Returns
     -------
     (n_samples, ) array
-        Indices of the sampled nodes
+        Indices of the sampled vertices
+        
     """
-
-    probs = 1. / graph.dw
-    probs = np.true_divide(probs, np.sum(probs))
 
     return sample_coordinates(graph.n_vertices,
                               n_samples,
-                              probs=probs,
+                              probs=1./graph.dw,
                               replace=replace)
 
 
 def inter_comm_degree_vertex(graph, n_samples, labels, replace=False):
-    """
+    r"""
     Sampling proportional to connection with members of other communities
 
     Parameters
@@ -169,26 +175,24 @@ def inter_comm_degree_vertex(graph, n_samples, labels, replace=False):
     Returns
     -------
     (n_samples, ) array
-        Indices of the sampled nodes
+        Indices of the sampled vertices
+        
     """
 
     # Copy the (weigthed) adjacency matrix
     adjacency = sparse.lil_matrix(graph.W.copy())
 
     # Make sure the labels vector is a numpy array
-    labels = np.array(labels)
+    labels = np.asarray(labels)
 
-    for vertex in labels:
+    for vertex in np.arange(len(labels)):
         # Disconnect vertices that belong in the same community
         adjacency[vertex, labels == labels[vertex]] = 0
 
     inter_comm_degree = np.array(adjacency.sum(axis=1)).flatten()
 
-    probs = inter_comm_degree
-    probs = np.true_divide(probs, np.sum(probs))
-
     return sample_coordinates(graph.n_vertices,
                               n_samples,
-                              probs=probs,
+                              probs=inter_comm_degree,
                               replace=replace)
 

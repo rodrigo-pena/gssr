@@ -18,7 +18,7 @@ from pyunlocbox import functions, solvers
 def interpolate(graph, sampled_vertices, sampled_values, cost_function, 
                 analysis_op_direct=None, analysis_op_adjoint=None, 
                 analysis_op_specnorm=1., **kwargs):
-    """
+    r"""
     Interpolate a subsampled signal by minimizing a cost function.
     
     Parameters
@@ -123,7 +123,7 @@ def interpolate(graph, sampled_vertices, sampled_values, cost_function,
 def regress(graph, sampled_vertices, sampled_values, denoising_function,
             cost_function, analysis_op_direct=None, analysis_op_adjoint=None,
             analysis_op_specnorm=1., denoising_lip_const=0., **kwargs):
-    """
+    r"""
     Regress on a noisy subsampled signal by minimizing the sum of a cost and a denoising functions.
     
     Parameters
@@ -254,7 +254,7 @@ def regress(graph, sampled_vertices, sampled_values, denoising_function,
 
 
 def graph_tv_interpolation(graph, sampled_vertices, sampled_values, **kwargs):
-    """
+    r"""
     Solve an interpolation problem via graph total variation minimization.
 
     A graph signal :math:`x` is estimated from its measurements :math:`y = A(x)` 
@@ -283,7 +283,7 @@ def graph_tv_interpolation(graph, sampled_vertices, sampled_values, **kwargs):
     ndarray of float or complex
         An array with first dimension equal to `graph.n_vertices` containing the 
         interpolated signal.
-
+    
     """
     
     analysis_op_direct = lambda z: graph.grad(z) # Graph gradient (incidence transposed)
