@@ -25,6 +25,22 @@ def sampling_restriction(signal, sampled_vertices):
     """
     return signal[sampled_vertices]
 
+def sampling_embedding(embedding_dim, sampled_values, sampled_vertices):
+    r"""
+    Embed a sampling-restricted vector into a higher-dimension ambient space.
+    """
+    embedding = np.zeros((embedding_dim,))
+    embedding[sampled_vertices] = sampled_values
+    return embedding
+
+def nan_off_sample(n_vertices, sampled_vertices, sampled_values):
+    r"""
+    Insert `np.nan` values at the un-sampled coordinates.
+    """
+    sampled_signal_with_nan = np.nan * np.ones(n_vertices,)
+    sampled_signal_with_nan[sampled_vertices] = sampled_values
+    return sampled_signal_with_nan
+
 
 def spectral_norm(shape, L, Lt):
     r"""

@@ -12,6 +12,8 @@ import numpy as np
 from scipy import sparse
 
 
+## MAIN FUNCTIONS ##
+
 def sample_coordinates(n_coordinates, n_samples, probs=None, replace=False):
     r"""
     Sample a given number of coordinates from a specified probability mass function
@@ -74,6 +76,8 @@ def sample_coordinates_bernoulli(n_coordinates, probs=None):
 
     return np.array(sample_idx)
 
+
+## SPECIAL CASES ##
 
 def uniform_vertex(graph, n_samples, replace=False):
     r"""

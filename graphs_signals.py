@@ -10,6 +10,8 @@ import numpy as np
 import pygsp
 
 
+## MAIN FUNCTIONS ##
+
 def sbm(n_vertices, n_communities, n_vert_per_comm=None, comm_prob_mat=None, intra_comm_prob=None,
         inter_comm_prob=None, seed=None):
     r"""
@@ -88,6 +90,8 @@ def sbm(n_vertices, n_communities, n_vert_per_comm=None, comm_prob_mat=None, int
     
     return graph, indicator_vectors
 
+
+## SPECIAL CASES ##
 
 def ssbm(n_vertices, n_communities=2, a=2., b=1., seed=None):
     r"""
