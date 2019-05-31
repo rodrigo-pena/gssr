@@ -11,12 +11,12 @@ import numpy as np
 
 def interpolation_projection(signal, sampled_vertices, sampled_values):
     projection = np.copy(signal)
-    projection(sampled_vertices) = sampled_values
+    projection[sampled_vertices] = sampled_values
     return projection
 
 
 def sampling_restriction(signal, sampled_vertices):
-    return signal(sampled_vertices)
+    return signal[sampled_vertices]
 
 
 def spectral_norm(shape, L, Lt):
