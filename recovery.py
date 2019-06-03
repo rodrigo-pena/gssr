@@ -7,12 +7,11 @@
 """
 
 
-import utils
-
 import numpy as np
 
 from copy import deepcopy
 from pyunlocbox import functions, solvers
+from utils import interpolation_projection, sampling_embedding, sampling_restriction, get_diff_op
 
 
 ## MAIN FUNCTIONS ##
@@ -165,10 +164,9 @@ def interpolate(sampled_vertices, sampled_values, **kwargs):
     # `z(sampled_vertices) = sampled_values`
     denoising_function = functions.func()
     denoising_function._eval = lambda z: 0
-    denoising_function._prox = lambda z, T: utils.interpolation_projection(
-                                                                z, 
-                                                                sampled_vertices, 
-                                                                sampled_values)
+    denoising_function._prox = lambda z, T: interpolation_projection(z, 
+                                                                     sampled_vertices, 
+                                                                     sampled_values)
     
     return regress(denoising_function=denoising_function,
                    **kwargs)
@@ -199,10 +197,7 @@ def tv_interpolation(graph, sampled_vertices, sampled_values, **kwargs):
     """
     
     # Set the analysis operator
-    analysis_op_direct = lambda z: graph.grad(z) # Graph gradient (incidence transposed)
-    analysis_op_adjoint = lambda z: graph.div(z) # Graph divergent (incidence matrix)
-    graph.estimate_lmax()
-    analysis_op_specnorm = np.sqrt(graph.lmax)
+    analysis_op_direct, analysis_op_adjoint, analysis_op_specnorm = get_diff_op(graph)
     
     # Set the cost function
     cost_function = functions.norm_l1()
@@ -246,19 +241,16 @@ def tv_least_sq(graph, sampled_vertices, sampled_values, denoising_param=1., **k
     """
     
     # Set the analysis operator
-    analysis_op_direct = lambda z: graph.grad(z) # Graph gradient (incidence transposed)
-    analysis_op_adjoint = lambda z: graph.div(z) # Graph divergent (incidence matrix)
-    graph.estimate_lmax()
-    analysis_op_specnorm = np.sqrt(graph.lmax)
+    analysis_op_direct, analysis_op_adjoint, analysis_op_specnorm = get_diff_op(graph)
     
     # Set the cost function
     cost_function = functions.norm_l1()
     
     def A(z): # Down-sampling operator
-        return utils.sampling_restriction(z, sampled_vertices)
+        return sampling_restriction(z, sampled_vertices)
     
     def At(y): # Up-sampling operator
-        return utils.sampling_embedding(graph.n_vertices, y, sampled_vertices)
+        return sampling_embedding(graph.n_vertices, y, sampled_vertices)
     
     # Set the denoising function
     denoising_function = functions.norm_l2(lambda_=denoising_param, y=sampled_values, 
@@ -298,10 +290,7 @@ def dirichlet_form_interpolation(graph, sampled_vertices, sampled_values, **kwar
     """
     
     # Set the analysis operator
-    analysis_op_direct = lambda z: graph.grad(z) # Graph gradient (incidence transposed)
-    analysis_op_adjoint = lambda z: graph.div(z) # Graph divergent (incidence matrix)
-    graph.estimate_lmax()
-    analysis_op_specnorm = np.sqrt(graph.lmax)
+    analysis_op_direct, analysis_op_adjoint, analysis_op_specnorm = get_diff_op(graph)
     
     # Set the cost function
     cost_function = functions.norm_l2()
@@ -346,19 +335,16 @@ def dirichlet_form_least_sq(graph, sampled_vertices, sampled_values, denoising_p
     """
 
     # Set the analysis operator
-    analysis_op_direct = lambda z: graph.grad(z) # Graph gradient (incidence transposed)
-    analysis_op_adjoint = lambda z: graph.div(z) # Graph divergent (incidence matrix)
-    graph.estimate_lmax()
-    analysis_op_specnorm = np.sqrt(graph.lmax)
+    analysis_op_direct, analysis_op_adjoint, analysis_op_specnorm = get_diff_op(graph)
     
     # Set the cost function
     cost_function = functions.norm_l2()
     
     def A(z): # Down-sampling operator
-        return utils.sampling_restriction(z, sampled_vertices)
+        return sampling_restriction(z, sampled_vertices)
     
     def At(y): # Up-sampling operator
-        return utils.sampling_embedding(graph.n_vertices, y, sampled_vertices)
+        return sampling_embedding(graph.n_vertices, y, sampled_vertices)
     
     # Set the denoising function
     denoising_function = functions.norm_l2(lambda_=denoising_param, y=sampled_values,

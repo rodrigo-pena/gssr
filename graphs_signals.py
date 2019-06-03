@@ -80,8 +80,6 @@ def sbm(n_vertices, n_communities, n_vert_per_comm=None, comm_prob_mat=None, int
     graph = pygsp.graphs.StochasticBlockModel(N=n_vertices, k=n_communities, z=z, 
                                               M=comm_prob_mat, p=p, q=q, seed=seed)
     graph.set_coordinates(kind='community2D')
-    graph.compute_differential_operator()
-    graph.estimate_lmax()
     
     # Assemble the indicator vectors from the community labels in `z`
     indicator_vectors = np.zeros((n_communities, n_vertices))

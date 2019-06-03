@@ -5,6 +5,7 @@
 
 """
 
+import pickle
 
 import numpy as np
 
@@ -41,6 +42,37 @@ def nan_off_sample(n_vertices, sampled_vertices, sampled_values):
     sampled_signal_with_nan[sampled_vertices] = sampled_values
     return sampled_signal_with_nan
 
+def save_obj(obj, path):
+    r"""
+    Save Python object to disk as a pickle file.
+    """
+    with open(path, 'wb') as f:
+        pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
+
+def load_obj(path):
+    r"""
+    Load pickle file from disk.
+    """
+    with open(path, 'rb') as f:
+        return pickle.load(f)
+    
+def get_diff_op(graph):
+    r"""
+    Get graph differential operators.
+    
+    Parameters
+    ----------
+    graph : :class:`pygsp.graphs.Graph`
+        The graph.
+    """
+    
+    graph.compute_differential_operator()
+    op_direct = lambda z: graph.grad(z) # Graph gradient (incidence transposed)
+    op_adjoint = lambda z: graph.div(z) # Graph divergent (incidence matrix)
+    with np.errstate(divide='ignore',invalid='ignore'):
+        graph.estimate_lmax()
+    op_specnorm = np.sqrt(graph.lmax)
+    return op_direct, op_adjoint, op_specnorm
 
 def spectral_norm(shape, L, Lt):
     r"""
@@ -67,8 +99,14 @@ def spectral_norm(shape, L, Lt):
     
     from scipy.sparse.linalg import LinearOperator, svds
     
-    LinOp = LinearOperator(shape=shape, matvec=L, rmatvec=Lt)
+    lin_op = LinearOperator(shape=shape, matvec=L, rmatvec=Lt)
     
-    return svds(LinOp, k=1, which='LM', return_singular_vectors=False)[0]
+    try:
+        spec_norm = svds(lin_op, k=1, which='LM', 
+                         return_singular_vectors=False)[0]
+    except:
+        raise ValueError('The spectral norm estimate did not converge')
+    
+    return spec_norm
 
 
