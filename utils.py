@@ -64,8 +64,10 @@ def get_diff_op(graph):
     ----------
     graph : :class:`pygsp.graphs.Graph`
         The graph.
+        
     """
     
+    graph.compute_laplacian(lap_type='combinatorial')
     graph.compute_differential_operator()
     op_direct = lambda z: graph.grad(z) # Graph gradient (incidence transposed)
     op_adjoint = lambda z: graph.div(z) # Graph divergent (incidence matrix)
@@ -108,5 +110,3 @@ def spectral_norm(shape, L, Lt):
         raise ValueError('The spectral norm estimate did not converge')
     
     return spec_norm
-
-

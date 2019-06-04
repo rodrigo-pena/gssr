@@ -7,10 +7,10 @@
 
 
 import numpy as np
+import pandas as pd
+
 import pygsp
 
-
-## MAIN FUNCTIONS ##
 
 def sbm(n_vertices, n_communities, n_vert_per_comm=None, comm_prob_mat=None, intra_comm_prob=None,
         inter_comm_prob=None, seed=None):
@@ -52,7 +52,7 @@ def sbm(n_vertices, n_communities, n_vert_per_comm=None, comm_prob_mat=None, int
     """
     
     
-    # A vector of length N containing the association between nodes and classes 
+    # Construct a vector assigning a class label to each vertex
     # (needed by :class:`pygsp.graphs.StochasticBlockModel`)
     if n_vert_per_comm is None:
         rest = np.mod(n_vertices, n_communities).astype(int)
@@ -88,8 +88,6 @@ def sbm(n_vertices, n_communities, n_vert_per_comm=None, comm_prob_mat=None, int
     
     return graph, indicator_vectors
 
-
-## SPECIAL CASES ##
 
 def ssbm(n_vertices, n_communities=2, a=2., b=1., seed=None):
     r"""
@@ -132,3 +130,37 @@ def ssbm(n_vertices, n_communities=2, a=2., b=1., seed=None):
     q = b * np.log(n_vertices)/n_vertices
     
     return sbm(n_vertices, n_communities, intra_comm_prob=p, inter_comm_prob=q, seed=seed)
+
+
+def swiss_nacional_council(path='data/swiss-national-council-50/'):
+    r"""
+    Graph and party signals for the Swiss National Council data.
+    
+    Parameters
+    ----------
+    path : str
+        The path to the directory containing the files `council_info.csv` and `adjacency.csv`.
+    
+    Returns
+    -------
+    :class:`pygsp.graphs.Graph`
+        The graph object.
+    ndarray
+        A p-by-n matrix containing the indicator vectors of each of the p parties.
+        
+    """
+    
+    council_df = pd.read_csv(path + 'council_info.csv')
+    adjacency = pd.read_csv(path + 'adjacency.csv')
+    
+    graph = pygsp.graphs.Graph(adjacency=adjacency)
+    graph.compute_laplacian(lap_type='normalized')
+    graph.compute_fourier_basis()
+    graph.set_coordinates(kind='laplacian_eigenmap2D')
+    
+    parties = ['UDC', 'PSS', 'PDC', 'pvl', 'PLR', 'PES', 'PBD']
+    indicator_vectors = np.zeros((len(parties), graph.n_vertices))
+    for i in np.arange(len(parties)):
+        indicator_vectors[i, :] = np.asarray(council_df['PartyAbbreviation']==parties[i]).astype(float)
+    
+    return graph, indicator_vectors

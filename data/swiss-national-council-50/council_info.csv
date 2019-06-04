@@ -1,0 +1,201 @@
+CouncillorName,node_idx,CouncillorId,PartyAbbreviation,Color
+Thorens Goumaz Adèle,0,3907,PES,forestgreen
+Marra Ada,1,3923,PSS,r
+Glauser-Zufferey Alice,2,3883,UDC,royalblue
+Moser Tiana Angelina,3,3897,pvl,g
+Rickli Natalie,4,3902,UDC,royalblue
+Eichenberger-Walther Corina,5,3875,PLR,cyan
+Estermann Yvette,6,3876,UDC,royalblue
+Fiala Doris,7,3877,PLR,cyan
+Flückiger-Bäni Sylvia,8,3878,UDC,royalblue
+Geissbühler Andrea Martina,9,3880,UDC,royalblue
+Moret Isabelle,10,1346,PLR,cyan
+Carobbio Guscetti Marina,11,3830,PSS,r
+Schenker Silvia,12,1129,PSS,r
+Amherd Viola,13,1288,PDC,orange
+Graf-Litscher Edith,14,1295,PSS,r
+Glanzmann-Hunkeler Ida,15,1337,PDC,orange
+Kiener Nellen Margret,16,1147,PSS,r
+Markwalder Christa,17,1139,PLR,cyan
+Galladé Chantal,18,1125,PSS,r
+Heim Bea,19,1156,PSS,r
+Graf Maya,20,806,PES,forestgreen
+Humbel Ruth,21,1071,PDC,orange
+Riklin Kathy,22,502,PDC,orange
+Semadeni Silva,23,354,PSS,r
+Leutenegger Oberholzer Susanne,24,487,PSS,r
+Wasserfallen Christian,25,3912,PLR,cyan
+Weibel Thomas,26,3931,pvl,g
+von Siebenthal Erich,27,3910,UDC,royalblue
+Lüscher Christian,28,3895,PLR,cyan
+Nidegger Yves,29,3898,UDC,royalblue
+Nussbaumer Eric,30,3899,PSS,r
+Reimann Lukas,31,3901,UDC,royalblue
+Hiltpold Hugues,32,3888,PLR,cyan
+Hurter Thomas,33,3890,UDC,royalblue
+Girod Bastien,34,3882,PES,forestgreen
+Grin Jean-Pierre,35,3885,UDC,royalblue
+Grunder Hans,36,3886,PBD,yellow
+Heer Alfred,37,3887,UDC,royalblue
+Aebi Andreas,38,3867,UDC,royalblue
+Bourgeois Jacques,39,3872,PLR,cyan
+Müller Thomas,40,1345,UDC,royalblue
+Wobmann Walter,41,1142,UDC,royalblue
+Nordmann Roger,42,1279,PSS,r
+Rime Jean-François,43,1119,UDC,royalblue
+Schwander Pirmin,44,1159,UDC,royalblue
+Sommaruga Carlo,45,1120,PSS,r
+Pfister Gerhard,46,1109,PDC,orange
+Müller Walter,47,1137,PLR,cyan
+Müri Felix,48,1111,UDC,royalblue
+de Buman Dominique,49,1124,PDC,orange
+Fluri Kurt,50,1122,PLR,cyan
+Bäumle Martin,51,1138,pvl,g
+Amstutz Adrian,52,1135,UDC,royalblue
+Stahl Jürg,53,514,UDC,royalblue
+Brunner Toni,54,307,UDC,royalblue
+Stamm Luzi,55,214,UDC,royalblue
+Giezendanner Ulrich,56,91,UDC,royalblue
+Eymann Christoph,57,74,PLR,cyan
+Brélaz Daniel,58,724,PES,forestgreen
+Reimann Maximilian,59,173,UDC,royalblue
+Landolt Martin,60,4008,PBD,yellow
+Maire Jacques-André,61,4018,PSS,r
+Büchel Roland Rino,62,4025,UDC,royalblue
+Birrer-Heimo Prisca,63,4030,PSS,r
+Jans Beat,64,4032,PSS,r
+Streiff-Feller Marianne,65,4036,PEV,gray
+Schneider-Schneiter Elisabeth,66,4040,PDC,orange
+Frehner Sebastian,67,4042,UDC,royalblue
+Pardini Corrado,68,4045,PSS,r
+Quadri Lorenzo,69,4046,Lega,gray
+Aebischer Matthias,70,4049,PSS,r
+Aeschi Thomas,71,4053,UDC,royalblue
+Amaudruz Céline,72,4090,UDC,royalblue
+Badran Jacqueline,73,4058,PSS,r
+Bertschy Kathrin,74,4102,pvl,g
+Brand Heinz,75,4067,UDC,royalblue
+Bulliard-Marbach Christine,76,4101,PDC,orange
+Candinas Martin,77,4070,PDC,orange
+Chevalley Isabelle,78,4108,pvl,g
+de Courten Thomas,79,4051,UDC,royalblue
+Derder Fathi,80,4079,PLR,cyan
+Egloff Hans,81,4110,UDC,royalblue
+Fässler Daniel,82,4056,PDC,orange
+Feller Olivier,83,4077,PLR,cyan
+Feri Yvonne,84,4069,PSS,r
+Flach Beat,85,4059,pvl,g
+Fridez Pierre-Alain,86,4074,PSS,r
+Glättli Balthasar,87,4093,PES,forestgreen
+Gmür Alois,88,4096,PDC,orange
+Gössi Petra,89,4116,PLR,cyan
+Grossen Jürg,90,4083,pvl,g
+Gschwind Jean-Paul,91,4087,PDC,orange
+Guhl Bernhard,92,4082,PBD,yellow
+Hadorn Philipp,93,4076,PSS,r
+Hardegger Thomas,94,4061,PSS,r
+Hausammann Markus,95,4103,UDC,royalblue
+Hess Lorenz,96,4094,PBD,yellow
+Keller Peter,97,4098,UDC,royalblue
+Knecht Hansjörg,98,4114,UDC,royalblue
+Lohr Christian,99,4118,PDC,orange
+Müller Leo,100,4097,PDC,orange
+Müller-Altermatt Stefan,101,4063,PDC,orange
+Naef Martin,102,4106,PSS,r
+Pantani Roberta,103,4073,Lega,gray
+Pezzatti Bruno,104,4084,PLR,cyan
+Pieren Nadja,105,4065,UDC,royalblue
+Piller Carrard Valérie,106,4109,PSS,r
+Quadranti Rosmarie,107,4066,PBD,yellow
+Regazzi Fabio,108,4072,PDC,orange
+Reynard Mathias,109,4091,PSS,r
+Ritter Markus,110,4052,PDC,orange
+Rösti Albert,111,4100,UDC,royalblue
+Rytz Regula,112,4095,PES,forestgreen
+Schneeberger Daniela,113,4060,PLR,cyan
+Tornare Manuel,114,4113,PSS,r
+Vitali Albert,115,4054,PLR,cyan
+Vogler Karl,116,4085,csp-ow,gray
+Wermuth Cédric,117,4057,PSS,r
+Romano Marco,118,4120,PDC,orange
+Gysi Barbara,119,4121,PSS,r
+Schneider Schüttel Ursula,120,4123,PSS,r
+Schilliger Peter,121,4124,PLR,cyan
+Rutz Gregor,122,4125,UDC,royalblue
+Herzog Verena,123,4129,UDC,royalblue
+Masshardt Nadine,124,4130,PSS,r
+Trede Aline,125,4128,PES,forestgreen
+Friedl Claudia,126,4131,PSS,r
+Clottu Raymond,127,4135,UDC,royalblue
+Munz Martina,128,4134,PSS,r
+Golay Roger,129,4137,MCR,gray
+Barazzone Guillaume,130,4138,PDC,orange
+Merlini Giovanni,131,4140,PLR,cyan
+Portmann Hans-Peter,132,4141,PLR,cyan
+Walti Beat,133,4142,PLR,cyan
+Ruiz Rebecca Ana,134,4143,PSS,r
+Matter Thomas,135,4144,UDC,royalblue
+Siegenthaler Heinz,136,4146,PBD,yellow
+Addor Jean-Luc,137,4154,UDC,royalblue
+Ammann Thomas,138,4180,PDC,orange
+Arnold Beat,139,4155,UDC,royalblue
+Arslan Sibel,140,4184,BastA,gray
+Barrile Angelo,141,4203,PSS,r
+Bauer Philippe,142,4187,PLR,cyan
+Béglé Claude,143,4182,PDC,orange
+Borloz Frédéric,144,4188,PLR,cyan
+Buffat Michaël,145,4156,UDC,royalblue
+Bühler Manfred,146,4157,UDC,royalblue
+Burgherr Thomas,147,4158,UDC,royalblue
+Burkart Thierry,148,4189,PLR,cyan
+Campell Duri,149,4200,PBD,yellow
+Chiesa Marco,150,4159,UDC,royalblue
+de la Reussille Denis,151,4201,PdT,gray
+Dettling Marcel,152,4160,UDC,royalblue
+Dobler Marcel,153,4190,PLR,cyan
+Fehlmann Rielle Laurence,154,4195,PSS,r
+Genecand Benoît,155,4191,PLR,cyan
+Glarner Andreas,156,4161,UDC,royalblue
+Gmür-Schönenberger Andrea,157,4181,PDC,orange
+Grüter Franz,158,4162,UDC,royalblue
+Hess Erich,159,4163,UDC,royalblue
+Imark Christian,160,4164,UDC,royalblue
+Keller-Inhelder Barbara,161,4165,UDC,royalblue
+Köppel Roger,162,4166,UDC,royalblue
+Marchand-Balet Géraldine,163,4183,PDC,orange
+Marti Min Li,164,4197,PSS,r
+Martullo-Blocher Magdalena,165,4167,UDC,royalblue
+Mazzone Lisa,166,4186,PES,forestgreen
+Meyer Mattea,167,4198,PSS,r
+Nantermod Philippe,168,4193,PLR,cyan
+Nicolet Jacques,169,4168,UDC,royalblue
+Page Pierre-André,170,4169,UDC,royalblue
+Ruppen Franz,171,4170,UDC,royalblue
+Salzmann Werner,172,4172,UDC,royalblue
+Sauter Regine,173,4202,PLR,cyan
+Seiler Graf Priska,174,4199,PSS,r
+Sollberger Sandra,175,4173,UDC,royalblue
+Steinemann Barbara,176,4174,UDC,royalblue
+Tuena Mauro,177,4175,UDC,royalblue
+Vogt Hans-Ueli,178,4176,UDC,royalblue
+Walliser Bruno,179,4177,UDC,royalblue
+Wehrli Laurent,180,4194,PLR,cyan
+Zanetti Claudio,181,4178,UDC,royalblue
+Zuberbühler David,182,4179,UDC,royalblue
+Bigler Hans-Ulrich,183,4209,PLR,cyan
+Jauslin Matthias Samuel,184,4208,PLR,cyan
+Egger Thomas,185,4212,CSPO,gray
+Bendahan Samuel,186,4213,PSS,r
+Gugger Niklaus-Samuel,187,4214,PEV,gray
+Brunner Hansjörg,188,4215,PLR,cyan
+Gutjahr Diana,189,4216,UDC,royalblue
+Cattaneo Rocco,190,4217,PLR,cyan
+Kälin Irène,191,4218,PES,forestgreen
+Crottaz Brigitte,192,4219,PSS,r
+Roduit Benjamin,193,4220,PDC,orange
+Töngi Michael,194,4221,PES,forestgreen
+Paganini Nicolo,195,4222,PDC,orange
+Molina Fabian,196,4223,PSS,r
+Wasserfallen Flavia,197,4224,PSS,r
+Kutter Philipp,198,4225,PDC,orange
+Wüthrich Adrian,199,4226,PSS,r
