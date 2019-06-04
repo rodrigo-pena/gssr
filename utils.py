@@ -76,6 +76,46 @@ def get_diff_op(graph):
     op_specnorm = np.sqrt(graph.lmax)
     return op_direct, op_adjoint, op_specnorm
 
+def standard_pipeline(graph, gt_signal, m, smp_design, rec_fun):
+    r"""
+    Standard pipeline for subsampling and recovery.
+    
+    Parameters
+    ----------
+    graph : :class:`pygsp.graphs.Graph`
+        The graph.
+    gt_signal : `numpy.ndarray`
+        The ground-truth signal to be recovered.
+    m_list : int
+        Number of samples (measurements).
+    smp_design : callable
+        A sampling design function taking a graph and a number of measurements, and 
+        returning the indices of sampled vertices.
+    rec_fun : callable
+        The function used to recover the subsampled signal. It must take as input a graph,
+        a list of sampled vertices, and a list of sampled values.
+        
+    Returns
+    -------
+    `numpy.ndarray`
+        The recovered signal.
+    float
+        The recovery error.
+        
+    """
+    # Subsample
+    sampled_vertices = smp_design(graph, m)
+    sampled_values = gt_signal[sampled_vertices]
+
+    # Recover
+    recovered_signal = rec_fun(graph, sampled_vertices, sampled_values)
+    
+    # Measure the error
+    rel_err = np.linalg.norm(recovered_signal - gt_signal, ord=2) 
+    rel_err /= np.linalg.norm(gt_signal, ord=2)
+    
+    return recovered_signal, rel_err
+
 def spectral_norm(shape, L, Lt):
     r"""
     Estimate largest singular value of L using ARPACK as an eigensolver.
