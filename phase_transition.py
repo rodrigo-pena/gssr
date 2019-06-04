@@ -31,11 +31,13 @@ def grid_evaluation(param_list_one, param_list_two, param_eval, n_trials=16,
     ----------
     param_list_one : array_like
         List of values to test for the first parameter.
-    param_list_two : array_like
-        List of values to test for the second parameter.
+    param_list_two : array_like, optional
+        List of values to test for the second parameter. Can be empty, in which case a 
+        one-dimensional grid is evaluated.
     param_eval : callable
-        Must take a pair of parameter values and return objects that can be evaluated 
-        by `aggr_meth`.
+        Must take a parameter instance values and return objects that can be evaluated 
+        by `aggr_meth`. It must take one input if `param_list_two` is empty, and two inputs 
+        otherwise.
     n_trials : int, optional
         Number of trials to run for each parameter pair. (default is `16`)
     aggr_method : callable, optional
@@ -55,25 +57,35 @@ def grid_evaluation(param_list_one, param_list_two, param_eval, n_trials=16,
         
     Returns
     -------
-    
+    dict
+        A dictionary with the results of the experiment.
 
     """
     
-    # Assemble product list of parameter values
-    params = list(itertools.product(param_list_one, param_list_two))
-    n_rows = len(param_list_one)
-    n_cols = len(param_list_two)
+    if not list(param_list_two): # `param_list_two` is empty
+        params = param_list_one
+        grid_shape = (len(param_list_one),)
+        
+        def grid_fun(val): # Function to compute for each line point
+            trial_out = np.nan * np.ones((n_trials,))
+            for i in np.arange(n_trials):
+                trial_out[i] = param_eval(val)
+            return aggr_method(trial_out)
+    
+    else:
+        params = list(itertools.product(param_list_one, param_list_two))
+        grid_shape = (len(param_list_one), len(param_list_two))
+        
+        def grid_fun(tup): # Function to compute for each grid point
+            trial_out = np.nan * np.ones((n_trials,))
+            for i in np.arange(n_trials):
+                trial_out[i] = param_eval(tup[0], tup[1])
+            return aggr_method(trial_out)
+        
     n_grid_pts = len(params)
     
-    # Define the function to compute for each grid point
-    def grid_fun(tup):
-        trial_out = np.nan * np.ones((n_trials,))
-        for i in np.arange(n_trials):
-            trial_out[i] = param_eval(tup[0], tup[1])
-        return aggr_method(trial_out)
-    
-    # Define recording procedure
-    def save_experiment(grid):
+    # Recording procedure
+    def record_experiment(grid):
         now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         save_path = save_dir + now + ' ' + file_name + '.pkl'
         experiment = {
@@ -81,7 +93,7 @@ def grid_evaluation(param_list_one, param_list_two, param_eval, n_trials=16,
             'rows': param_list_one,
             'cols': param_list_two,
             'n_trials': n_trials,
-            'grid': np.reshape(grid, (n_rows, n_cols)),
+            'grid': np.reshape(grid, grid_shape),
             'path': save_path
          }
         if save_to_disk:
@@ -101,13 +113,13 @@ def grid_evaluation(param_list_one, param_list_two, param_eval, n_trials=16,
         
         # Make sure that we save after each couple of iterations
         if (idx >= save_each) and (idx % save_each == 0): 
-            experiment = save_experiment(grid)
+            experiment = record_experiment(grid)
     
     # Close pool
     pool.close()
     pool.join()
     
-    experiment = save_experiment(grid)
+    experiment = record_experiment(grid)
     
     return experiment
     
@@ -145,6 +157,11 @@ def ssbm(n_vertices=100, n_communities=2, a_list=None, b=.5, m_list=None,
     file_name : string, optional
         The name to be appended to the current timestamp when saving the experiment file.
         (default is 'ssbm phase transition')
+        
+    Returns
+    -------
+    dict
+        A dictionary with the results of the experiment.
       
     Notes
     -----
@@ -202,5 +219,39 @@ def ssbm(n_vertices=100, n_communities=2, a_list=None, b=.5, m_list=None,
     experiment['col_label'] = 'm'
     experiment['n_vertices'] = n_vertices
     experiment['n_communities'] = n_communities
+    
+    return experiment
+
+
+def line_evaluation(param_list, param_eval, **kwargs):
+    r"""
+    Evaluates a list of parameter pairs across repeated trials and aggregates the result.
+
+    Parameters
+    ----------
+    param_list : array_like
+        List of values to test for parameter of interest.
+        
+    Returns
+    -------
+    dict
+        A dictionary with the results of the experiment.
+        
+    Notes
+    -----
+    You can also explicitely set the arguments in :func:`grid_evaluation` in this function 
+    call.
+
+    """
+    
+    experiment = grid_evaluation(param_list_one=param_list,
+                                 param_list_two=[],
+                                 param_eval=param_eval,
+                                 file_name='line evaluation',
+                                 **kwargs)
+    
+    experiment['line'] = experiment.pop('grid')
+    experiment['points'] = experiment.pop('rows')
+    _ = experiment.pop('cols')
     
     return experiment
