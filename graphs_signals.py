@@ -63,7 +63,7 @@ def sbm(n_vertices, n_communities, n_vert_per_comm=None, comm_prob_mat=None, int
         if n_communities - np.asarray(n_vert_per_comm).shape[0] > 0:
             n_vert_per_comm = np.append(n_vert_per_comm, n_vertices - np.sum(n_vert_per_comm))
             print(n_vert_per_comm)
-        labels = np.zeros((n_vertices))
+        labels = np.zeros((n_vertices,))
         cnt = n_vert_per_comm[0]
         comm_label = 0
         for number in n_vert_per_comm[1:]:
@@ -151,19 +151,32 @@ def swiss_nacional_council(path='data/swiss-national-council-50/'):
         
     """
     
-    council_df = pd.read_csv(path + 'council_info.csv')
+    council = pd.read_csv(path + 'council_info.csv')
     adjacency = pd.read_csv(path + 'adjacency.csv')
-    
-    graph = pygsp.graphs.Graph(adjacency=adjacency)
-    graph.compute_laplacian(lap_type='normalized')
-    graph.compute_fourier_basis()
-    graph.set_coordinates(kind='laplacian_eigenmap2D')
     
     parties = ['UDC', 'PSS', 'PDC', 'pvl', 'PLR', 'PES', 'PBD']
     n_parties = len(parties)
-    indicator_vectors = np.zeros((n_parties, graph.n_vertices))
+    n_vertices = adjacency.shape[0]
+    labels = np.zeros((n_vertices,))
+    indicator_vectors = np.zeros((n_parties, n_vertices))
+    
     for i in np.arange(n_parties):
-        indicator_vectors[i, :] = np.asarray(council_df['PartyAbbreviation']==parties[i]).astype(float)
+        mask = (council_df['PartyAbbreviation'] == parties[i])
+        indicator_vectors[i, :] = np.asarray(mask).astype(float)
+        labels[mask] = i + 1
+    
+    labels = labels.astype(int)
+
+    graph = pygsp.graphs.Graph(adjacency=adjacency)
+    graph.info = {
+        'node_com': labels, 
+        'comm_sizes': np.bincount(labels), 
+        'world_rad': np.sqrt(graph.n_vertices),
+        'parties': parties,
+        'council': council
+    }
+    graph.set_coordinates(kind='community2D')
+    graph.plotting['edge_color'] = (0.5, 0.5, 0.5, 0.015)
     
     return graph, indicator_vectors
 
@@ -202,6 +215,7 @@ def email_eu_core(path='data/email-EU-core/'):
                   'comm_sizes': np.bincount(labels), 
                   'world_rad': np.sqrt(graph.n_vertices)}
     graph.set_coordinates(kind='community2D')
+    graph.plotting['edge_color'] = (0.5, 0.5, 0.5, 0.015)
     
     n_communities = len(graph.info['comm_sizes'])
     indicator_vectors = np.zeros((n_communities, graph.n_vertices))
