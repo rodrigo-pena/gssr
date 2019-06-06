@@ -133,7 +133,7 @@ def ssbm(n_vertices, n_communities=2, a=2., b=1., seed=None):
     return sbm(n_vertices, n_communities, intra_comm_prob=p, inter_comm_prob=q, seed=seed)
 
 
-def swiss_nacional_council(path='data/swiss-national-council-50/'):
+def swiss_nacional_council(path='data/swiss-national-council/'):
     r"""
     Graph and signals for the Swiss National Council data.
     
@@ -161,7 +161,7 @@ def swiss_nacional_council(path='data/swiss-national-council-50/'):
     indicator_vectors = np.zeros((n_parties, n_vertices))
     
     for i in np.arange(n_parties):
-        mask = (council_df['PartyAbbreviation'] == parties[i])
+        mask = (council['PartyAbbreviation'] == parties[i])
         indicator_vectors[i, :] = np.asarray(mask).astype(float)
         labels[mask] = i + 1
     

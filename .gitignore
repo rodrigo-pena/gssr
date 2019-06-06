@@ -1,3 +1,8 @@
 *.ipynb_checkpoints*
 __pycache__*
 *.DS_Store
+
+/data/BSDS300/
+
+/data/swiss-national-council/abdb-en-all-affairs-50-0.csv
+/data/swiss-nacional-council/Ratsmitglieder_1848_EN.csv
