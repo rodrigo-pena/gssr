@@ -9,7 +9,10 @@
 import numpy as np
 import pandas as pd
 import networkx as nx
+import matplotlib.pyplot as plt
 
+import glob
+import utils
 import pygsp
 
 
@@ -64,13 +67,13 @@ def sbm(n_vertices, n_communities, n_vert_per_comm=None, comm_prob_mat=None, int
             n_vert_per_comm = np.append(n_vert_per_comm, n_vertices - np.sum(n_vert_per_comm))
             print(n_vert_per_comm)
         labels = np.zeros((n_vertices,))
-        cnt = n_vert_per_comm[0]
+        count = n_vert_per_comm[0]
         comm_label = 0
         for number in n_vert_per_comm[1:]:
             comm_label += 1
-            labels[cnt:cnt+number] = comm_label
-            cnt += number
-        labels[cnt:] = comm_label # deal with the rest
+            labels[count:count+number] = comm_label
+            count += number
+        labels[count:] = comm_label # deal with the rest
     labels = labels.astype(int)
     
     # Default is above the the connectivity threshold for 2-SSBM
@@ -81,6 +84,7 @@ def sbm(n_vertices, n_communities, n_vert_per_comm=None, comm_prob_mat=None, int
     graph = pygsp.graphs.StochasticBlockModel(N=n_vertices, k=n_communities, z=labels, 
                                               M=comm_prob_mat, p=p, q=q, seed=seed)
     graph.set_coordinates(kind='community2D')
+    graph.info['n_communities'] = n_communities
     
     # Assemble the indicator vectors from the community labels
     indicator_vectors = np.zeros((n_communities, n_vertices))
@@ -157,13 +161,14 @@ def swiss_nacional_council(path='data/swiss-national-council/'):
     parties = ['UDC', 'PSS', 'PDC', 'pvl', 'PLR', 'PES', 'PBD']
     n_parties = len(parties)
     n_vertices = adjacency.shape[0]
+    
     labels = np.zeros((n_vertices,))
     indicator_vectors = np.zeros((n_parties, n_vertices))
     
     for i in np.arange(n_parties):
-        mask = (council['PartyAbbreviation'] == parties[i])
-        indicator_vectors[i, :] = np.asarray(mask).astype(float)
-        labels[mask] = i + 1
+        party_mask = (council['PartyAbbreviation'] == parties[i])
+        indicator_vectors[i, :] = np.asarray(party_mask).astype(float)
+        labels[party_mask] = i + 1
     
     labels = labels.astype(int)
 
@@ -173,10 +178,10 @@ def swiss_nacional_council(path='data/swiss-national-council/'):
         'comm_sizes': np.bincount(labels), 
         'world_rad': np.sqrt(graph.n_vertices),
         'parties': parties,
+        'n_communities': len(parties),
         'council': council
     }
     graph.set_coordinates(kind='community2D')
-    graph.plotting['edge_color'] = (0.5, 0.5, 0.5, 0.015)
     
     return graph, indicator_vectors
 
@@ -218,8 +223,152 @@ def email_eu_core(path='data/email-EU-core/'):
     graph.plotting['edge_color'] = (0.5, 0.5, 0.5, 0.015)
     
     n_communities = len(graph.info['comm_sizes'])
+    graph.info['n_communities'] = n_communities
+    
     indicator_vectors = np.zeros((n_communities, graph.n_vertices))
+    
     for i in np.arange(n_communities):
         indicator_vectors[i, :] = (labels == i).astype(float)
+    
+    return graph, indicator_vectors
+
+
+def bsds300(img_id, path='data/BSDS300/', seg_subset='color', subsample_factor=12, 
+            graph_type='grid', patch_shape=(7,7), **kwargs):
+    r"""
+    Graph and signals for the BSDS300 data.
+    
+    Parameters
+    ----------
+    img_id : str
+        ID of the image. See `iids_train.txt` and `iids_test.txt` files.
+    path : str, optional
+        The path to the directory containing the BSDS300 dataset. 
+        (default is 'data/BSDS300/')
+    seg_subset : str, optional
+        Segmentation data subset to use. Options are 'color' or 'gray'.
+        (default is 'color')
+    subsample_factor : int
+        Factor by which to subsample the images for a better run time. 
+        (default is 12)
+    graph_type : str
+        Graph structure type. Options are 'grid', 'patches', and 'grid_and_patches'.
+        The first option produces a graph whose egde structure reflects exactly the
+        pixel grid of the image. The second option constructs k-Nearest Neighbors
+        graph by connecting pixels that live in similar patches. The third option is
+        a combination of the other two.
+        (default is 'grid')
+    patch_shape : tuple
+        Shape of the pixel patch used for computing pixel similarity. Only used if 
+        `graph_type` is 'patches' or 'grid_and_patches'.
+        (default is `(7,7)`)
+    kwargs : dict
+        Extra parameters passed to :class:`pygsp.graph.NNGraph`. 
+    
+    Returns
+    -------
+    :class:`pygsp.graphs.Graph`
+        The graph object.
+    ndarray
+        A k-by-n matrix containing the indicator vectors of each of the 
+        k segmentation classes for the image.
+        
+    Notes
+    -----
+    If you pick 'patches' or 'grid_and_patches' as `graph_type`, consider setting
+    `use_flann=True` in `kwargs` for faster computation.
+    
+    Data source: https://www2.eecs.berkeley.edu/Research/Projects/CS/vision/bsds/
+        
+    """
+    
+    # Image #
+    
+    img_files = []
+    
+    for file in glob.iglob(path + 'images/**/' + img_id +'.jpg', recursive=True):
+        img_files.append(file)
+        
+    img = plt.imread(img_files[0])
+        
+    # Segmentation data #
+    
+    if seg_subset == 'color':
+        seg_path = path + 'human/color/'
+    elif seg_subset == 'gray':
+        seg_path = path + 'human/gray/'
+    else:
+        raise ValueError("Valid options for seg_subset are 'color' or 'gray'.")
+    
+    # Gather all segmentation files for the same image ID
+    seg_files = []
+    
+    for file in glob.iglob(seg_path + '**/' + img_id +'.seg', recursive=True):
+        seg_files.append(file)
+        
+    seg_file = seg_files[0] # TODO: is there a better choice than the first one?
+    
+    # Get header and data, following instructions from `seg-format.txt`
+    seg_header = pd.read_csv(seg_file, names=[0, 1], sep=' ', nrows=11)
+    seg_data = pd.read_csv(seg_file, skiprows=11, names=[0, 1, 2, 3], sep=' ').values
+    
+    # Build segmentation mask
+    seg_mask = np.zeros((int(seg_header[0]['height']), int(seg_header[0]['width'])))
+    count = 0
+    
+    for i in seg_data[:, 1]:
+        seg_mask[i, seg_data[count, 2]:seg_data[count, 3]] = seg_data[count, 0]
+        count += 1
+    
+    # Subsample image and segmentation mask by the same factor
+    img = img[::subsample_factor, ::subsample_factor, :]
+    h, w, c = img.shape
+    seg_mask = seg_mask[::subsample_factor, ::subsample_factor]
+    
+    # Build label vector
+    labels = seg_mask.ravel().astype(int)
+    
+    # Graph #
+    
+    graph = pygsp.graphs.Grid2d(N1=h, N2=w)
+    
+    if graph_type == 'grid':
+       
+        pass
+    
+    elif graph_type == 'patches':
+        
+        coords = graph.coords
+        graph = pygsp.graphs.ImgPatches(img, patch_shape=patch_shape, **kwargs)
+        graph.coords = coords
+       
+    elif graph_type == 'grid_and_patches':
+        
+        coords = graph.coords
+        graph = pygsp.graphs.Grid2dImgPatches(img, patch_shape=patch_shape, **kwargs)
+        graph.coords = coords
+        
+    else:
+        
+        raise ValueError("Valid options for graph_type are 'grid', 'patch', or 'grid_and_patch'.")
+    
+    graph.img = img
+    
+    graph.info = {
+        'node_com': labels,
+        'comm_sizes' : np.bincount(labels),
+        'n_communities' : len(np.bincount(labels)),
+        'world_rad' : np.sqrt(graph.n_vertices),
+        'img_id' : img_id,
+        'img_subset' : utils.get_bsds300_subset(img_id, path),
+        'seg_subset' : seg_subset
+    }
+    
+    # Indicator vectors #
+    
+    indicator_vectors = np.zeros((graph.info['n_communities'], graph.n_vertices))
+    
+    for i in np.arange(graph.info['n_communities']):
+        indicator_vectors[i, :] = (labels == i).astype(float) 
     
     return graph, indicator_vectors

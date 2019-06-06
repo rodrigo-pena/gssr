@@ -149,3 +149,69 @@ def spectral_norm(shape, L, Lt):
         raise ValueError('The spectral norm estimate did not converge')
     
     return spec_norm
+
+
+def get_bsds300_id_list(path='data/BSDS300/', subset='train'):
+    r"""
+    Get list of image IDs in the BSDS300 dataset.
+    
+    Parameters
+    ----------
+    path : str, optional
+        The path to the directory containing the BSDS300 dataset. 
+        (default is 'data/BSDS300/')
+    subset : str, optional
+        Image subset to use. Options are 'train', 'test' or 'both'. 
+        (default is 'train')
+        
+    Returns
+    -------
+    list of str
+        List of image IDs in the chosen subset.
+        
+    """
+    
+    ids_train = [line.rstrip('\n') for line in open(path + 'iids_train.txt')]
+    ids_test = [line.rstrip('\n') for line in open(path + 'iids_test.txt')]
+    
+    if subset == 'train':
+        return ids_train
+    elif subset == 'test':
+        return ids_test
+    elif subset == 'both':
+        return ids_train + ids_test
+    else:
+        raise ValueError("Valid options for subset are 'train', 'test' or 'both'.")
+        
+        
+def get_bsds300_subset(img_id, path='data/BSDS300/'):
+    r"""
+    Get BSDS300 image subset from image ID.
+    
+    Parameters
+    ----------
+    img_id : str
+        ID of the image.
+    path : str, optional
+        The path to the directory containing the BSDS300 dataset. 
+        (default is 'data/BSDS300/')
+    subset : str, optional
+        Image subset to use. Options are 'train', 'test' or 'both'. 
+        (default is 'train')
+        
+    Returns
+    -------
+    str
+        'train', 'test' or 'unknown'.
+        
+    """
+    
+    ids_train = [line.rstrip('\n') for line in open(path + 'iids_train.txt')]
+    ids_test = [line.rstrip('\n') for line in open(path + 'iids_test.txt')]
+    
+    if img_id in ids_train:
+        return 'train'
+    elif img_id in ids_test:
+        return 'test'
+    else:
+        raise 'unknown'
