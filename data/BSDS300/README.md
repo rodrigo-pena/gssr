@@ -11,9 +11,9 @@ Source: https://www2.eecs.berkeley.edu/Research/Projects/CS/vision/bsds/
 - IMPORTANT: for the BSDS300-related code in the `gssr` repository to work, you must have the following directory structure:
 
 ```
-BSDS300 /
-	/human/
-	/images/
+BSDS300/
+        human/
+        images/
 	iids_train.txt
 	iids_test.txt
 ```
