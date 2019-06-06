@@ -2,6 +2,7 @@
 
 Source: https://www2.eecs.berkeley.edu/Research/Projects/CS/vision/bsds/
 
+
 ### Instructions to get the necessary files
 
 - Go to https://www2.eecs.berkeley.edu/Research/Projects/CS/vision/bsds/
@@ -11,11 +12,12 @@ Source: https://www2.eecs.berkeley.edu/Research/Projects/CS/vision/bsds/
 
 ```
 BSDS300 /
-			 /human/
-			 /images/
-			 iids_train.txt
-			 iids_test.txt
+	/human/
+	/images/
+	iids_train.txt
+	iids_test.txt
 ```
+
 
 ### Provided files
 
