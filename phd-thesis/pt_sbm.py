@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""k-SSBM phase transition.
+"""k-SBM phase transition
 
 """
 
@@ -24,7 +24,7 @@ from argparse import ArgumentParser
 if __name__ == "__main__":
     
     # Parse arguments
-    parser = ArgumentParser(description='Error grid for class label recovery in k-SSBM,'
+    parser = ArgumentParser(description='Error grid for class label recovery in k-SBM,'
                             + ' varying the intra-class connection probability and'
                             + ' the number of label measurements.')
     
@@ -32,6 +32,8 @@ if __name__ == "__main__":
                         help='number of vertices in the graph')
     parser.add_argument('-nc', action='store', nargs='?', default=2, type=int, 
                         help='number of classes (communities)')
+    parser.add_argument('-nvpc', action='store', nargs='*', default=[20, 80], type=int, 
+                        help='number of vertices in each class')
     parser.add_argument('-nt', action='store', nargs='?', default=5, type=int, 
                         help='number of random trials for each grid point')
     parser.add_argument('-b', action='store', nargs='?', default=0.5, type=float, 
@@ -50,7 +52,7 @@ if __name__ == "__main__":
                                            'dirichlet_form_interpolation', 
                                            'dirichlet_form_least_sq'],
                         help='recovery function')
-    parser.add_argument('-fn', action='store', nargs='?', default='pt_ssbm', 
+    parser.add_argument('-fn', action='store', nargs='?', default='pt_sbm', 
                         type=str,
                         help='output file name suffix')
     
@@ -102,11 +104,18 @@ if __name__ == "__main__":
     
     # Parameter evaluation function
     def param_eval(a, m):
+        
+        # Connection probabilities
+        p = a * np.log(args.nv) / args.nv
+        q = args.b * np.log(args.nv) / args.nv
+        
         # Draw a graph
-        graph, indicator_vectors = gs.ssbm(n_vertices=args.nv, 
-                                           n_communities=args.nc, 
-                                           a=a, 
-                                           b=args.b)
+        graph, indicator_vectors = gs.sbm(n_vertices=args.nv, 
+                                          n_communities=args.nc, 
+                                          n_vert_per_comm=args.nvpc, 
+                                          intra_comm_prob=p,
+                                          inter_comm_prob=q)
+        
         # Set signal to be recovered
         gt_signal = indicator_vectors[0,:]
         
@@ -136,6 +145,7 @@ if __name__ == "__main__":
     experiment['date'] = now
     experiment['n_vertices'] = args.nv
     experiment['n_communities'] = args.nc
+    experiment['n_vertices_per_community'] = args.nvpc
     experiment['b'] = args.b
     experiment['rows'] = list_a
     experiment['row_label'] = 'a'

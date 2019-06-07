@@ -65,21 +65,28 @@ def grid_evaluation(param_list_one, param_list_two, param_eval, n_trials=16,
 
     """
     
+    
     if not list(param_list_two): # If `param_list_two` is empty
         params = param_list_one
         grid_shape = (len(param_list_one),)
+        is_really_grid = False
     
     else:
         params = list(itertools.product(param_list_one, param_list_two))
         grid_shape = (len(param_list_one), len(param_list_two))
+        is_really_grid = True
         
-    def grid_fun(tup): # Function to compute for each grid point
+    def grid_fun(point): # Function to compute for each grid point
+        
         trial_out = np.nan * np.ones((n_trials,))
+        
         for i in np.arange(n_trials):
-            try:
-                trial_out[i] = param_eval(tup[0], tup[1])
-            except TypeError: # If `param_list_two` is empty
-                trial_out[i] = param_eval(tup)
+           
+            if is_really_grid:
+                trial_out[i] = param_eval(point[0], point[1])
+            else: # If `param_list_two` is empty
+                trial_out[i] = param_eval(point)
+            
         return aggr_method(trial_out)
         
     n_grid_pts = len(params)
@@ -158,7 +165,6 @@ def line_evaluation(param_list, param_eval, file_name='line evaluation', **kwarg
                                  **kwargs)
 
     experiment['line'] = experiment.pop('grid')
-    experiment['points'] = experiment.pop('rows')
-    _ = experiment.pop('cols')
+    experiment['cols'] = experiment.pop('rows')
     
     return experiment

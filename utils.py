@@ -215,3 +215,37 @@ def get_bsds300_subset(img_id, path='data/BSDS300/'):
         return 'test'
     else:
         raise 'unknown'
+      
+    
+def select_recovery_function(name, **kwargs):
+    
+    import recovery as rec
+    
+    if name == 'tv_interpolation':
+        return lambda g, s_ver, s_val: rec.tv_interpolation(g, s_ver, s_val, **kwargs)
+
+    elif name == 'tv_least_sq':
+        return lambda g, s_ver, s_val: rec.tv_least_sq(g, s_ver, s_val, **kwargs)
+
+    elif name == 'dirichlet_form_interpolation':
+        return lambda g, s_ver, s_val: rec.dirichlet_form_interpolation(g, s_ver, s_val, **kwargs)
+
+    elif name == 'dirichlet_form_least_sq':
+        return lambda g, s_ver, s_val: rec.dirichlet_form_least_sq(g, s_ver, s_val, **kwargs)
+    
+    else:
+        raise ValueError("There is no recovery function with this name.")
+
+    
+def select_sampling_design(name, **kwargs):
+    
+    import sampling as smp
+        
+    if name == 'uniform_vertex':
+        return lambda g, m: smp.uniform_vertex(g, m, **kwargs)
+    
+    elif name == 'inv_degree_vertex':
+        return lambda g, m: smp.inv_degree_vertex(g, m, **kwargs)
+    
+    else:
+        raise ValueError("There is no sampling design with this name.")

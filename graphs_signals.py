@@ -11,7 +11,7 @@ import pandas as pd
 import networkx as nx
 import matplotlib.pyplot as plt
 
-import glob
+import os
 import utils
 import pygsp
 
@@ -89,7 +89,7 @@ def sbm(n_vertices, n_communities, n_vert_per_comm=None, comm_prob_mat=None, int
     # Assemble the indicator vectors from the community labels
     indicator_vectors = np.zeros((n_communities, n_vertices))
     for k in np.arange(n_communities):
-        indicator_vectors[k, :] = (z == k).astype(float)
+        indicator_vectors[k, :] = (labels == k).astype(float)
     
     return graph, indicator_vectors
 
@@ -220,7 +220,6 @@ def email_eu_core(path='data/email-EU-core/'):
                   'comm_sizes': np.bincount(labels), 
                   'world_rad': np.sqrt(graph.n_vertices)}
     graph.set_coordinates(kind='community2D')
-    graph.plotting['edge_color'] = (0.5, 0.5, 0.5, 0.015)
     
     n_communities = len(graph.info['comm_sizes'])
     graph.info['n_communities'] = n_communities
@@ -282,14 +281,11 @@ def bsds300(img_id, path='data/BSDS300/', seg_subset='color', subsample_factor=1
         
     """
     
+    from glob import glob, iglob
+    
     # Image #
-    
-    img_files = []
-    
-    for file in glob.iglob(path + 'images/**/' + img_id +'.jpg', recursive=True):
-        img_files.append(file)
-        
-    img = plt.imread(img_files[0])
+    img_file = glob(os.path.join(path, 'images/**/' + img_id +'.jpg'), recursive=True)[0]
+    img = plt.imread(img_file)
         
     # Segmentation data #
     
@@ -300,13 +296,8 @@ def bsds300(img_id, path='data/BSDS300/', seg_subset='color', subsample_factor=1
     else:
         raise ValueError("Valid options for seg_subset are 'color' or 'gray'.")
     
-    # Gather all segmentation files for the same image ID
-    seg_files = []
-    
-    for file in glob.iglob(seg_path + '**/' + img_id +'.seg', recursive=True):
-        seg_files.append(file)
-        
-    seg_file = seg_files[0] # TODO: is there a better choice than the first one?
+    # TODO: is there a better choice of file than the first one in the list?
+    seg_file = glob(os.path.join(seg_path, '**/' + img_id +'.seg'), recursive=True)[0]
     
     # Get header and data, following instructions from `seg-format.txt`
     seg_header = pd.read_csv(seg_file, names=[0, 1], sep=' ', nrows=11)
