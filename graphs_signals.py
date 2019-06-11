@@ -185,20 +185,25 @@ def swiss_national_council(path='data/swiss-national-council/',
     members_per_party = members_per_party[sort_idx]
     parties = parties[sort_idx]
     
-    labels = np.nan * np.ones((n_vertices,))
-    indicator_vectors = np.zeros((n_communities, n_vertices))
     councillors_ordered = pd.DataFrame(columns=councillors.columns)
     
     for i in np.arange(n_communities):
         party_mask = (councillors['PartyAbbreviation'] == parties[i])
         councillors_ordered = councillors_ordered.append(councillors[party_mask])
+    
+    voting_matrix = voting_matrix[councillors_ordered.index.values, :]
+    councillors_ordered = councillors_ordered.reset_index(drop=True)
+    
+    # Create party label vectors
+    labels = np.nan * np.ones((n_vertices,))
+    indicator_vectors = np.zeros((n_communities, n_vertices))
+    
+    for i in np.arange(n_communities):
+        party_mask = (councillors_ordered['PartyAbbreviation'] == parties[i])
         indicator_vectors[i, :] = np.asarray(party_mask).astype(float)
         labels[party_mask] = i
         
     labels = labels.astype(int)
-    
-    voting_matrix = voting_matrix[councillors_ordered.index.values, :]
-    councillors_ordered = councillors_ordered.reset_index(drop=True)
     
     # Create Nearest-Neighbors graph
     graph = pygsp.graphs.NNGraph(voting_matrix, **kwargs)
