@@ -30,7 +30,7 @@ For a local installation, you will need [git], [python >= 3.6][python], [jupyter
 1. Download this repository to the current directory by typing `git clone https://github.com/rodrigo-pena/gssr` on the terminal.
 1. Create a new environment by typing `conda create --name gssr` on the terminal.
 1. Activate the environment with `conda activate gssr` (or `activate gssr`, or `source activate gssr`).
-1. You should notice `gssr` typed somewhere on the newest terminal line, indicating that you are within the environment. Install the required packages by running `conda install -c conda-forge python=3.6 jupyterlab`, and then `pip install -r requirements.txt`.
+1. You should notice `gssr` typed somewhere on the newest terminal line, indicating that you are within the environment. Install the required packages by running `conda install -c conda-forge python=3.6 jupyterlab` and then `pip install -r requirements.txt`.
 1. Run `python test_install.py` to check if all the requirements have been correctly installed.
 
 After the (one-time) creation of the environment, you can do the following every time you want to work with this repository:

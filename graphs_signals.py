@@ -55,7 +55,6 @@ def sbm(n_vertices, n_communities, n_vert_per_comm=None, comm_prob_mat=None, int
     
     """
     
-    
     # Construct a vector assigning a class label to each vertex
     # (needed by :class:`pygsp.graphs.StochasticBlockModel`)
     if n_vert_per_comm is None:
@@ -137,14 +136,27 @@ def ssbm(n_vertices, n_communities=2, a=2., b=1., seed=None):
     return sbm(n_vertices, n_communities, intra_comm_prob=p, inter_comm_prob=q, seed=seed)
 
 
-def swiss_nacional_council(path='data/swiss-national-council/'):
+def swiss_national_council(path='data/swiss-national-council/', 
+                           councillors_fn='councillors.csv',
+                           affairs_fn='affairs.csv', 
+                           voting_matrix_fn='voting_matrix.csv',
+                           **kwargs):
     r"""
     Graph and signals for the Swiss National Council data.
     
     Parameters
     ----------
-    path : str
-        The path to the directory containing the files `council_info.csv` and `adjacency.csv`.
+    path : str, optional
+        The path to the directory containing the councillor, affairs, and voting matrix `.csv` files. 
+        (default is 'data/swiss-national-council/')
+    councillors_fn : str, optional
+        Name of the councillor info file. (default is 'councillors.csv')
+    affairs_fn : str, optional
+        Name of the voting affairs info file (default is 'affairs.csv')
+    voting_matrix_fn : str, optional
+        Name of the voting matrix file (default is 'voting_matrix.csv')
+    kwargs : dict
+        Extra parameters passed to :class:`pygsp.graph.NNGraph`. 
     
     Returns
     -------
@@ -155,33 +167,53 @@ def swiss_nacional_council(path='data/swiss-national-council/'):
         
     """
     
-    council = pd.read_csv(path + 'council_info.csv')
-    adjacency = pd.read_csv(path + 'adjacency.csv')
+    # Read .csv files
+    councillors = pd.read_csv(os.path.join(path, councillors_fn))
+    affairs = pd.read_csv(os.path.join(path, affairs_fn))
+    voting_matrix = pd.read_csv(os.path.join(path, voting_matrix_fn)).values
     
-    parties = ['UDC', 'PSS', 'PDC', 'pvl', 'PLR', 'PES', 'PBD']
-    n_parties = len(parties)
-    n_vertices = adjacency.shape[0]
+    # Get parties and member counts
+    from collections import Counter
+    party_count = Counter(councillors['PartyAbbreviation'])
+    parties = np.asarray(list(party_count.keys())).astype(str)
+    members_per_party = np.asarray(list(party_count.values())).astype(int)
+    n_communities = len(parties)
+    n_vertices = np.sum(members_per_party)
     
-    labels = np.zeros((n_vertices,))
-    indicator_vectors = np.zeros((n_parties, n_vertices))
+    # Sort councillors from largest to smallest party, and create label vectors
+    sort_idx = np.argsort(members_per_party)[-1::-1]
+    members_per_party = members_per_party[sort_idx]
+    parties = parties[sort_idx]
     
-    for i in np.arange(n_parties):
-        party_mask = (council['PartyAbbreviation'] == parties[i])
+    labels = np.nan * np.ones((n_vertices,))
+    indicator_vectors = np.zeros((n_communities, n_vertices))
+    councillors_ordered = pd.DataFrame(columns=councillors.columns)
+    
+    for i in np.arange(n_communities):
+        party_mask = (councillors['PartyAbbreviation'] == parties[i])
+        councillors_ordered = councillors_ordered.append(councillors[party_mask])
         indicator_vectors[i, :] = np.asarray(party_mask).astype(float)
-        labels[party_mask] = i + 1
-    
+        labels[party_mask] = i
+        
     labels = labels.astype(int)
-
-    graph = pygsp.graphs.Graph(adjacency=adjacency)
+    
+    voting_matrix = voting_matrix[councillors_ordered.index.values, :]
+    councillors_ordered = councillors_ordered.reset_index(drop=True)
+    
+    # Create Nearest-Neighbors graph
+    graph = pygsp.graphs.NNGraph(voting_matrix, **kwargs)
+    
     graph.info = {
         'node_com': labels, 
-        'comm_sizes': np.bincount(labels), 
+        'comm_sizes': members_per_party, 
         'world_rad': np.sqrt(graph.n_vertices),
         'parties': parties,
-        'n_communities': len(parties),
-        'council': council
+        'n_communities': n_communities,
+        'councillors': councillors_ordered,
+        'affairs': affairs
     }
-    graph.set_coordinates(kind='community2D')
+    
+    graph.set_coordinates(kind='laplacian')
     
     return graph, indicator_vectors
 
@@ -322,28 +354,22 @@ def bsds300(img_id, path='data/BSDS300/', seg_subset='color', subsample_factor=1
     # Graph #
     
     graph = pygsp.graphs.Grid2d(N1=h, N2=w)
+    coords = graph.coords
     
     if graph_type == 'grid':
-       
         pass
     
-    elif graph_type == 'patches':
-        
-        coords = graph.coords
+    elif graph_type == 'patches':        
         graph = pygsp.graphs.ImgPatches(img, patch_shape=patch_shape, **kwargs)
-        graph.coords = coords
        
     elif graph_type == 'grid_and_patches':
-        
-        coords = graph.coords
         graph = pygsp.graphs.Grid2dImgPatches(img, patch_shape=patch_shape, **kwargs)
-        graph.coords = coords
         
     else:
-        
         raise ValueError("Valid options for graph_type are 'grid', 'patch', or 'grid_and_patch'.")
     
     graph.img = img
+    graph.coords = coords
     
     graph.info = {
         'node_com': labels,

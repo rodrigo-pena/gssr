@@ -15,7 +15,6 @@ from argparse import ArgumentParser
 if __name__ == "__main__":
     
     # Parse arguments
-    
     parser = ArgumentParser(description='Get council info and voting adjacency matrix.')
     
     parser.add_argument('-p', 
@@ -64,6 +63,9 @@ if __name__ == "__main__":
     councillors = councillors.set_index('CouncillorId')
     councillors = councillors.sort_index()
     councillors = councillors.merge(council_info, how='inner', on='CouncillorName', right_index=True)
+    councillors = councillors.drop(columns=['CouncilName', 'ParlGroupName', 'PartyName',
+                                            'BirthPlace_City', 'BirthPlace_Canton', 'Mandates',
+                                            'Citizenship', 'CantonName'])
     
     # Create a data frame to record each voting affair
     affairs = voting_data[['AffairShortId',
@@ -115,4 +117,4 @@ if __name__ == "__main__":
     # Save files
     councillors.to_csv('councillors.csv')
     affairs.to_csv('affairs.csv')
-    voting_matrix.to_csv('voting_matrix.csv')
+    voting_matrix.to_csv('voting_matrix.csv', index=False)

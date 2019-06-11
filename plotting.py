@@ -8,6 +8,7 @@
 
 import datetime
 
+import numpy as np
 import pandas as pd
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -139,27 +140,13 @@ def pt_grid_experiment(experiment, file_name='pt_grid_experiment', **kwargs):
     
     
 
-def scatter_council(coords, path='data/swiss-national-council-50/', colors=None, 
-                    save_to_disk=False, save_dir='data/', file_name='swiss council'):
+def scatter_swiss_council(graph, show_edges=False):
     r"""
     Scatter plot of the Swiss National Council members.
 
-    Paameters
+    Parameters
     ---------
-    coords : (N, 2) `numpy.ndarray`
-        The first column lists the horizontal coordinates for each council member in the 
-        scatter plot. The second column lists the vertical coordinates.
-    path : str, optional
-        The path to the directory containing the file `council_info.csv`.
-    colors : array_like, optional 
-        A list specifying a color (or position within a colormap) for each council member. 
-        (default is given by the column 'Color' in `council_df`)
-    save_to_disk : bool, optional
-        Save plot to disk. (default is False)
-    save_dir : str, optional
-        Directory onto which save the plot. (default is 'data/')
-    file_name : str, optional
-        File name. (default is 'pt grid')
+    
         
     Returns
     -------
@@ -175,39 +162,37 @@ def scatter_council(coords, path='data/swiss-national-council-50/', colors=None,
     fontsize = 'x-large'
     dpi = 300
     
+    # Color map
+    colors = np.asarray(['gray'] * len(graph.info['councillors'])).astype('<U16')
+    party_color_map = {'UDC': 'royalblue',
+                       'PSS': 'r',
+                       'PDC': 'orange',
+                       'pvl': 'g',
+                       'PLR': 'cyan',
+                       'PES': 'forestgreen',
+                       'PBD': 'yellow'} 
+    
+    # Legend patches
+    patch_list = []
+    
+    for key in party_color_map:
+        data_key = mpl.patches.Patch(color=party_color_map[key], label=key)
+        patch_list.append(data_key)
+        colors[(graph.info['councillors']['PartyAbbreviation'] == key).values] = party_color_map[key]
+            
+    patch_list.append(mpl.patches.Patch(color='gray', label='others'))
+    
+    # Plot 
+    
     fig, ax = plt.subplots(figsize=(8, 8), ncols=1)
 
-    if colors is None:
-        
-        council_df = pd.read_csv(path + 'council_info.csv')
-        colors = council_df['Color']
-        party_color_map = {'UDC': 'royalblue',
-                           'PSS': 'r',
-                           'PDC': 'orange',
-                           'pvl': 'g',
-                           'PLR': 'cyan',
-                           'PES': 'forestgreen',
-                           'PBD': 'yellow'}
-        
-        patch_list = []
-        for key in party_color_map:
-            data_key = mpl.patches.Patch(color=party_color_map[key], label=key)
-            patch_list.append(data_key)
-
-        ax.legend(handles=patch_list,
-                  frameon=False,
-                  facecolor='inherit',
-                  fontsize=fontsize)
-        
-    ax.scatter(coords[:,0], coords[:,1], c=colors, s=100, alpha=0.8, 
-               edgecolors='none')
+    graph.plot(colors, ax=ax, edges=show_edges)
+    
     ax.get_xaxis().set_ticks([])
     ax.get_yaxis().set_ticks([])
-    fig.tight_layout()
     
-    if save_to_disk:
-        now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
-        save_path = save_dir + now + ' ' + file_name + '.pdf'
-        plt.savefig(save_path, dpi=dpi, transparent=True)
-        
+    ax.legend(handles=patch_list, frameon=False, facecolor='inherit', fontsize=fontsize)
+    
+    #fig.tight_layout()
+    
     return fig, ax
