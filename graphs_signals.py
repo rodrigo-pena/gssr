@@ -213,7 +213,8 @@ def swiss_national_council(path='data/swiss-national-council/',
         'affairs': affairs
     }
     
-    graph.set_coordinates(kind='laplacian')
+    graph.compute_fourier_basis()
+    graph.set_coordinates(kind='laplacian_eigenmap2D')
     
     return graph, indicator_vectors
 
