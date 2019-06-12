@@ -17,8 +17,7 @@ from mpl_toolkits.axes_grid1.axes_divider import make_axes_locatable
 from mpl_toolkits.axes_grid1.colorbar import colorbar
 
 
-def pt_grid(grid, add_cbar=True, vmin=None, vmax=None, save_to_disk=False, 
-            save_dir='data/', file_name='pt_grid'):
+def pt_grid(grid, ax=None, add_cbar=True, vmin=None, vmax=None):
     r"""
     Plot in the style of a phase transition grid.
     
@@ -26,18 +25,14 @@ def pt_grid(grid, add_cbar=True, vmin=None, vmax=None, save_to_disk=False,
     ----------
     grid : array_like
         The pixel grid to plot.
+    ax : :class:`matplotlib.axes.Axes`, optional
+        Container for figure elements.
     add_cbar : bool, optional
         Include colorbar on plot. (default is True)
     vmin : float, optional
         Minimum value in `matplotlib.pyplot.imshow`.
     vmax : float, optional
         Maximum value in `matplotlib.pyplot.imshow`.
-    save_to_disk : bool, optional
-        Save plot to disk. (default is False)
-    save_dir : str, optional
-        Directory onto which save the plot. (default is 'data/')
-    file_name : str, optional
-        File name. (default is 'pt_grid')
     
     Returns
     -------
@@ -52,8 +47,13 @@ def pt_grid(grid, add_cbar=True, vmin=None, vmax=None, save_to_disk=False,
     # Global settings
     figsize = (8.3, 8.3) # Width (in inches) of an A4 paper
     dpi = 300            # Good for printing
-
-    fig, ax = plt.subplots(figsize=figsize, ncols=1) 
+    fig = None
+    
+    if ax is None:
+        fig, ax = plt.subplots(figsize=figsize, ncols=1) 
+    else:
+        fig = plt.gcf()
+        
     im = ax.imshow(grid, 
                    cmap='Reds', 
                    interpolation='none', 
@@ -69,84 +69,21 @@ def pt_grid(grid, add_cbar=True, vmin=None, vmax=None, save_to_disk=False,
     ax.xaxis.set_major_locator(plt.NullLocator())
     ax.yaxis.set_major_locator(plt.NullLocator())
         
-    if save_to_disk:
-        now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
-        save_path = save_dir + now + ' ' + file_name + '.pdf'
-        plt.savefig(save_path, dpi=dpi, transparent=True)
-        
-    return fig, ax
-
-
-def pt_grid_experiment(experiment, file_name='pt_grid_experiment', **kwargs):
-    r"""
-    Plot in the style of a phase transition grid.
-    
-    Parameters
-    ----------
-    experiment : dict
-        A dictionary with the results of an experiment like the one returned 
-        by :func:`phase_transition.grid_evaluation()`.
-    file_name : str, optional
-        File name. (default is 'pt_grid_experiment')
-    **kwargs
-        See :func:`pt_grid()`.
-    
-    Returns
-    -------
-    fig : :class:`matplotlib.figure.Figure`
-        Top level container for the plot element.
-    
-    ax : :class:`matplotlib.axes.Axes`
-        Container for figure elements. Sets the coordinate system.
-    
-    """
-    
-    try:
-        file_name = experiment['file_name']
-    except KeyError:
-        pass
-    
-    fig, ax = pt_grid(experiment['grid'], file_name=file_name, **kwargs)
-    
-    try:
-        ax.set_xlabel(experiment['col_label'])
-    except KeyError:
-        pass
-     
-    try:
-        ax.set_ylabel(experiment['row_label'])
-    except KeyError:
-        pass
-    
-    try:
-        ticklabels = experiment['col_tick_labels']
-        n_ticks = len(ticklabels)
-        ax.xaxis.set_major_locator(plt.LinearLocator(numticks=n_ticks))
-        ax.set_xticklabels(ticklabels)
-    except KeyError:
-        pass
-    
-    try:
-        ticklabels = experiment['row_tick_labels']
-        n_ticks = len(ticklabels)
-        ax.yaxis.set_major_locator(plt.LinearLocator(numticks=n_ticks))
-        ax.set_yticklabels(ticklabels)
-    except KeyError:
-        pass
-    
-    ax.tick_params()
-    
-    return fig, ax
-    
+    return fig, ax    
     
 
-def scatter_swiss_council(graph, show_edges=False):
+def snc_with_party_labels(graph, ax=None):
     r"""
     Scatter plot of the Swiss National Council members.
 
     Parameters
     ---------
-    
+    graph : :class:`pygsp.graphs.Graph`
+        The graph object for the Swiss National Council members.
+    ax : :class:`matplotlib.axes.Axes`, optional
+        Container for figure elements.
+    kwargs: dict
+        Other parameters for :func:`pygsp.graphs.Graph.plot()`.
         
     Returns
     -------
@@ -154,45 +91,67 @@ def scatter_swiss_council(graph, show_edges=False):
         Top level container for the plot element.
     
     ax : :class:`matplotlib.axes.Axes`
-        Container for figure elements. Sets the coordinate system.
+        Container for figure elements.
         
     """
     
     # Global settings
-    fontsize = 'x-large'
+    fontsize = 14
     dpi = 300
     
     # Color map
-    colors = np.asarray(['gray'] * len(graph.info['councillors'])).astype('<U16')
-    party_color_map = {'UDC': 'royalblue',
-                       'PSS': 'r',
-                       'PDC': 'orange',
-                       'pvl': 'g',
-                       'PLR': 'cyan',
-                       'PES': 'forestgreen',
-                       'PBD': 'yellow'} 
+    # Source: en.wikipedia.org/wiki/List_of_political_parties_in_Switzerland
+    party_color_map = {'UDC': '#13923E',
+                       'PSS': '#DB182A',
+                       'FDP': '#0E3D8F',
+                       'PDC': '#E96807',
+                       'PBD': '#FED809',
+                       'PES': '#73A812',
+                       'PVL': '#97C834',
+                       'PEV': '#FDD80B',
+                       'Lega': '#527FE8',
+                       'MCG': '#FDE609',
+                       'PST': '#E02416',
+                       'CSPO': '#AF1E28',
+                       'CSP': '#168397',
+                       'UDF': '#B80072',
+                       'AL': '#820013'
+                       } 
     
     # Legend patches
     patch_list = []
     
-    for key in party_color_map:
-        data_key = mpl.patches.Patch(color=party_color_map[key], label=key)
-        patch_list.append(data_key)
-        colors[(graph.info['councillors']['PartyAbbreviation'] == key).values] = party_color_map[key]
+    for key in graph.info['parties']:
+        
+        try:
+            # Set alpha=0.5 to match pygsp plot
+            c = mpl.colors.to_rgba(party_color_map[key], alpha=0.5)
+            patch_list.append(mpl.patches.Patch(color=c, label=key))
             
-    patch_list.append(mpl.patches.Patch(color='gray', label='others'))
+        except KeyError: # key not in party_color_map
+            pass
+            
+    patch_list.append(mpl.patches.Patch(color='k', label='others'))
     
     # Plot 
+    fig = None
     
-    fig, ax = plt.subplots(figsize=(8, 8), ncols=1)
+    if ax is None:
+        fig, ax = plt.subplots(figsize=(8, 8), ncols=1)
+    else:
+        fig = plt.gcf()
 
-    graph.plot(colors, ax=ax, edges=show_edges)
+    colors = graph.info['councillors']['PartyColor'].values
+    graph.plot(colors, ax=ax, **kwargs)
     
-    ax.get_xaxis().set_ticks([])
-    ax.get_yaxis().set_ticks([])
-    
-    ax.legend(handles=patch_list, frameon=False, facecolor='inherit', fontsize=fontsize)
-    
-    #fig.tight_layout()
+    ax.set_title('')
+    ax.set_axis_off()
+    ax.legend(handles=patch_list, 
+              frameon=False, 
+              facecolor='inherit', 
+              fontsize=fontsize,
+              bbox_to_anchor=(1.05, 1),
+              loc=2, 
+              borderaxespad=0.)
     
     return fig, ax

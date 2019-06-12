@@ -52,6 +52,12 @@ def sbm(n_vertices, n_communities, n_vert_per_comm=None, comm_prob_mat=None, int
         The graph object.
     ndarray
         A k-by-n matrix containing the indicator vectors of each of the k communities.
+        
+    Examples
+    --------
+    >>> import graphs_signals as gs
+    >>> graph, indicator_vectors = gs.ssbm(n_vertices=100, n_communities=2, n_vert_per_comm=[20, 80])
+    >>> graph.plot(indicator_vectors[0,:])
     
     """
     
@@ -124,6 +130,12 @@ def ssbm(n_vertices, n_communities=2, a=2., b=1., seed=None):
     ndarray
         A k-by-n matrix containing the indicator vectors of each of the k communities.
     
+    Examples
+    --------
+    >>> import graphs_signals as gs
+    >>> graph, indicator_vectors = gs.ssbm(n_vertices=100)
+    >>> graph.plot(indicator_vectors[0,:])
+    
     """
     
     # Ensure an identical number of vertices per community
@@ -164,6 +176,18 @@ def swiss_national_council(path='data/swiss-national-council/',
         The graph object.
     ndarray
         A p-by-n matrix containing the indicator vectors of each of the p parties.
+        
+    Examples
+    --------
+    >>> import graphs_signals as gs
+    >>> nn_params = {'NNtype': 'knn',
+                     'use_flann': True,
+                     'center': False,
+                     'rescale': True,
+                     'k': 25,
+                     'dist_type': 'euclidean'}
+    >>> graph, indicator_vectors = gs.swiss_national_council(**nn_params)
+    >>> graph.plot(indicator_vectors[0,:])
         
     """
     
@@ -218,8 +242,10 @@ def swiss_national_council(path='data/swiss-national-council/',
         'affairs': affairs
     }
     
-    graph.compute_fourier_basis()
-    graph.set_coordinates(kind='laplacian_eigenmap2D')
+    graph.coords = utils.get_parliament_coordinates(n_councillors=graph.n_vertices)
+    
+    graph.plotting['vertex_size'] = 150
+    graph.plotting['edge_color'] = (0.5, 0.5, 0.5, 0.05)
     
     return graph, indicator_vectors
 
@@ -240,10 +266,12 @@ def email_eu_core(path='data/email-EU-core/'):
         The graph object.
     ndarray
         A p-by-n matrix containing the indicator vectors of each of the p parties.
-        
-    Notes
-    -----
-    Data source: http://snap.stanford.edu/data/email-Eu-core.html
+    
+    Examples
+    --------
+    >>> import graphs_signals as gs
+    >>> graph, indicator_vectors = gs.email_eu_core()
+    >>> graph.plot(indicator_vectors[0,:])
         
     """
     
@@ -315,7 +343,11 @@ def bsds300(img_id, path='data/BSDS300/', seg_subset='color', subsample_factor=1
     If you pick 'patches' or 'grid_and_patches' as `graph_type`, consider setting
     `use_flann=True` in `kwargs` for faster computation.
     
-    Data source: https://www2.eecs.berkeley.edu/Research/Projects/CS/vision/bsds/
+    Examples
+    --------
+    >>> import graphs_signals as gs
+    >>> graph, indicator_vectors = gs.bsds300('159029', graph_type='grid_and_patches', k=3, use_flann=True)
+    >>> graph.plot(graph.info['node_com'])
         
     """
     

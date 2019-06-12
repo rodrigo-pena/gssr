@@ -25,7 +25,7 @@ if __name__ == "__main__":
     
     # Parse arguments
     parser = ArgumentParser(description='Error line for class label recovery in email-EU-core,'
-                            + ' varying number of label measurements.')
+                            + ' varying the number of label measurements.')
     
     parser.add_argument('-p', action='store', nargs='?', default='../data/email-EU-core/', type=str, 
                         help="path to the folder containing the email-EU-core data" )
@@ -62,6 +62,7 @@ if __name__ == "__main__":
     cls_idx = np.argsort(graph.info['comm_sizes'])[-1::-1][:args.nc]
     
     for i in cls_idx:
+        # Consider the args.nc largest departments as a single class
         gt_signal += indicator_vectors[i,:]
         
     n_communities = 2

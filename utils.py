@@ -249,3 +249,128 @@ def select_sampling_design(name, **kwargs):
     
     else:
         raise ValueError("There is no sampling design with this name.")
+
+        
+def get_parliament_quadrant_coordinates(n_chairs, quadrant_angle=np.pi/4, flipped=False):
+    r"""
+    Get coordinates in analogy to the positions of the chairs on a quadrant of the Swiss parliament.
+    
+    Parameters
+    ----------
+    n_chairs : int
+        Number of chairs in the quadrant.
+    quadrant_angle : float, optional
+        The angle that the quadrant slice makes with the x axis. (default is `numpy.pi/4`)
+    flipped : bool
+        Draw the quadrant flipped. (default is `False`)
+        
+    Returns
+    -------
+    (n_chairs, 2) numpy.ndarray
+        The coordinates of each of the quadrant's chair on the 2D plane.
+    
+    Notes
+    -----
+    This helper function is used in :func:`get_parliament_coordinates()`.
+    
+    """
+    radius = 1. # Distance of the first chair to the origin of the 2d-plane
+    count = 0 # Number of chairs added so far
+    n_chairs_in_row = 2 # Number of chairs to add in the first row
+    coords = np.zeros((n_chairs, 2)) # List of coordinates of all the chairs in the quadrant
+    
+    if flipped:
+        start_angle, end_angle = (quadrant_angle, 0)
+    else:
+        start_angle, end_angle = (0, quadrant_angle)
+
+    while count < n_chairs:
+        
+        # Angles of the row's chairs w.r.t. the x axis
+        angles = np.linspace(start_angle, end_angle, n_chairs_in_row)
+        
+        # Coordinates of the row's chairs in the 2d-plane
+        row_coords = radius * np.array(list(zip(np.cos(angles), np.sin(angles))))
+        
+        # Gather coordinates in the list
+        if count + n_chairs_in_row > n_chairs:
+            end_idx = (n_chairs - count)
+            coords[count:, :] = row_coords[-end_idx:, :]
+        else:
+            end_idx = -1
+            coords[count:count+n_chairs_in_row, :] = row_coords
+        
+        # Update parameters for the next row
+        radius += radius / (1 + radius)
+        count += n_chairs_in_row
+        n_chairs_in_row += 2
+        #start_angle, end_angle = (end_angle, start_angle)
+        
+    return coords
+
+
+def get_parliament_coordinates(n_councillors):
+    r"""
+    Get coordinates in analogy to the positions of the chairs in the Swiss parliament.
+    
+    Parameters
+    ----------
+    n_councillors : int
+        Number of councillors to fir in the parliament
+        
+    Returns
+    -------
+    (n_councillors, 2) numpy.ndarray
+        The coordinates of each councillor on the 2D plane
+        
+    Notes
+    -----
+    This helper function is used in :func:`graphs_signals.swiss_national_council()` to
+    set the coordinates of the vertices of the graph.
+    
+    """
+    
+    # The parliament has 200 chairs
+    n_chairs = 200
+    # List of coordinates of the council members in the parliament
+    coords = np.zeros((n_councillors, 2)) 
+    # Rotation angles of the quadrants
+    quadrant_angles = np.pi * np.array([0, 1/4, 2/4, 3/4, 1]) 
+    # Radial translation of the quadrants
+    center_vec = np.array([np.cos(np.pi/8), np.sin(np.pi/8)]) 
+    # Number of chairs per quadrant 
+    n_chairs_per_quadrant = np.floor(200/4).astype(int) 
+    # Remaining councillors
+    n_remaining_councillors = n_councillors - n_chairs
+    
+    count = 0 # Chair count
+    flipped = False # Flip quadrant
+    
+    # Gather the coordinates of each quadrant
+    for y, x in list(zip(np.sin(quadrant_angles), np.cos(quadrant_angles))):
+        
+        if count + n_chairs_per_quadrant <= 200:
+            n_chairs_to_add = n_chairs_per_quadrant
+        else:
+            n_chairs_to_add = n_remaining_councillors
+        
+        # Define a rotation matrix
+        R = np.array(((x, -y), (y, x))) 
+        
+        # Get quadrant coordinates
+        q_coords = get_parliament_quadrant_coordinates(n_chairs_to_add, 
+                                                       flipped=flipped)
+        # Translate and rotate
+        q_coords = (R @ (q_coords + center_vec).T).T
+        
+        # Update list of coordinates
+        if flipped:
+            coords[count:count+n_chairs_to_add, :] = q_coords[-1::-1]
+        else: 
+            coords[count:count+n_chairs_to_add, :] = q_coords
+        
+        # Update parameters for next iteration
+        count += n_chairs_per_quadrant
+        flipped = not flipped
+
+    return coords

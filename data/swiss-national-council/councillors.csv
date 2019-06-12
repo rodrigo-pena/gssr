@@ -1,229 +1,229 @@
-CouncillorId,CouncillorName,Active,GenderAsString,CantonAbbreviation,ParlGroupAbbreviation,PartyAbbreviation,MaritalStatusText,DateJoining,DateLeaving,DateOfBirth,DateOfDeath
-74,Eymann Christoph,False,m,BS,L,PLS,marié(e),11/25/1991,12/3/1995,1/15/1951,
-91,Giezendanner Ulrich,False,m,AG,V,UDC,marié(e),12/3/2007,12/4/2011,10/31/1953,
-173,Reimann Maximilian,False,m,AG,V,UDC,,11/30/1987,11/24/1991,5/7/1942,
-214,Stamm Luzi,False,m,AG,R,PRD,marié(e),11/25/1991,12/3/1995,9/9/1952,
-224,Tschäppät Alexander,False,m,BE,S,PSS,,12/5/2011,11/29/2015,4/16/1952,5/4/2018
-307,Brunner Toni,False,m,SG,V,UDC,célibataire,12/3/2007,12/4/2011,8/23/1974,
-354,Semadeni Silva,False,f,GR,S,PSS,,12/5/2011,11/29/2015,2/8/1952,
-487,Leutenegger Oberholzer Susanne,False,f,BL,S,PSS,,12/6/1999,11/30/2003,3/6/1948,
-502,Riklin Kathy,False,f,ZH,C,PDC,,12/6/1999,11/30/2003,10/21/1952,
-514,Stahl Jürg,False,m,ZH,V,UDC,,12/6/1999,11/30/2003,1/16/1968,
-519,Walter Hansjörg,False,m,TG,V,UDC,,12/6/1999,11/30/2003,2/5/1951,
-724,Brélaz Daniel,False,m,VD,-,PES,marié(e),11/26/1979,12/15/1989,1/4/1950,
-806,Graf Maya,False,f,BL,G,PES,marié(e),12/1/2003,12/2/2007,2/28/1962,
-1071,Humbel Ruth,False,f,AG,C,PDC,marié(e),12/1/2003,12/2/2007,7/23/1957,
-1104,Büchler Jakob,False,m,SG,CEg,PDC,,12/3/2007,12/4/2011,5/29/1952,
-1108,Parmelin Guy,False,m,VD,V,UDC,,12/3/2007,12/4/2011,11/9/1959,
-1109,Pfister Gerhard,False,m,ZG,CEg,PDC,marié(e),12/3/2007,12/4/2011,10/1/1962,
-1111,Müri Felix,False,m,LU,V,UDC,marié(e),12/1/2003,12/2/2007,1/22/1958,
-1119,Rime Jean-François,False,m,FR,V,UDC,marié(e),12/5/2011,11/29/2015,6/28/1950,
-1120,Sommaruga Carlo,False,m,GE,S,PSS,,12/1/2003,12/2/2007,7/8/1959,
-1122,Fluri Kurt,False,m,SO,RL,PLR,marié(e),12/5/2011,11/29/2015,8/19/1955,
-1124,de Buman Dominique,False,m,FR,C,PDC,,12/1/2003,12/2/2007,4/28/1956,
-1125,Galladé Chantal,False,f,ZH,S,PSS,,12/3/2007,12/4/2011,12/17/1972,
-1129,Schenker Silvia,False,f,BS,S,PSS,divorcé(e),12/3/2007,12/4/2011,1/17/1954,
-1131,Allemann Evi,False,f,BE,S,PSS,,12/3/2007,12/4/2011,7/16/1978,
-1135,Amstutz Adrian,False,m,BE,V,UDC,marié(e),12/3/2007,5/29/2011,12/2/1953,
-1137,Müller Walter,False,m,SG,RL,PRD,marié(e),12/3/2007,12/4/2011,4/25/1948,
-1138,Bäumle Martin,False,m,ZH,CEg,pvl,,12/3/2007,12/4/2011,6/3/1964,
-1139,Markwalder Christa,False,f,BE,RL,PLR,,12/5/2011,11/29/2015,7/27/1975,
-1142,Wobmann Walter,False,m,SO,V,UDC,,12/5/2011,11/29/2015,11/21/1957,
-1147,Kiener Nellen Margret,False,f,BE,S,PSS,marié(e),12/3/2007,12/4/2011,4/17/1953,
-1153,Noser Ruedi,False,m,ZH,RL,PRD,,12/3/2007,12/4/2011,4/14/1961,
-1156,Heim Bea,False,f,SO,S,PSS,marié(e),12/5/2011,11/29/2015,4/7/1946,
-1159,Schwander Pirmin,False,m,SZ,V,UDC,,12/1/2003,12/2/2007,12/28/1961,
-1279,Nordmann Roger,False,m,VD,S,PSS,marié(e),11/30/2004,12/2/2007,3/23/1973,
-1288,Amherd Viola,False,f,VS,C,PDC,,5/31/2005,12/2/2007,6/7/1962,
-1295,Graf-Litscher Edith,False,f,TG,S,PSS,marié(e),12/3/2007,12/4/2011,3/25/1964,
-1318,Schelbert Louis,False,m,LU,G,PES,,3/6/2006,12/2/2007,10/31/1952,
-1337,Glanzmann-Hunkeler Ida,False,f,LU,CEg,PDC,marié(e),12/3/2007,12/4/2011,9/29/1958,
-1345,Müller Thomas,False,m,SG,CEg,PDC,marié(e),12/3/2007,12/4/2011,12/1/1952,
-1346,Moret Isabelle,False,f,VD,RL,PRD,,12/3/2007,12/4/2011,12/30/1970,
-3828,Cassis Ignazio,False,m,TI,RL,PRD,,6/4/2007,12/2/2007,4/13/1961,
-3830,Carobbio Guscetti Marina,False,f,TI,S,PSS,marié(e),12/3/2007,12/4/2011,6/12/1966,
-3865,Steiert Jean-François,False,m,FR,S,PSS,,12/3/2007,12/4/2011,2/7/1961,
-3867,Aebi Andreas,False,m,BE,V,UDC,marié(e),12/3/2007,12/4/2011,11/26/1958,
-3872,Bourgeois Jacques,False,m,FR,RL,PLR,,12/5/2011,11/29/2015,3/14/1958,
-3875,Eichenberger-Walther Corina,False,f,AG,RL,PLR,,12/5/2011,11/29/2015,10/14/1954,
-3876,Estermann Yvette,False,f,LU,V,UDC,marié(e),12/5/2011,11/29/2015,2/26/1967,
-3877,Fiala Doris,False,f,ZH,RL,PRD,marié(e),12/3/2007,12/4/2011,1/29/1957,
-3878,Flückiger-Bäni Sylvia,False,f,AG,V,UDC,marié(e),12/3/2007,12/4/2011,6/1/1952,
-3880,Geissbühler Andrea Martina,False,f,BE,V,UDC,marié(e),12/5/2011,11/29/2015,8/3/1976,
-3882,Girod Bastien,False,m,ZH,G,PES,marié(e),12/3/2007,12/4/2011,12/21/1980,
-3883,Glauser-Zufferey Alice,True,f,VD,V,UDC,marié(e),2/29/2016,,10/18/1954,
-3885,Grin Jean-Pierre,False,m,VD,V,UDC,marié(e),12/3/2007,12/4/2011,3/16/1947,
-3886,Grunder Hans,False,m,BE,BD,PBD,marié(e),12/5/2011,11/29/2015,6/13/1956,
-3887,Heer Alfred,False,m,ZH,V,UDC,,12/3/2007,12/4/2011,10/12/1961,
-3888,Hiltpold Hugues,False,m,GE,RL,PRD,,12/3/2007,12/4/2011,5/5/1969,
-3890,Hurter Thomas,False,m,SH,V,UDC,marié(e),12/5/2011,11/29/2015,11/1/1963,
-3891,Jositsch Daniel,False,m,ZH,S,PSS,,12/3/2007,12/4/2011,3/25/1965,
-3895,Lüscher Christian,False,m,GE,RL,PLS,,12/3/2007,12/4/2011,12/6/1963,
-3897,Moser Tiana Angelina,False,f,ZH,CEg,pvl,,12/3/2007,12/4/2011,4/6/1979,
-3898,Nidegger Yves,False,m,GE,V,UDC,,12/5/2011,11/29/2015,5/17/1957,
-3899,Nussbaumer Eric,False,m,BL,S,PSS,marié(e),12/5/2011,11/29/2015,7/11/1960,
-3901,Reimann Lukas,False,m,SG,V,UDC,,12/5/2011,11/29/2015,9/18/1982,
-3902,Rickli Natalie,False,f,ZH,V,UDC,,12/3/2007,12/4/2011,11/19/1976,
-3904,Schmid-Federer Barbara,False,f,ZH,CEg,PDC,,12/3/2007,12/4/2011,11/10/1965,
-3905,Schmidt Roberto,False,m,VS,C,PDC,,11/30/2015,6/14/2017,7/16/1962,
-3907,Thorens Goumaz Adèle,False,f,VD,G,PES,marié(e),12/3/2007,12/4/2011,12/15/1971,
-3910,von Siebenthal Erich,False,m,BE,V,UDC,marié(e),12/3/2007,12/4/2011,12/30/1958,
-3912,Wasserfallen Christian,False,m,BE,RL,PLR,,12/5/2011,11/29/2015,6/30/1981,
-3923,Marra Ada,False,f,VD,S,PSS,,12/3/2007,12/4/2011,3/10/1973,
-3931,Weibel Thomas,False,m,ZH,GL,pvl,marié(e),12/5/2011,11/29/2015,7/14/1954,
-4008,Landolt Martin,False,m,GL,BD,PBD,,3/2/2009,12/4/2011,6/30/1968,
-4018,Maire Jacques-André,False,m,NE,S,PSS,marié(e),12/5/2011,11/29/2015,5/27/1957,
-4025,Büchel Roland Rino,False,m,SG,V,UDC,célibataire,12/5/2011,11/29/2015,10/8/1965,
-4030,Birrer-Heimo Prisca,False,f,LU,S,PSS,marié(e),5/31/2010,12/4/2011,2/4/1959,
-4031,Ingold Maja,False,f,ZH,CEg,PEV,,5/31/2010,12/4/2011,5/23/1948,
-4032,Jans Beat,False,m,BS,S,PSS,marié(e),5/31/2010,12/4/2011,7/12/1964,
-4036,Streiff-Feller Marianne,False,f,BE,CE,PEV,marié(e),12/5/2011,11/29/2015,8/17/1957,
-4040,Schneider-Schneiter Elisabeth,False,f,BL,CE,PDC,marié(e),12/5/2011,11/29/2015,2/19/1964,
-4042,Frehner Sebastian,False,m,BS,V,UDC,marié(e),11/29/2010,12/4/2011,9/2/1973,
-4045,Pardini Corrado,False,m,BE,S,PSS,marié(e),5/30/2011,12/4/2011,6/19/1965,
-4046,Quadri Lorenzo,False,m,TI,V,Lega,célibataire,5/30/2011,12/4/2011,11/5/1974,
-4049,Aebischer Matthias,False,m,BE,S,PSS,,12/5/2011,11/29/2015,10/18/1967,
-4051,de Courten Thomas,False,m,BL,V,UDC,,12/5/2011,11/29/2015,7/29/1966,
-4052,Ritter Markus,False,m,SG,CE,PDC,marié(e),12/5/2011,11/29/2015,4/19/1967,
-4053,Aeschi Thomas,False,m,ZG,V,UDC,,12/5/2011,11/29/2015,1/13/1979,
-4054,Vitali Albert,False,m,LU,RL,PLR,marié(e),12/5/2011,11/29/2015,6/26/1955,
-4056,Fässler Daniel,False,m,AI,CE,PDC,marié(e),12/5/2011,11/29/2015,8/22/1960,
-4057,Wermuth Cédric,False,m,AG,S,PSS,marié(e),12/5/2011,11/29/2015,2/19/1986,
-4058,Badran Jacqueline,False,f,ZH,S,PSS,marié(e),12/5/2011,11/29/2015,11/12/1961,
-4059,Flach Beat,False,m,AG,GL,pvl,marié(e),12/5/2011,11/29/2015,1/21/1965,
-4060,Schneeberger Daniela,False,f,BL,RL,PLR,,12/5/2011,11/29/2015,9/19/1967,
-4061,Hardegger Thomas,False,m,ZH,S,PSS,,12/5/2011,11/29/2015,4/2/1956,
-4063,Müller-Altermatt Stefan,False,m,SO,CE,PDC,marié(e),12/5/2011,11/29/2015,6/17/1976,
-4065,Pieren Nadja,False,f,BE,V,UDC,célibataire,12/5/2011,11/29/2015,2/14/1980,
-4066,Quadranti Rosmarie,False,f,ZH,BD,PBD,veuf/veuve,12/5/2011,11/29/2015,7/18/1957,
-4067,Brand Heinz,False,m,GR,V,UDC,marié(e),12/5/2011,11/29/2015,9/6/1955,
-4069,Feri Yvonne,False,f,AG,S,PSS,,12/5/2011,11/29/2015,3/21/1966,
-4070,Candinas Martin,False,m,GR,CE,PDC,marié(e),12/5/2011,11/29/2015,8/20/1980,
-4071,Gasche Urs,False,m,BE,BD,PBD,,12/5/2011,11/29/2015,3/15/1955,
-4072,Regazzi Fabio,False,m,TI,CE,PDC,célibataire,12/5/2011,11/29/2015,6/22/1962,
-4073,Pantani Roberta,False,f,TI,V,Lega,marié(e),12/5/2011,11/29/2015,9/19/1965,
-4074,Fridez Pierre-Alain,False,m,JU,S,PSS,marié(e),12/5/2011,11/29/2015,11/20/1957,
-4076,Hadorn Philipp,False,m,SO,S,PSS,marié(e),12/5/2011,11/29/2015,2/6/1967,
-4077,Feller Olivier,False,m,VD,RL,PLR,,12/5/2011,11/29/2015,8/30/1974,
-4079,Derder Fathi,False,m,VD,RL,PLR,,12/5/2011,11/29/2015,12/4/1970,
-4082,Guhl Bernhard,False,m,AG,BD,PBD,marié(e),12/5/2011,11/29/2015,6/10/1972,
-4083,Grossen Jürg,False,m,BE,GL,pvl,marié(e),12/5/2011,11/29/2015,8/24/1969,
-4084,Pezzatti Bruno,False,m,ZG,RL,PLR,marié(e),12/5/2011,11/29/2015,3/4/1951,
-4085,Vogler Karl,False,m,OW,CE,csp-ow,marié(e),12/5/2011,11/29/2015,3/24/1956,
-4086,Buttet Yannick,False,m,VS,CE,PDC,,12/5/2011,11/29/2015,7/12/1977,
-4087,Gschwind Jean-Paul,False,m,JU,CE,PDC,marié(e),12/5/2011,11/29/2015,10/31/1952,
-4090,Amaudruz Céline,False,f,GE,V,UDC,,12/5/2011,11/29/2015,3/15/1979,
-4091,Reynard Mathias,False,m,VS,S,PSS,célibataire,12/5/2011,11/29/2015,9/7/1987,
-4093,Glättli Balthasar,False,m,ZH,G,PES,marié(e),12/5/2011,11/29/2015,2/12/1972,
-4094,Hess Lorenz,False,m,BE,BD,PBD,marié(e),12/5/2011,11/29/2015,6/28/1961,
-4095,Rytz Regula,False,f,BE,G,PES,,12/5/2011,11/29/2015,3/2/1962,
-4096,Gmür Alois,False,m,SZ,CE,PDC,marié(e),12/5/2011,11/29/2015,4/3/1955,
-4097,Müller Leo,False,m,LU,CE,PDC,marié(e),12/5/2011,11/29/2015,7/4/1958,
-4098,Keller Peter,False,m,NW,V,UDC,,12/5/2011,11/29/2015,4/22/1971,
-4100,Rösti Albert,False,m,BE,V,UDC,marié(e),12/5/2011,11/29/2015,8/7/1967,
-4101,Bulliard-Marbach Christine,False,f,FR,CE,PDC,marié(e),12/5/2011,11/29/2015,10/13/1959,
-4102,Bertschy Kathrin,False,f,BE,GL,pvl,,12/5/2011,11/29/2015,7/2/1979,
-4103,Hausammann Markus,False,m,TG,V,UDC,marié(e),12/5/2011,11/29/2015,9/20/1964,
-4106,Naef Martin,False,m,ZH,S,PSS,,12/5/2011,11/29/2015,11/10/1970,
-4107,Amarelle Cesla,False,f,VD,S,PSS,,12/5/2011,11/29/2015,9/14/1973,
-4108,Chevalley Isabelle,False,f,VD,GL,pvl,,12/5/2011,11/29/2015,4/13/1972,
-4109,Piller Carrard Valérie,False,f,FR,S,PSS,marié(e),12/5/2011,11/29/2015,9/9/1978,
-4110,Egloff Hans,False,m,ZH,V,UDC,,12/5/2011,11/29/2015,11/27/1959,
-4113,Tornare Manuel,False,m,GE,S,PSS,célibataire,12/5/2011,11/29/2015,4/20/1951,
-4114,Knecht Hansjörg,False,m,AG,V,UDC,marié(e),12/5/2011,11/29/2015,3/24/1960,
-4115,Schwaab Jean Christophe,False,m,VD,S,PSS,,12/5/2011,11/29/2015,8/23/1979,
-4116,Gössi Petra,False,f,SZ,RL,PLR,,12/5/2011,11/29/2015,1/12/1976,
-4118,Lohr Christian,False,m,TG,CE,PDC,célibataire,12/5/2011,11/29/2015,4/5/1962,
-4120,Romano Marco,False,m,TI,CE,PDC,marié(e),12/5/2011,11/29/2015,11/6/1982,
-4121,Gysi Barbara,False,f,SG,S,PSS,célibataire,12/12/2011,11/29/2015,5/14/1964,
-4123,Schneider Schüttel Ursula,False,f,FR,S,PSS,marié(e),5/29/2012,11/29/2015,11/26/1961,
-4124,Schilliger Peter,False,m,LU,RL,PLR,marié(e),9/10/2012,11/29/2015,6/1/1959,
-4125,Rutz Gregor,True,m,ZH,V,UDC,marié(e),11/30/2015,,10/12/1972,
-4128,Trede Aline,False,f,BE,G,PES,marié(e),3/4/2013,11/29/2015,8/26/1983,
-4129,Herzog Verena,False,f,TG,V,UDC,marié(e),3/4/2013,11/29/2015,2/7/1956,
-4130,Masshardt Nadine,False,f,BE,S,PSS,,3/4/2013,11/29/2015,10/4/1984,
-4131,Friedl Claudia,False,f,SG,S,PSS,,3/4/2013,11/29/2015,7/19/1960,
-4134,Munz Martina,False,f,SH,S,PSS,marié(e),9/9/2013,11/29/2015,12/26/1955,
-4135,Clottu Raymond,False,m,NE,V,UDC,,9/9/2013,11/29/2015,12/18/1967,
-4137,Golay Roger,False,m,GE,-,MCR,marié(e),12/2/2013,11/29/2015,9/23/1959,
-4138,Barazzone Guillaume,False,m,GE,CE,PDC,,12/9/2013,11/29/2015,1/13/1982,
-4140,Merlini Giovanni,False,m,TI,RL,PLR,,3/10/2014,11/29/2015,5/27/1962,
-4141,Portmann Hans-Peter,False,m,ZH,RL,PLR,lié(e) par un partenariat enregistré,5/7/2014,11/29/2015,2/22/1963,
-4142,Walti Beat,False,m,ZH,RL,PLR,marié(e),6/2/2014,11/29/2015,11/22/1968,
-4143,Ruiz Rebecca Ana,False,f,VD,S,PSS,,6/2/2014,11/29/2015,2/4/1982,
-4144,Matter Thomas,False,m,ZH,V,UDC,,6/2/2014,11/29/2015,3/23/1966,
-4146,Siegenthaler Heinz,False,m,BE,BD,PBD,,11/24/2014,11/29/2015,10/11/1955,
-4149,Häsler Christine,False,f,BE,G,PES,,6/8/2015,11/29/2015,1/11/1963,
-4154,Addor Jean-Luc,True,m,VS,V,UDC,marié(e),11/30/2015,,4/22/1964,
-4155,Arnold Beat,True,m,UR,V,UDC,marié(e),11/30/2015,,4/24/1978,
-4156,Buffat Michaël,True,m,VD,V,UDC,marié(e),11/30/2015,,9/27/1979,
-4157,Bühler Manfred,True,m,BE,V,UDC,,11/30/2015,,4/10/1979,
-4158,Burgherr Thomas,True,m,AG,V,UDC,marié(e),11/30/2015,,8/1/1962,
-4159,Chiesa Marco,True,m,TI,V,UDC,,11/30/2015,,10/10/1974,
-4160,Dettling Marcel,True,m,SZ,V,UDC,marié(e),11/30/2015,,2/1/1981,
-4161,Glarner Andreas,True,m,AG,V,UDC,séparé(e),11/30/2015,,10/9/1962,
-4162,Grüter Franz,True,m,LU,V,UDC,marié(e),11/30/2015,,7/29/1963,
-4163,Hess Erich,True,m,BE,V,UDC,célibataire,11/30/2015,,3/25/1981,
-4164,Imark Christian,True,m,SO,V,UDC,marié(e),11/30/2015,,1/29/1982,
-4165,Keller-Inhelder Barbara,True,f,SG,V,UDC,marié(e),11/30/2015,,8/24/1968,
-4166,Köppel Roger,True,m,ZH,V,UDC,marié(e),11/30/2015,,3/21/1965,
-4167,Martullo-Blocher Magdalena,True,f,GR,V,UDC,marié(e),11/30/2015,,8/13/1969,
-4168,Nicolet Jacques,True,m,VD,V,UDC,,11/30/2015,,10/24/1965,
-4169,Page Pierre-André,True,m,FR,V,UDC,,11/30/2015,,4/19/1960,
-4170,Ruppen Franz,True,m,VS,V,UDC,célibataire,11/30/2015,,2/24/1971,
-4172,Salzmann Werner,True,m,BE,V,UDC,marié(e),11/30/2015,,11/5/1962,
-4173,Sollberger Sandra,True,f,BL,V,UDC,marié(e),11/30/2015,,10/27/1973,
-4174,Steinemann Barbara,True,f,ZH,V,UDC,,11/30/2015,,6/18/1976,
-4175,Tuena Mauro,True,m,ZH,V,UDC,,11/30/2015,,1/25/1972,
-4176,Vogt Hans-Ueli,True,m,ZH,V,UDC,,11/30/2015,,12/5/1969,
-4177,Walliser Bruno,True,m,ZH,V,UDC,,11/30/2015,,4/11/1966,
-4178,Zanetti Claudio,True,m,ZH,V,UDC,,11/30/2015,,6/16/1967,
-4179,Zuberbühler David,True,m,AR,V,UDC,marié(e),11/30/2015,,2/20/1979,
-4180,Ammann Thomas,True,m,SG,C,PDC,marié(e),11/30/2015,,7/13/1964,
-4181,Gmür-Schönenberger Andrea,True,f,LU,C,PDC,marié(e),11/30/2015,,7/17/1964,
-4182,Béglé Claude,True,m,VD,C,PDC,marié(e),11/30/2015,,12/4/1949,
-4183,Marchand-Balet Géraldine,True,f,VS,C,PDC,,11/30/2015,,1/18/1971,
-4184,Arslan Sibel,True,f,BS,G,BastA,,11/30/2015,,6/23/1980,
-4185,Fricker Jonas,False,m,AG,G,PES,,11/30/2015,11/26/2017,3/30/1977,
-4186,Mazzone Lisa,True,f,GE,G,PES,,11/30/2015,,1/25/1988,
-4187,Bauer Philippe,True,m,NE,RL,PLR,marié(e),11/30/2015,,4/9/1962,
-4188,Borloz Frédéric,True,m,VD,RL,PLR,marié(e),11/30/2015,,4/22/1966,
-4189,Burkart Thierry,True,m,AG,RL,PLR,,11/30/2015,,8/21/1975,
-4190,Dobler Marcel,True,m,SG,RL,PLR,marié(e),11/30/2015,,8/29/1980,
-4191,Genecand Benoît,True,m,GE,RL,PLR,marié(e),11/30/2015,,1/28/1964,
-4192,Hess Hermann,False,m,TG,RL,PLR,,11/30/2015,11/26/2017,12/22/1951,
-4193,Nantermod Philippe,True,m,VS,RL,PLR,marié(e),11/30/2015,,3/27/1984,
-4194,Wehrli Laurent,True,m,VD,RL,PLR,marié(e),11/30/2015,,6/4/1965,
-4195,Fehlmann Rielle Laurence,True,f,GE,S,PSS,marié(e),11/30/2015,,9/11/1955,
-4196,Guldimann Tim,False,m,ZH,S,PSS,,11/30/2015,3/14/2018,9/19/1950,
-4197,Marti Min Li,True,f,ZH,S,PSS,,11/30/2015,,6/1/1974,
-4198,Meyer Mattea,True,f,ZH,S,PSS,célibataire,11/30/2015,,11/9/1987,
-4199,Seiler Graf Priska,True,f,ZH,S,PSS,marié(e),11/30/2015,,8/29/1968,
-4200,Campell Duri,True,m,GR,BD,PBD,marié(e),11/30/2015,,4/5/1963,
-4201,de la Reussille Denis,True,m,NE,G,PdT,,11/30/2015,,10/24/1960,
-4202,Sauter Regine,True,f,ZH,RL,PLR,,11/30/2015,,4/16/1966,
-4203,Barrile Angelo,True,m,ZH,S,PSS,lié(e) par un partenariat enregistré,12/8/2015,,8/22/1976,
-4208,Jauslin Matthias Samuel,True,m,AG,RL,PLR,marié(e),11/30/2015,,4/20/1962,
-4209,Bigler Hans-Ulrich,True,m,ZH,RL,PLR,marié(e),12/8/2015,,4/5/1958,
-4212,Egger Thomas,True,m,VS,C,CSPO,célibataire,6/15/2017,,8/15/1967,
-4213,Bendahan Samuel,True,m,VD,S,PSS,,6/15/2017,,6/11/1980,
-4214,Gugger Niklaus-Samuel,True,m,ZH,C,PEV,,11/27/2017,,5/1/1970,
-4215,Brunner Hansjörg,True,m,TG,RL,PLR,marié(e),11/27/2017,,11/23/1966,
-4216,Gutjahr Diana,True,f,TG,V,UDC,,11/27/2017,,1/13/1984,
-4217,Cattaneo Rocco,True,m,TI,RL,PLR,marié(e),11/27/2017,,12/6/1958,
-4218,Kälin Irène,True,f,AG,G,PES,célibataire,11/27/2017,,2/6/1987,
-4219,Crottaz Brigitte,True,f,VD,S,PSS,,2/26/2018,,10/6/1957,
-4220,Roduit Benjamin,True,m,VS,C,PDC,marié(e),2/26/2018,,11/22/1962,
-4221,Töngi Michael,True,m,LU,G,PES,,3/12/2018,,3/16/1967,
-4222,Paganini Nicolo,True,m,SG,C,PDC,marié(e),3/12/2018,,6/8/1966,
-4223,Molina Fabian,True,m,ZH,S,PSS,célibataire,3/15/2018,,7/8/1990,
-4224,Wasserfallen Flavia,True,f,BE,S,PSS,marié(e),5/29/2018,,2/7/1979,
-4225,Kutter Philipp,True,m,ZH,C,PDC,marié(e),6/11/2018,,8/31/1975,
-4226,Wüthrich Adrian,True,m,BE,S,PSS,marié(e),5/29/2018,,5/7/1980,
-4227,Frei Daniel,True,m,ZH,S,PSS,,12/10/2018,,2/5/1979,
-4228,Marti Samira,True,f,BL,S,PSS,,12/10/2018,,1/23/1994,
-4229,Egger Mike,True,m,SG,V,UDC,célibataire,3/4/2019,,8/2/1992,
-4230,Bregy Philipp Matthias,True,m,VS,C,CVPO,marié(e),3/4/2019,,7/7/1978,
-4232,Rochat Fernandez Nicolas,True,m,VD,S,PSS,,5/7/2019,,12/9/1982,
-4234,Schläpfer Therese,True,f,ZH,V,UDC,marié(e),6/3/2019,,4/14/1959,
-4236,Haab Martin,True,m,ZH,V,UDC,,6/3/2019,,5/3/1962,
+CouncillorId,CouncillorName,Active,GenderAsString,CantonAbbreviation,ParlGroupAbbreviation,PartyAbbreviation,MaritalStatusText,DateJoining,DateLeaving,DateOfBirth,DateOfDeath,PartyColor
+74,Eymann Christoph,False,m,BS,L,FDP,marié(e),11/25/1991,12/3/1995,1/15/1951,,#0E3D8F
+91,Giezendanner Ulrich,False,m,AG,V,UDC,marié(e),12/3/2007,12/4/2011,10/31/1953,,#13923E
+173,Reimann Maximilian,False,m,AG,V,UDC,,11/30/1987,11/24/1991,5/7/1942,,#13923E
+214,Stamm Luzi,False,m,AG,R,FDP,marié(e),11/25/1991,12/3/1995,9/9/1952,,#0E3D8F
+224,Tschäppät Alexander,False,m,BE,S,PSS,,12/5/2011,11/29/2015,4/16/1952,5/4/2018,#DB182A
+307,Brunner Toni,False,m,SG,V,UDC,célibataire,12/3/2007,12/4/2011,8/23/1974,,#13923E
+354,Semadeni Silva,False,f,GR,S,PSS,,12/5/2011,11/29/2015,2/8/1952,,#DB182A
+487,Leutenegger Oberholzer Susanne,False,f,BL,S,PSS,,12/6/1999,11/30/2003,3/6/1948,,#DB182A
+502,Riklin Kathy,False,f,ZH,C,PDC,,12/6/1999,11/30/2003,10/21/1952,,#E96807
+514,Stahl Jürg,False,m,ZH,V,UDC,,12/6/1999,11/30/2003,1/16/1968,,#13923E
+519,Walter Hansjörg,False,m,TG,V,UDC,,12/6/1999,11/30/2003,2/5/1951,,#13923E
+724,Brélaz Daniel,False,m,VD,-,PES,marié(e),11/26/1979,12/15/1989,1/4/1950,,#73A812
+806,Graf Maya,False,f,BL,G,PES,marié(e),12/1/2003,12/2/2007,2/28/1962,,#73A812
+1071,Humbel Ruth,False,f,AG,C,PDC,marié(e),12/1/2003,12/2/2007,7/23/1957,,#E96807
+1104,Büchler Jakob,False,m,SG,CEg,PDC,,12/3/2007,12/4/2011,5/29/1952,,#E96807
+1108,Parmelin Guy,False,m,VD,V,UDC,,12/3/2007,12/4/2011,11/9/1959,,#13923E
+1109,Pfister Gerhard,False,m,ZG,CEg,PDC,marié(e),12/3/2007,12/4/2011,10/1/1962,,#E96807
+1111,Müri Felix,False,m,LU,V,UDC,marié(e),12/1/2003,12/2/2007,1/22/1958,,#13923E
+1119,Rime Jean-François,False,m,FR,V,UDC,marié(e),12/5/2011,11/29/2015,6/28/1950,,#13923E
+1120,Sommaruga Carlo,False,m,GE,S,PSS,,12/1/2003,12/2/2007,7/8/1959,,#DB182A
+1122,Fluri Kurt,False,m,SO,RL,FDP,marié(e),12/5/2011,11/29/2015,8/19/1955,,#0E3D8F
+1124,de Buman Dominique,False,m,FR,C,PDC,,12/1/2003,12/2/2007,4/28/1956,,#E96807
+1125,Galladé Chantal,False,f,ZH,S,PSS,,12/3/2007,12/4/2011,12/17/1972,,#DB182A
+1129,Schenker Silvia,False,f,BS,S,PSS,divorcé(e),12/3/2007,12/4/2011,1/17/1954,,#DB182A
+1131,Allemann Evi,False,f,BE,S,PSS,,12/3/2007,12/4/2011,7/16/1978,,#DB182A
+1135,Amstutz Adrian,False,m,BE,V,UDC,marié(e),12/3/2007,5/29/2011,12/2/1953,,#13923E
+1137,Müller Walter,False,m,SG,RL,FDP,marié(e),12/3/2007,12/4/2011,4/25/1948,,#0E3D8F
+1138,Bäumle Martin,False,m,ZH,CEg,PVL,,12/3/2007,12/4/2011,6/3/1964,,#97C834
+1139,Markwalder Christa,False,f,BE,RL,FDP,,12/5/2011,11/29/2015,7/27/1975,,#0E3D8F
+1142,Wobmann Walter,False,m,SO,V,UDC,,12/5/2011,11/29/2015,11/21/1957,,#13923E
+1147,Kiener Nellen Margret,False,f,BE,S,PSS,marié(e),12/3/2007,12/4/2011,4/17/1953,,#DB182A
+1153,Noser Ruedi,False,m,ZH,RL,FDP,,12/3/2007,12/4/2011,4/14/1961,,#0E3D8F
+1156,Heim Bea,False,f,SO,S,PSS,marié(e),12/5/2011,11/29/2015,4/7/1946,,#DB182A
+1159,Schwander Pirmin,False,m,SZ,V,UDC,,12/1/2003,12/2/2007,12/28/1961,,#13923E
+1279,Nordmann Roger,False,m,VD,S,PSS,marié(e),11/30/2004,12/2/2007,3/23/1973,,#DB182A
+1288,Amherd Viola,False,f,VS,C,PDC,,5/31/2005,12/2/2007,6/7/1962,,#E96807
+1295,Graf-Litscher Edith,False,f,TG,S,PSS,marié(e),12/3/2007,12/4/2011,3/25/1964,,#DB182A
+1318,Schelbert Louis,False,m,LU,G,PES,,3/6/2006,12/2/2007,10/31/1952,,#73A812
+1337,Glanzmann-Hunkeler Ida,False,f,LU,CEg,PDC,marié(e),12/3/2007,12/4/2011,9/29/1958,,#E96807
+1345,Müller Thomas,False,m,SG,CEg,PDC,marié(e),12/3/2007,12/4/2011,12/1/1952,,#E96807
+1346,Moret Isabelle,False,f,VD,RL,FDP,,12/3/2007,12/4/2011,12/30/1970,,#0E3D8F
+3828,Cassis Ignazio,False,m,TI,RL,FDP,,6/4/2007,12/2/2007,4/13/1961,,#0E3D8F
+3830,Carobbio Guscetti Marina,False,f,TI,S,PSS,marié(e),12/3/2007,12/4/2011,6/12/1966,,#DB182A
+3865,Steiert Jean-François,False,m,FR,S,PSS,,12/3/2007,12/4/2011,2/7/1961,,#DB182A
+3867,Aebi Andreas,False,m,BE,V,UDC,marié(e),12/3/2007,12/4/2011,11/26/1958,,#13923E
+3872,Bourgeois Jacques,False,m,FR,RL,FDP,,12/5/2011,11/29/2015,3/14/1958,,#0E3D8F
+3875,Eichenberger-Walther Corina,False,f,AG,RL,FDP,,12/5/2011,11/29/2015,10/14/1954,,#0E3D8F
+3876,Estermann Yvette,False,f,LU,V,UDC,marié(e),12/5/2011,11/29/2015,2/26/1967,,#13923E
+3877,Fiala Doris,False,f,ZH,RL,FDP,marié(e),12/3/2007,12/4/2011,1/29/1957,,#0E3D8F
+3878,Flückiger-Bäni Sylvia,False,f,AG,V,UDC,marié(e),12/3/2007,12/4/2011,6/1/1952,,#13923E
+3880,Geissbühler Andrea Martina,False,f,BE,V,UDC,marié(e),12/5/2011,11/29/2015,8/3/1976,,#13923E
+3882,Girod Bastien,False,m,ZH,G,PES,marié(e),12/3/2007,12/4/2011,12/21/1980,,#73A812
+3883,Glauser-Zufferey Alice,True,f,VD,V,UDC,marié(e),2/29/2016,,10/18/1954,,#13923E
+3885,Grin Jean-Pierre,False,m,VD,V,UDC,marié(e),12/3/2007,12/4/2011,3/16/1947,,#13923E
+3886,Grunder Hans,False,m,BE,BD,PBD,marié(e),12/5/2011,11/29/2015,6/13/1956,,#FED809
+3887,Heer Alfred,False,m,ZH,V,UDC,,12/3/2007,12/4/2011,10/12/1961,,#13923E
+3888,Hiltpold Hugues,False,m,GE,RL,FDP,,12/3/2007,12/4/2011,5/5/1969,,#0E3D8F
+3890,Hurter Thomas,False,m,SH,V,UDC,marié(e),12/5/2011,11/29/2015,11/1/1963,,#13923E
+3891,Jositsch Daniel,False,m,ZH,S,PSS,,12/3/2007,12/4/2011,3/25/1965,,#DB182A
+3895,Lüscher Christian,False,m,GE,RL,FDP,,12/3/2007,12/4/2011,12/6/1963,,#0E3D8F
+3897,Moser Tiana Angelina,False,f,ZH,CEg,PVL,,12/3/2007,12/4/2011,4/6/1979,,#97C834
+3898,Nidegger Yves,False,m,GE,V,UDC,,12/5/2011,11/29/2015,5/17/1957,,#13923E
+3899,Nussbaumer Eric,False,m,BL,S,PSS,marié(e),12/5/2011,11/29/2015,7/11/1960,,#DB182A
+3901,Reimann Lukas,False,m,SG,V,UDC,,12/5/2011,11/29/2015,9/18/1982,,#13923E
+3902,Rickli Natalie,False,f,ZH,V,UDC,,12/3/2007,12/4/2011,11/19/1976,,#13923E
+3904,Schmid-Federer Barbara,False,f,ZH,CEg,PDC,,12/3/2007,12/4/2011,11/10/1965,,#E96807
+3905,Schmidt Roberto,False,m,VS,C,PDC,,11/30/2015,6/14/2017,7/16/1962,,#E96807
+3907,Thorens Goumaz Adèle,False,f,VD,G,PES,marié(e),12/3/2007,12/4/2011,12/15/1971,,#73A812
+3910,von Siebenthal Erich,False,m,BE,V,UDC,marié(e),12/3/2007,12/4/2011,12/30/1958,,#13923E
+3912,Wasserfallen Christian,False,m,BE,RL,FDP,,12/5/2011,11/29/2015,6/30/1981,,#0E3D8F
+3923,Marra Ada,False,f,VD,S,PSS,,12/3/2007,12/4/2011,3/10/1973,,#DB182A
+3931,Weibel Thomas,False,m,ZH,GL,PVL,marié(e),12/5/2011,11/29/2015,7/14/1954,,#97C834
+4008,Landolt Martin,False,m,GL,BD,PBD,,3/2/2009,12/4/2011,6/30/1968,,#FED809
+4018,Maire Jacques-André,False,m,NE,S,PSS,marié(e),12/5/2011,11/29/2015,5/27/1957,,#DB182A
+4025,Büchel Roland Rino,False,m,SG,V,UDC,célibataire,12/5/2011,11/29/2015,10/8/1965,,#13923E
+4030,Birrer-Heimo Prisca,False,f,LU,S,PSS,marié(e),5/31/2010,12/4/2011,2/4/1959,,#DB182A
+4031,Ingold Maja,False,f,ZH,CEg,PEV,,5/31/2010,12/4/2011,5/23/1948,,#FDD80B
+4032,Jans Beat,False,m,BS,S,PSS,marié(e),5/31/2010,12/4/2011,7/12/1964,,#DB182A
+4036,Streiff-Feller Marianne,False,f,BE,CE,PEV,marié(e),12/5/2011,11/29/2015,8/17/1957,,#FDD80B
+4040,Schneider-Schneiter Elisabeth,False,f,BL,CE,PDC,marié(e),12/5/2011,11/29/2015,2/19/1964,,#E96807
+4042,Frehner Sebastian,False,m,BS,V,UDC,marié(e),11/29/2010,12/4/2011,9/2/1973,,#13923E
+4045,Pardini Corrado,False,m,BE,S,PSS,marié(e),5/30/2011,12/4/2011,6/19/1965,,#DB182A
+4046,Quadri Lorenzo,False,m,TI,V,Lega,célibataire,5/30/2011,12/4/2011,11/5/1974,,#527FE8
+4049,Aebischer Matthias,False,m,BE,S,PSS,,12/5/2011,11/29/2015,10/18/1967,,#DB182A
+4051,de Courten Thomas,False,m,BL,V,UDC,,12/5/2011,11/29/2015,7/29/1966,,#13923E
+4052,Ritter Markus,False,m,SG,CE,PDC,marié(e),12/5/2011,11/29/2015,4/19/1967,,#E96807
+4053,Aeschi Thomas,False,m,ZG,V,UDC,,12/5/2011,11/29/2015,1/13/1979,,#13923E
+4054,Vitali Albert,False,m,LU,RL,FDP,marié(e),12/5/2011,11/29/2015,6/26/1955,,#0E3D8F
+4056,Fässler Daniel,False,m,AI,CE,PDC,marié(e),12/5/2011,11/29/2015,8/22/1960,,#E96807
+4057,Wermuth Cédric,False,m,AG,S,PSS,marié(e),12/5/2011,11/29/2015,2/19/1986,,#DB182A
+4058,Badran Jacqueline,False,f,ZH,S,PSS,marié(e),12/5/2011,11/29/2015,11/12/1961,,#DB182A
+4059,Flach Beat,False,m,AG,GL,PVL,marié(e),12/5/2011,11/29/2015,1/21/1965,,#97C834
+4060,Schneeberger Daniela,False,f,BL,RL,FDP,,12/5/2011,11/29/2015,9/19/1967,,#0E3D8F
+4061,Hardegger Thomas,False,m,ZH,S,PSS,,12/5/2011,11/29/2015,4/2/1956,,#DB182A
+4063,Müller-Altermatt Stefan,False,m,SO,CE,PDC,marié(e),12/5/2011,11/29/2015,6/17/1976,,#E96807
+4065,Pieren Nadja,False,f,BE,V,UDC,célibataire,12/5/2011,11/29/2015,2/14/1980,,#13923E
+4066,Quadranti Rosmarie,False,f,ZH,BD,PBD,veuf/veuve,12/5/2011,11/29/2015,7/18/1957,,#FED809
+4067,Brand Heinz,False,m,GR,V,UDC,marié(e),12/5/2011,11/29/2015,9/6/1955,,#13923E
+4069,Feri Yvonne,False,f,AG,S,PSS,,12/5/2011,11/29/2015,3/21/1966,,#DB182A
+4070,Candinas Martin,False,m,GR,CE,PDC,marié(e),12/5/2011,11/29/2015,8/20/1980,,#E96807
+4071,Gasche Urs,False,m,BE,BD,PBD,,12/5/2011,11/29/2015,3/15/1955,,#FED809
+4072,Regazzi Fabio,False,m,TI,CE,PDC,célibataire,12/5/2011,11/29/2015,6/22/1962,,#E96807
+4073,Pantani Roberta,False,f,TI,V,Lega,marié(e),12/5/2011,11/29/2015,9/19/1965,,#527FE8
+4074,Fridez Pierre-Alain,False,m,JU,S,PSS,marié(e),12/5/2011,11/29/2015,11/20/1957,,#DB182A
+4076,Hadorn Philipp,False,m,SO,S,PSS,marié(e),12/5/2011,11/29/2015,2/6/1967,,#DB182A
+4077,Feller Olivier,False,m,VD,RL,FDP,,12/5/2011,11/29/2015,8/30/1974,,#0E3D8F
+4079,Derder Fathi,False,m,VD,RL,FDP,,12/5/2011,11/29/2015,12/4/1970,,#0E3D8F
+4082,Guhl Bernhard,False,m,AG,BD,PBD,marié(e),12/5/2011,11/29/2015,6/10/1972,,#FED809
+4083,Grossen Jürg,False,m,BE,GL,PVL,marié(e),12/5/2011,11/29/2015,8/24/1969,,#97C834
+4084,Pezzatti Bruno,False,m,ZG,RL,FDP,marié(e),12/5/2011,11/29/2015,3/4/1951,,#0E3D8F
+4085,Vogler Karl,False,m,OW,CE,CSPO,marié(e),12/5/2011,11/29/2015,3/24/1956,,#AF1E28
+4086,Buttet Yannick,False,m,VS,CE,PDC,,12/5/2011,11/29/2015,7/12/1977,,#E96807
+4087,Gschwind Jean-Paul,False,m,JU,CE,PDC,marié(e),12/5/2011,11/29/2015,10/31/1952,,#E96807
+4090,Amaudruz Céline,False,f,GE,V,UDC,,12/5/2011,11/29/2015,3/15/1979,,#13923E
+4091,Reynard Mathias,False,m,VS,S,PSS,célibataire,12/5/2011,11/29/2015,9/7/1987,,#DB182A
+4093,Glättli Balthasar,False,m,ZH,G,PES,marié(e),12/5/2011,11/29/2015,2/12/1972,,#73A812
+4094,Hess Lorenz,False,m,BE,BD,PBD,marié(e),12/5/2011,11/29/2015,6/28/1961,,#FED809
+4095,Rytz Regula,False,f,BE,G,PES,,12/5/2011,11/29/2015,3/2/1962,,#73A812
+4096,Gmür Alois,False,m,SZ,CE,PDC,marié(e),12/5/2011,11/29/2015,4/3/1955,,#E96807
+4097,Müller Leo,False,m,LU,CE,PDC,marié(e),12/5/2011,11/29/2015,7/4/1958,,#E96807
+4098,Keller Peter,False,m,NW,V,UDC,,12/5/2011,11/29/2015,4/22/1971,,#13923E
+4100,Rösti Albert,False,m,BE,V,UDC,marié(e),12/5/2011,11/29/2015,8/7/1967,,#13923E
+4101,Bulliard-Marbach Christine,False,f,FR,CE,PDC,marié(e),12/5/2011,11/29/2015,10/13/1959,,#E96807
+4102,Bertschy Kathrin,False,f,BE,GL,PVL,,12/5/2011,11/29/2015,7/2/1979,,#97C834
+4103,Hausammann Markus,False,m,TG,V,UDC,marié(e),12/5/2011,11/29/2015,9/20/1964,,#13923E
+4106,Naef Martin,False,m,ZH,S,PSS,,12/5/2011,11/29/2015,11/10/1970,,#DB182A
+4107,Amarelle Cesla,False,f,VD,S,PSS,,12/5/2011,11/29/2015,9/14/1973,,#DB182A
+4108,Chevalley Isabelle,False,f,VD,GL,PVL,,12/5/2011,11/29/2015,4/13/1972,,#97C834
+4109,Piller Carrard Valérie,False,f,FR,S,PSS,marié(e),12/5/2011,11/29/2015,9/9/1978,,#DB182A
+4110,Egloff Hans,False,m,ZH,V,UDC,,12/5/2011,11/29/2015,11/27/1959,,#13923E
+4113,Tornare Manuel,False,m,GE,S,PSS,célibataire,12/5/2011,11/29/2015,4/20/1951,,#DB182A
+4114,Knecht Hansjörg,False,m,AG,V,UDC,marié(e),12/5/2011,11/29/2015,3/24/1960,,#13923E
+4115,Schwaab Jean Christophe,False,m,VD,S,PSS,,12/5/2011,11/29/2015,8/23/1979,,#DB182A
+4116,Gössi Petra,False,f,SZ,RL,FDP,,12/5/2011,11/29/2015,1/12/1976,,#0E3D8F
+4118,Lohr Christian,False,m,TG,CE,PDC,célibataire,12/5/2011,11/29/2015,4/5/1962,,#E96807
+4120,Romano Marco,False,m,TI,CE,PDC,marié(e),12/5/2011,11/29/2015,11/6/1982,,#E96807
+4121,Gysi Barbara,False,f,SG,S,PSS,célibataire,12/12/2011,11/29/2015,5/14/1964,,#DB182A
+4123,Schneider Schüttel Ursula,False,f,FR,S,PSS,marié(e),5/29/2012,11/29/2015,11/26/1961,,#DB182A
+4124,Schilliger Peter,False,m,LU,RL,FDP,marié(e),9/10/2012,11/29/2015,6/1/1959,,#0E3D8F
+4125,Rutz Gregor,True,m,ZH,V,UDC,marié(e),11/30/2015,,10/12/1972,,#13923E
+4128,Trede Aline,False,f,BE,G,PES,marié(e),3/4/2013,11/29/2015,8/26/1983,,#73A812
+4129,Herzog Verena,False,f,TG,V,UDC,marié(e),3/4/2013,11/29/2015,2/7/1956,,#13923E
+4130,Masshardt Nadine,False,f,BE,S,PSS,,3/4/2013,11/29/2015,10/4/1984,,#DB182A
+4131,Friedl Claudia,False,f,SG,S,PSS,,3/4/2013,11/29/2015,7/19/1960,,#DB182A
+4134,Munz Martina,False,f,SH,S,PSS,marié(e),9/9/2013,11/29/2015,12/26/1955,,#DB182A
+4135,Clottu Raymond,False,m,NE,V,UDC,,9/9/2013,11/29/2015,12/18/1967,,#13923E
+4137,Golay Roger,False,m,GE,-,MCG,marié(e),12/2/2013,11/29/2015,9/23/1959,,#FDE609
+4138,Barazzone Guillaume,False,m,GE,CE,PDC,,12/9/2013,11/29/2015,1/13/1982,,#E96807
+4140,Merlini Giovanni,False,m,TI,RL,FDP,,3/10/2014,11/29/2015,5/27/1962,,#0E3D8F
+4141,Portmann Hans-Peter,False,m,ZH,RL,FDP,lié(e) par un partenariat enregistré,5/7/2014,11/29/2015,2/22/1963,,#0E3D8F
+4142,Walti Beat,False,m,ZH,RL,FDP,marié(e),6/2/2014,11/29/2015,11/22/1968,,#0E3D8F
+4143,Ruiz Rebecca Ana,False,f,VD,S,PSS,,6/2/2014,11/29/2015,2/4/1982,,#DB182A
+4144,Matter Thomas,False,m,ZH,V,UDC,,6/2/2014,11/29/2015,3/23/1966,,#13923E
+4146,Siegenthaler Heinz,False,m,BE,BD,PBD,,11/24/2014,11/29/2015,10/11/1955,,#FED809
+4149,Häsler Christine,False,f,BE,G,PES,,6/8/2015,11/29/2015,1/11/1963,,#73A812
+4154,Addor Jean-Luc,True,m,VS,V,UDC,marié(e),11/30/2015,,4/22/1964,,#13923E
+4155,Arnold Beat,True,m,UR,V,UDC,marié(e),11/30/2015,,4/24/1978,,#13923E
+4156,Buffat Michaël,True,m,VD,V,UDC,marié(e),11/30/2015,,9/27/1979,,#13923E
+4157,Bühler Manfred,True,m,BE,V,UDC,,11/30/2015,,4/10/1979,,#13923E
+4158,Burgherr Thomas,True,m,AG,V,UDC,marié(e),11/30/2015,,8/1/1962,,#13923E
+4159,Chiesa Marco,True,m,TI,V,UDC,,11/30/2015,,10/10/1974,,#13923E
+4160,Dettling Marcel,True,m,SZ,V,UDC,marié(e),11/30/2015,,2/1/1981,,#13923E
+4161,Glarner Andreas,True,m,AG,V,UDC,séparé(e),11/30/2015,,10/9/1962,,#13923E
+4162,Grüter Franz,True,m,LU,V,UDC,marié(e),11/30/2015,,7/29/1963,,#13923E
+4163,Hess Erich,True,m,BE,V,UDC,célibataire,11/30/2015,,3/25/1981,,#13923E
+4164,Imark Christian,True,m,SO,V,UDC,marié(e),11/30/2015,,1/29/1982,,#13923E
+4165,Keller-Inhelder Barbara,True,f,SG,V,UDC,marié(e),11/30/2015,,8/24/1968,,#13923E
+4166,Köppel Roger,True,m,ZH,V,UDC,marié(e),11/30/2015,,3/21/1965,,#13923E
+4167,Martullo-Blocher Magdalena,True,f,GR,V,UDC,marié(e),11/30/2015,,8/13/1969,,#13923E
+4168,Nicolet Jacques,True,m,VD,V,UDC,,11/30/2015,,10/24/1965,,#13923E
+4169,Page Pierre-André,True,m,FR,V,UDC,,11/30/2015,,4/19/1960,,#13923E
+4170,Ruppen Franz,True,m,VS,V,UDC,célibataire,11/30/2015,,2/24/1971,,#13923E
+4172,Salzmann Werner,True,m,BE,V,UDC,marié(e),11/30/2015,,11/5/1962,,#13923E
+4173,Sollberger Sandra,True,f,BL,V,UDC,marié(e),11/30/2015,,10/27/1973,,#13923E
+4174,Steinemann Barbara,True,f,ZH,V,UDC,,11/30/2015,,6/18/1976,,#13923E
+4175,Tuena Mauro,True,m,ZH,V,UDC,,11/30/2015,,1/25/1972,,#13923E
+4176,Vogt Hans-Ueli,True,m,ZH,V,UDC,,11/30/2015,,12/5/1969,,#13923E
+4177,Walliser Bruno,True,m,ZH,V,UDC,,11/30/2015,,4/11/1966,,#13923E
+4178,Zanetti Claudio,True,m,ZH,V,UDC,,11/30/2015,,6/16/1967,,#13923E
+4179,Zuberbühler David,True,m,AR,V,UDC,marié(e),11/30/2015,,2/20/1979,,#13923E
+4180,Ammann Thomas,True,m,SG,C,PDC,marié(e),11/30/2015,,7/13/1964,,#E96807
+4181,Gmür-Schönenberger Andrea,True,f,LU,C,PDC,marié(e),11/30/2015,,7/17/1964,,#E96807
+4182,Béglé Claude,True,m,VD,C,PDC,marié(e),11/30/2015,,12/4/1949,,#E96807
+4183,Marchand-Balet Géraldine,True,f,VS,C,PDC,,11/30/2015,,1/18/1971,,#E96807
+4184,Arslan Sibel,True,f,BS,G,PES,,11/30/2015,,6/23/1980,,#73A812
+4185,Fricker Jonas,False,m,AG,G,PES,,11/30/2015,11/26/2017,3/30/1977,,#73A812
+4186,Mazzone Lisa,True,f,GE,G,PES,,11/30/2015,,1/25/1988,,#73A812
+4187,Bauer Philippe,True,m,NE,RL,FDP,marié(e),11/30/2015,,4/9/1962,,#0E3D8F
+4188,Borloz Frédéric,True,m,VD,RL,FDP,marié(e),11/30/2015,,4/22/1966,,#0E3D8F
+4189,Burkart Thierry,True,m,AG,RL,FDP,,11/30/2015,,8/21/1975,,#0E3D8F
+4190,Dobler Marcel,True,m,SG,RL,FDP,marié(e),11/30/2015,,8/29/1980,,#0E3D8F
+4191,Genecand Benoît,True,m,GE,RL,FDP,marié(e),11/30/2015,,1/28/1964,,#0E3D8F
+4192,Hess Hermann,False,m,TG,RL,FDP,,11/30/2015,11/26/2017,12/22/1951,,#0E3D8F
+4193,Nantermod Philippe,True,m,VS,RL,FDP,marié(e),11/30/2015,,3/27/1984,,#0E3D8F
+4194,Wehrli Laurent,True,m,VD,RL,FDP,marié(e),11/30/2015,,6/4/1965,,#0E3D8F
+4195,Fehlmann Rielle Laurence,True,f,GE,S,PSS,marié(e),11/30/2015,,9/11/1955,,#DB182A
+4196,Guldimann Tim,False,m,ZH,S,PSS,,11/30/2015,3/14/2018,9/19/1950,,#DB182A
+4197,Marti Min Li,True,f,ZH,S,PSS,,11/30/2015,,6/1/1974,,#DB182A
+4198,Meyer Mattea,True,f,ZH,S,PSS,célibataire,11/30/2015,,11/9/1987,,#DB182A
+4199,Seiler Graf Priska,True,f,ZH,S,PSS,marié(e),11/30/2015,,8/29/1968,,#DB182A
+4200,Campell Duri,True,m,GR,BD,PBD,marié(e),11/30/2015,,4/5/1963,,#FED809
+4201,de la Reussille Denis,True,m,NE,G,PST,,11/30/2015,,10/24/1960,,#E02416
+4202,Sauter Regine,True,f,ZH,RL,FDP,,11/30/2015,,4/16/1966,,#0E3D8F
+4203,Barrile Angelo,True,m,ZH,S,PSS,lié(e) par un partenariat enregistré,12/8/2015,,8/22/1976,,#DB182A
+4208,Jauslin Matthias Samuel,True,m,AG,RL,FDP,marié(e),11/30/2015,,4/20/1962,,#0E3D8F
+4209,Bigler Hans-Ulrich,True,m,ZH,RL,FDP,marié(e),12/8/2015,,4/5/1958,,#0E3D8F
+4212,Egger Thomas,True,m,VS,C,CSPO,célibataire,6/15/2017,,8/15/1967,,#AF1E28
+4213,Bendahan Samuel,True,m,VD,S,PSS,,6/15/2017,,6/11/1980,,#DB182A
+4214,Gugger Niklaus-Samuel,True,m,ZH,C,PEV,,11/27/2017,,5/1/1970,,#FDD80B
+4215,Brunner Hansjörg,True,m,TG,RL,FDP,marié(e),11/27/2017,,11/23/1966,,#0E3D8F
+4216,Gutjahr Diana,True,f,TG,V,UDC,,11/27/2017,,1/13/1984,,#13923E
+4217,Cattaneo Rocco,True,m,TI,RL,FDP,marié(e),11/27/2017,,12/6/1958,,#0E3D8F
+4218,Kälin Irène,True,f,AG,G,PES,célibataire,11/27/2017,,2/6/1987,,#73A812
+4219,Crottaz Brigitte,True,f,VD,S,PSS,,2/26/2018,,10/6/1957,,#DB182A
+4220,Roduit Benjamin,True,m,VS,C,PDC,marié(e),2/26/2018,,11/22/1962,,#E96807
+4221,Töngi Michael,True,m,LU,G,PES,,3/12/2018,,3/16/1967,,#73A812
+4222,Paganini Nicolo,True,m,SG,C,PDC,marié(e),3/12/2018,,6/8/1966,,#E96807
+4223,Molina Fabian,True,m,ZH,S,PSS,célibataire,3/15/2018,,7/8/1990,,#DB182A
+4224,Wasserfallen Flavia,True,f,BE,S,PSS,marié(e),5/29/2018,,2/7/1979,,#DB182A
+4225,Kutter Philipp,True,m,ZH,C,PDC,marié(e),6/11/2018,,8/31/1975,,#E96807
+4226,Wüthrich Adrian,True,m,BE,S,PSS,marié(e),5/29/2018,,5/7/1980,,#DB182A
+4227,Frei Daniel,True,m,ZH,S,PSS,,12/10/2018,,2/5/1979,,#DB182A
+4228,Marti Samira,True,f,BL,S,PSS,,12/10/2018,,1/23/1994,,#DB182A
+4229,Egger Mike,True,m,SG,V,UDC,célibataire,3/4/2019,,8/2/1992,,#13923E
+4230,Bregy Philipp Matthias,True,m,VS,C,PDC,marié(e),3/4/2019,,7/7/1978,,#E96807
+4232,Rochat Fernandez Nicolas,True,m,VD,S,PSS,,5/7/2019,,12/9/1982,,#DB182A
+4234,Schläpfer Therese,True,f,ZH,V,UDC,marié(e),6/3/2019,,4/14/1959,,#13923E
+4236,Haab Martin,True,m,ZH,V,UDC,,6/3/2019,,5/3/1962,,#13923E

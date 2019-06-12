@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 
-"""Parse Swiss National Council data
+"""Prepare Swiss National Council data
 
 """
 
 
 import os
 
+import numpy as np
 import pandas as pd
 
 from argparse import ArgumentParser
@@ -66,6 +67,44 @@ if __name__ == "__main__":
     councillors = councillors.drop(columns=['CouncilName', 'ParlGroupName', 'PartyName',
                                             'BirthPlace_City', 'BirthPlace_Canton', 'Mandates',
                                             'Citizenship', 'CantonName'])
+    
+    # Standardize the naming of certain parties
+    councillors.loc[councillors['PartyAbbreviation'] == 'PLR', 'PartyAbbreviation'] = 'FDP'
+    councillors.loc[councillors['PartyAbbreviation'] == 'PRD', 'PartyAbbreviation'] = 'FDP'
+    councillors.loc[councillors['PartyAbbreviation'] == 'pvl', 'PartyAbbreviation'] = 'PVL'
+    councillors.loc[councillors['PartyAbbreviation'] == 'PLS', 'PartyAbbreviation'] = 'FDP'
+    councillors.loc[councillors['PartyAbbreviation'] == 'csp-ow', 'PartyAbbreviation'] = 'CSPO'
+    councillors.loc[councillors['PartyAbbreviation'] == 'MCR', 'PartyAbbreviation'] = 'MCG'
+    councillors.loc[councillors['PartyAbbreviation'] == 'BastA', 'PartyAbbreviation'] = 'PES'
+    councillors.loc[councillors['PartyAbbreviation'] == 'PdT', 'PartyAbbreviation'] = 'PST'
+    councillors.loc[councillors['PartyAbbreviation'] == 'CVPO', 'PartyAbbreviation'] = 'PDC'
+    
+    # Assign colors to councillors via their parties
+    # Source: en.wikipedia.org/wiki/List_of_political_parties_in_Switzerland
+    party_color_map = {'UDC': '#13923E',
+                       'PSS': '#DB182A',
+                       'FDP': '#0E3D8F',
+                       'PDC': '#E96807',
+                       'PBD': '#FED809',
+                       'PES': '#73A812',
+                       'PVL': '#97C834',
+                       'PEV': '#FDD80B',
+                       'Lega': '#527FE8',
+                       'MCG': '#FDE609',
+                       'PST': '#E02416',
+                       'CSPO': '#AF1E28',
+                       'CSP': '#168397',
+                       'UDF': '#B80072',
+                       'AL': '#820013'
+                       } 
+    
+    colors = np.asarray(['#000000'] * len(councillors))  # Default: black
+    
+    for key in party_color_map:
+        mask = (councillors['PartyAbbreviation'] == key).values
+        colors[mask] = party_color_map[key]
+    
+    councillors.loc[:, 'PartyColor'] = colors
     
     # Create a data frame to record each voting affair
     affairs = voting_data[['AffairShortId',

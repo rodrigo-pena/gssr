@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""k-SBM phase transition
+"""swiss-national-council phase transition
 
 """
 
@@ -24,22 +24,13 @@ from argparse import ArgumentParser
 if __name__ == "__main__":
     
     # Parse arguments
-    parser = ArgumentParser(description='Error grid for class label recovery in k-SBM,'
-                            + ' varying the intra-class connection probability and'
-                            + ' the number of label measurements.')
+    parser = ArgumentParser(description='Error line for class label recovery in swiss-nacional-council,'
+                            + ' varying the number of label measurements.')
     
-    parser.add_argument('-nv', action='store', nargs='?', default=100, type=int, 
-                        help='number of vertices in the graph')
-    parser.add_argument('-nc', action='store', nargs='?', default=2, type=int, 
-                        help='number of classes (communities)')
-    parser.add_argument('-nvpc', action='store', nargs='*', default=[20, 80], type=int, 
-                        help='number of vertices in each class')
+    parser.add_argument('-p', action='store', nargs='?', default='../data/swiss-national-council/', type=str, 
+                        help="path to the folder containing the swiss-nacional-council data" )
     parser.add_argument('-nt', action='store', nargs='?', default=5, type=int, 
                         help='number of random trials for each grid point')
-    parser.add_argument('-b', action='store', nargs='?', default=0.5, type=float, 
-                        help='factor in the inter-class connection probabilities')
-    parser.add_argument('-na', action='store', nargs='?', default=11, type=int, 
-                        help='number of points in the intra-class connection probability axis')
     parser.add_argument('-nm', action='store', nargs='?', default=11, type=int, 
                         help='number of points in the measurements axis')
     parser.add_argument('-sd', action='store', nargs='?', default='uniform_vertex', 
@@ -52,66 +43,59 @@ if __name__ == "__main__":
                                            'dirichlet_form_interpolation', 
                                            'dirichlet_form_least_sq'],
                         help='recovery function')
-    parser.add_argument('-fn', action='store', nargs='?', default='pt_sbm', 
+    parser.add_argument('-fn', action='store', nargs='?', default='pt_snc', 
                         type=str,
                         help='output file name suffix')
     
     args = parser.parse_args()
     
+    # Draw graph and indicator vectors
+    nn_params = {'NNtype': 'knn',
+                 'use_flann': True,
+                 'center': False,
+                 'rescale': True,
+                 'k': 25,
+                 'dist_type': 'euclidean'}
+    graph, indicator_vectors = gs.swiss_national_council(path=args.p, **nn_params)
+    args.nv = graph.n_vertices
     
-    # List of parameters in the vertical axis of the grid
-    # (Intra-communitity connection probability factor)
-    list_a = np.linspace(0, 
-                         2. * ((np.sqrt(args.nc) + np.sqrt(args.b))**2. - (args.nc + args.b)),
-                         num=args.na)
-    list_a += args.nc + args.b
+    # Set signal to be recovered
+    parties = graph.info['parties']
+    parties_in_gt = ['UDC', 'FDP']
+    cls_mask = [False] * len(parties)
+    for p in parties_in_gt:
+        cls_mask += (parties == p)
+        
+    gt_signal = np.sum(indicator_vectors[cls_mask,:], axis=0)
     
+    n_communities = 2
+    comm_sizes = [int(np.sum(gt_signal)), int(args.nv - np.sum(gt_signal))]
     
     # List of parameters in the horizontal axis of the grid
     # (Number of measurements)
     list_m = np.linspace(0, args.nv, args.nm)
     
-    
-    # Sampling design        
-    smp_design = utils.select_sampling_design(args.sd, replace = True)
-        
+    # Sampling design
+    smp_design = utils.select_sampling_design(args.sd, replace=True)
     
     # Recovery function
     rec_fun = utils.select_recovery_function(args.rf, 
-                                             rtol=1e-6 * (graph.n_vertices ** (-1/2)),
+                                             rtol=1e-6 * (args.nv ** (-1/2)),
                                              maxit=5000,
                                              verbosity='NONE')
     
-    
     # Parameter evaluation function
-    def param_eval(a, m):
-        
-        # Connection probabilities
-        p = a * np.log(args.nv) / args.nv
-        q = args.b * np.log(args.nv) / args.nv
-        
-        # Draw a graph
-        graph, indicator_vectors = gs.sbm(n_vertices=args.nv, 
-                                          n_communities=args.nc, 
-                                          n_vert_per_comm=args.nvpc, 
-                                          intra_comm_prob=p,
-                                          inter_comm_prob=q)
-        
-        # Set signal to be recovered
-        gt_signal = indicator_vectors[0,:]
-        
+    def param_eval(m): 
         _, rel_err = utils.standard_pipeline(graph, 
                                              gt_signal, 
                                              m,
                                              smp_design, 
                                              rec_fun)
-        
         return rel_err
     
     
-    # Parameter grid evaluation
-    experiment = pt.grid_evaluation(param_list_one=list_a, 
-                                    param_list_two=list_m, 
+    # Parameter line evaluation
+    experiment = pt.line_evaluation(param_list=list_m,
                                     param_eval=param_eval,
                                     file_name=args.fn,
                                     aggr_method=np.median,
@@ -125,17 +109,11 @@ if __name__ == "__main__":
     # Update fields
     experiment['date'] = now
     experiment['n_vertices'] = args.nv
-    experiment['n_communities'] = args.nc
-    experiment['n_vertices_per_community'] = args.nvpc
-    experiment['b'] = args.b
-    experiment['rows'] = list_a
-    experiment['row_label'] = 'a'
-    experiment['row_tick_labels'] = [
-        r"$k + b$",                                                        # Start
-        r"$\left( \sqrt{k} + \sqrt{b} \right)^2$",                         # Mid
-        r"$2\left( \sqrt{k} + \sqrt{b} \right)^2 - \left( k + b \right)$"  # End
-    ]
-    experiment['cols_'] = list_m
+    experiment['n_communities'] = n_communities
+    experiment['comm_sizes'] = comm_sizes
+    experiment['parties_in_gt'] = parties_in_gt
+    experiment['gt_signal'] = gt_signal
+    experiment['cols'] = list_m
     experiment['col_label'] = 'm'
     experiment['col_tick_labels'] = [
         r"$0$",   # Start
@@ -145,6 +123,7 @@ if __name__ == "__main__":
     experiment['sampling_design'] = args.sd
     experiment['recovery_function'] = args.rf
     experiment['path'] = save_path
+    experiment['nn_params'] = nn_params
     
     
     # Save

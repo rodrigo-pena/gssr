@@ -69,36 +69,15 @@ if __name__ == "__main__":
     # (Number of measurements)
     list_m = np.linspace(0, args.nv, args.nm)
     
-    
-    # Sampling design
-    replace = True
-    if args.sd == 'uniform_vertex':
-        smp_design = lambda g, m: smp.uniform_vertex(g, m, replace=replace)
-    elif args.sd == 'inv_degree_vertex':
-        smp_design = lambda g, m: smp.inv_degree_vertex(g, m, replace=replace)
+    # Sampling design        
+    smp_design = utils.select_sampling_design(args.sd, replace = True)
         
     
     # Recovery function
-    rtol = 1e-6 * (args.nv ** (-1/2))
-    maxit = 5000
-    verbosity = 'NONE'
-    if args.rf == 'tv_interpolation':
-        rec_fun = lambda g, s_ver, s_val: rec.tv_interpolation(g, s_ver, s_val,
-                                                               rtol=rtol, maxit=maxit,
-                                                               verbosity=verbosity)
-    elif args.rf == 'tv_least_sq':
-        rec_fun = lambda g, s_ver, s_val: rec.tv_least_sq(g, s_ver, s_val,
-                                                          rtol=rtol, maxit=maxit,
-                                                          verbosity=verbosity)
-    elif args.rf == 'dirichlet_form_interpolation':
-        rec_fun = lambda g, s_ver, s_val: rec.dirichlet_form_interpolation(g, s_ver, s_val,
-                                                                           rtol=rtol, maxit=maxit,
-                                                                           verbosity=verbosity)
-    elif args.rf == 'dirichlet_form_least_sq':
-        rec_fun = lambda g, s_ver, s_val: rec.dirichlet_form_least_sq(g, s_ver, s_val,
-                                                                      rtol=rtol, maxit=maxit,
-                                                                      verbosity=verbosity)
-    
+    rec_fun = utils.select_recovery_function(args.rf, 
+                                             rtol=1e-6 * (graph.n_vertices ** (-1/2)),
+                                             maxit=5000,
+                                             verbosity='NONE')
     
     # Parameter evaluation function
     def param_eval(a, m):

@@ -1,0 +1,6 @@
+'rouge' = '#ff0000'
+'groseille' = '#b51f1f'
+'leman' = '#00a79f'
+'canard' = '#007480'
+'ardoise' = '#413d3a'
+'perle' = '#cac7c7'
