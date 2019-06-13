@@ -78,7 +78,7 @@ if __name__ == "__main__":
     
     # Recovery function
     rec_fun = utils.select_recovery_function(args.rf, 
-                                             rtol=1e-6 * (graph.n_vertices ** (-1/2)),
+                                             rtol=1e-6 * (args.nv ** (-1/2)),
                                              maxit=5000,
                                              verbosity='NONE')
     
