@@ -26,7 +26,7 @@ echo "Running all experiments. This will take a long time. You could also try ru
 ## 2. Phase transition: Uniform sampling and Dirichlet recovery ##
 
 # 2-SSBM #
-python3 pt_ssbm.py -nv 1000 -nc 2 -nt 25 -b 0.5 -na 51 -nm 51 -sd "uniform_vertex" -rf "dirichlet_form_interpolation" -fn "pt_2ssbm_unif_samp_dirichlet_interp"
+#python3 pt_ssbm.py -nv 1000 -nc 2 -nt 25 -b 0.5 -na 51 -nm 51 -sd "uniform_vertex" -rf "dirichlet_form_interpolation" -fn "pt_2ssbm_unif_samp_dirichlet_interp"
 
 # Unbalanced 2-SBM #
 python3 pt_sbm.py -nv 1000 -nc 2 -nvpc 200 800 -nt 25 -b 0.5 -na 51 -nm 51 -sd "uniform_vertex" -rf "dirichlet_form_interpolation" -fn "pt_2sbm_unif_samp_dirichlet_interp"
