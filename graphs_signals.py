@@ -284,7 +284,7 @@ def email_eu_core(path='data/email-EU-core/'):
     graph = pygsp.graphs.Graph(adjacency=nx.adj_matrix(graph_nx))
     graph.info = {'node_com': labels, 
                   'comm_sizes': np.bincount(labels), 
-                  'world_rad': np.sqrt(graph.n_vertices)}
+                  'world_rad': 3 * np.sqrt(graph.n_vertices)}
     graph.set_coordinates(kind='community2D')
     
     n_communities = len(graph.info['comm_sizes'])
@@ -425,5 +425,147 @@ def bsds300(img_id, path='data/BSDS300/', seg_subset='color', subsample_factor=1
     
     for i in np.arange(graph.info['n_communities']):
         indicator_vectors[i, :] = (labels == i).astype(float) 
+    
+    return graph, indicator_vectors
+
+
+def high_school_social_network(path='data/high-school/', kind='contact'):
+    r"""
+    Graph and signals for the high school contact and friendship data.
+    
+    Parameters
+    ----------
+    path : str, optional
+        The path to the directory containing the high-school dataset. 
+        (default is 'data/high-school/')
+    kind : str, optional
+        {'contact', 'friendship', 'facebook', 'merge-all'} Type of network to load.
+        (default is 'contact')
+    kwargs : dict
+        Extra parameters.
+    
+    Returns
+    -------
+    :class:`pygsp.graphs.Graph`
+        The graph object.
+    ndarray
+        A k-by-n matrix containing the indicator vectors of each of the 
+        k classes in the school.
+        
+    Notes
+    -----
+    
+    
+    Examples
+    --------
+    >>> import graphs_signals as gs
+    >>> graph, indicator_vectors = gs.high_school_social_network(kind='contact')
+    >>> graph.plot(indicator_vectors[0,:])
+        
+    """
+    
+    # Read metadata
+    metadata_fn = 'metadata_2013.txt'
+    meta_df = pd.read_csv(path + metadata_fn, delimiter='\t', engine='python', header=None, 
+                 names=['id', 'class', 'gender'], 
+                 dtype={'id': np.int32, 'class': str, 'gender': str})
+    meta_df = meta_df.sort_values(by=['id']).reset_index(drop = True)
+    
+    # Get class and people counts
+    from collections import Counter
+    class_count = Counter(meta_df['class'])
+    classes = np.asarray(list(class_count.keys())).astype(str)
+    people_per_class = np.asarray(list(class_count.values())).astype(int)
+    n_communities = len(classes)
+    n_vertices = np.sum(people_per_class)
+    
+    # Sort classes from largest to smallest
+    sort_idx = np.argsort(people_per_class)[-1::-1]
+    people_per_class = people_per_class[sort_idx]
+    classes = classes[sort_idx]
+    
+    meta_df_ordered = pd.DataFrame(columns=meta_df.columns)
+    
+    for i in np.arange(n_communities):
+        class_mask = (meta_df['class'] == classes[i])
+        meta_df_ordered = meta_df_ordered.append(meta_df[class_mask])
+    
+    people_sort_idx = meta_df_ordered.index.values
+    meta_df_ordered = meta_df_ordered.reset_index(drop=True)
+    
+    # Create class label vectors
+    labels = np.nan * np.ones((n_vertices,))
+    indicator_vectors = np.zeros((n_communities, n_vertices))
+    
+    for i in np.arange(n_communities):
+        class_mask = (meta_df_ordered['class'] == classes[i])
+        indicator_vectors[i, :] = np.asarray(class_mask).astype(float)
+        labels[class_mask] = i
+        
+    labels = labels.astype(int)
+    
+    # Read graph edgelist
+    if kind == 'contact':
+        fn = 'Contact-diaries-network_data_2013.csv'
+        
+    elif kind == 'friendship':
+        fn = 'Friendship-network_data_2013.csv'
+        
+    elif kind == 'facebook':
+        fn = 'Facebook-known-pairs_data_2013.csv'
+        
+    elif kind == 'merge-all': # Recursion time!
+        
+        graph_contact, _ = high_school_social_network(path=path, kind='contact')
+        graph_friend, _ = high_school_social_network(path=path, kind='friendship')
+        graph_face, indicator_vectors = high_school_social_network(path=path, kind='facebook')
+        
+        adjacency = graph_contact.W + graph_friend.W + graph_face.W
+        
+        graph = pygsp.graphs.Graph(adjacency=adjacency)
+        graph.info = graph_face.info
+        graph.coords = graph_face.coords
+        
+        return graph, indicator_vectors
+        
+    else:
+        raise ValueError("Valid options for kind are 'contact', 'friendship' or 'facebook'.")
+    
+    edgelist_df = pd.read_csv(path + fn, 
+                              delimiter=' ', 
+                              engine='python', 
+                              header=None, 
+                              names=['source', 'target', 'weight'])
+    
+    if np.isnan(edgelist_df['weight']).all(): # True for the friendship network
+        edgelist_df['weight'] = 1.0
+    
+    # Undirected networkx graph from pandas edgelist
+    graph_nx = nx.from_pandas_edgelist(edgelist_df, 
+                                       source='source', 
+                                       target='target', 
+                                       edge_attr='weight')
+    
+    
+    # Graph
+    ids = np.array(meta_df_ordered['id'].values) # length = n_vertices
+    ids_with_connections = np.sort(list(graph_nx.nodes))
+    id_mask = np.isin(ids, ids_with_connections)
+    
+    adjacency = np.zeros((n_vertices, n_vertices))
+    adjacency[np.ix_(id_mask, id_mask)] = nx.adj_matrix(graph_nx).toarray()
+    adjacency = adjacency[np.ix_(people_sort_idx, people_sort_idx)]
+    
+    graph = pygsp.graphs.Graph(adjacency=adjacency)
+    
+    graph.info = {
+        'node_com': labels,
+        'comm_sizes' : np.bincount(labels),
+        'n_communities' : len(np.bincount(labels)),
+        'world_rad' : 1.5 * np.sqrt(graph.n_vertices),
+        'kind' : kind
+    }
+    
+    graph.set_coordinates(kind='community2D')
     
     return graph, indicator_vectors

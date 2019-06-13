@@ -6,6 +6,7 @@
 
 """
 
+import cvxpy
 
 import numpy as np
 
@@ -27,9 +28,8 @@ def sample_coordinates(n_coordinates, n_samples, probs=None, replace=False):
     probs : array, optional
         A vector with the probability weights for each coordinate.
         (the default is None, which results in uniform sampling)
-    replace : bool, optional
-        Whether to sample with replacement
-        (the default is False, which results in sampling without replacement).
+    replace: bool, optional
+        Sample with replacement. (default is False)
 
     Returns
     -------
@@ -85,13 +85,12 @@ def uniform_vertex(graph, n_samples, replace=False):
 
     Parameters
     ----------
-    graph: graph object
-        Must have the number of vertices accessible as an attribute `n_vertices`
+    graph: :class:`pygsp.graphs.Graph`
+        A graph object. 
     n_samples: int
         Number of measurements to take
-    replace: bool
-        Whether to sample with replacement (True) or not (False).
-        (Default: True)
+    replace: bool, optional
+        Sample with replacement. (default is True)
 
     Returns
     -------
@@ -112,13 +111,12 @@ def degree_vertex(graph, n_samples, replace=False):
 
     Parameters
     ----------
-    graph: graph object
-        Must have the number of vertices accessible as an attribute `n_vertices`
+    graph: :class:`pygsp.graphs.Graph`
+        A graph object. 
     n_samples: int
         Number of measurements to take
-    replace: bool
-        Whether to sample with replacement (True) or not (False).
-        (Default: True)
+    replace: bool, optional
+        Sample with replacement. (default is True)
 
     Returns
     -------
@@ -139,13 +137,12 @@ def inv_degree_vertex(graph, n_samples, replace=False):
 
     Parameters
     ----------
-    graph: graph object
-        Must have the number of vertices accessible as an attribute `n_vertices`
+    graph: :class:`pygsp.graphs.Graph`
+        A graph object. 
     n_samples: int
         Number of measurements to take
-    replace: bool
-        Whether to sample with replacement (True) or not (False).
-        (Default: True)
+    replace: bool, optional
+        Sample with replacement. (default is True)
 
     Returns
     -------
@@ -160,21 +157,20 @@ def inv_degree_vertex(graph, n_samples, replace=False):
                               replace=replace)
 
 
-def inter_comm_degree_vertex(graph, n_samples, labels, replace=False):
+def inter_comm_degree_vertex(graph, n_samples, gt_signal, replace=False):
     r"""
     Sampling proportional to connection with members of other communities
 
     Parameters
     ----------
-    graph: graph object
-        Must have the number of vertices accessible as an attribute `n_vertices`
+    graph: :class:`pygsp.graphs.Graph`
+        A graph object. 
     n_samples: int
         Number of measurements to take
-    labels: array
-        Labelling vector encoding to which community each vertex belongs.
-    replace: bool
-        Whether to sample with replacement (True) or not (False).
-        (Default: True)
+    gt_signal : array
+        The ground truth signal to be sampled.
+    replace: bool, optional
+        Sample with replacement. (default is True)
 
     Returns
     -------
@@ -187,7 +183,7 @@ def inter_comm_degree_vertex(graph, n_samples, labels, replace=False):
     adjacency = sparse.lil_matrix(graph.W.copy())
 
     # Make sure the labels vector is a numpy array
-    labels = np.asarray(labels)
+    labels = np.asarray(gt_signal)
 
     for vertex in np.arange(len(labels)):
         # Disconnect vertices that belong in the same community
@@ -199,4 +195,80 @@ def inter_comm_degree_vertex(graph, n_samples, labels, replace=False):
                               n_samples,
                               probs=inter_comm_degree,
                               replace=replace)
+
+
+def naive_coherence_diff_std_basis(graph, n_samples, replace=False):
+    r"""
+    Sample vertices proportionally to the inverse of a naive measure of coherence.
+
+    Parameters
+    ----------
+    graph: :class:`pygsp.graphs.Graph`
+        A graph object. 
+    n_samples: int
+        Number of measurements to take.
+    replace: bool, optional
+        Sample with replacement. (default is True)
+
+    Returns
+    -------
+    (n_samples, ) array
+        Indices of the sampled vertices.
+        
+    """
+    
+    graph.compute_differential_operator() # Make sure the graph has D as an attribute
+    D = graph.D.toarray().T.copy()        # The incidence matrix in graph.D is the 
+                                          # transpose of the gradient matrix
+    D_plus = np.linalg.pinv(D)            # Pseudoinverse of the gradient matrix
+    
+    # Sampling probability weights: product of the row-wise infinity-norm of D_plus_T times
+    # the row-wise l1-norm of D
+    probs = np.max(np.abs(D_plus.T), axis=0) * np.sum(np.abs(D), axis=0)
+    
+    return sample_coordinates(graph.n_vertices,
+                              n_samples,
+                              probs=probs,
+                              replace=replace)
+
+
+def coherence_cut_diff_std_basis(graph, n_samples, gt_signal, replace=False):
+    r"""
+    Sample vertices proportionally to the inverse of a measure of coherence over the true cut.
+
+    Parameters
+    ----------
+    graph: :class:`pygsp.graphs.Graph`
+        A graph object. 
+    n_samples: int
+        Number of measurements to take.
+    gt_signal : array
+        The ground truth signal to be sampled.
+    replace: bool, optional
+        Sample with replacement. (default is True)
+
+    Returns
+    -------
+    (n_samples, ) array
+        Indices of the sampled vertices.
+        
+    """
+    
+    graph.compute_differential_operator() # Make sure the graph has D as an attribute
+    D = graph.D.toarray().T.copy()        # The incidence matrix in graph.D is the 
+                                          # transpose of the gradient matrix
+    D_plus = np.linalg.pinv(D)            # Pseudoinverse of the gradient matrix
+    
+    # Orthogonal projection matrix onto the support of the cut 
+    P_S = np.diag((np.abs(D @ gt_signal) > 1e-6).astype(float))
+    
+    # Sampling probability weights: product of the row-wise infinity-norm of D_plus_T times
+    # the row-wise l1-norm of D
+    probs = np.max(np.abs(D_plus.T), axis=0) * np.sum(np.abs(P_S @ D), axis=0)
+    
+    return sample_coordinates(graph.n_vertices,
+                              n_samples,
+                              probs=probs,
+                              replace=replace)
+
 
