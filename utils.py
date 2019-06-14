@@ -237,15 +237,18 @@ def select_recovery_function(name, **kwargs):
         raise ValueError("There is no recovery function with this name.")
 
     
-def select_sampling_design(name, **kwargs):
+def select_sampling_design(name, *args, **kwargs):
     
     import sampling as smp
         
     if name == 'uniform_vertex':
         return lambda g, m: smp.uniform_vertex(g, m, **kwargs)
     
-    elif name == 'inv_degree_vertex':
-        return lambda g, m: smp.inv_degree_vertex(g, m, **kwargs)
+    elif name == 'naive_tv_coherence':
+        return lambda g, m: smp.naive_tv_coherence(g, m, **kwargs)
+    
+    elif name == 'jump_set_tv_coherence':
+        return lambda g, m: smp.jump_set_tv_coherence(g, m, *args, **kwargs)
     
     else:
         raise ValueError("There is no sampling design with this name.")

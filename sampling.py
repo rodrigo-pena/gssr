@@ -17,16 +17,16 @@ from scipy import sparse
 
 def sample_coordinates(n_coordinates, n_samples, probs=None, replace=False):
     r"""
-    Sample a given number of coordinates from a specified probability mass function
+    Sample a fixed number of coordinates independently at random.
 
     Parameters
     ----------
     n_coordinates : int
-        Number of coordinates from which to sample
+        Number of coordinates from which to sample.
     n_samples : int
-        Number of samples to take from the set `{1, 2, ..., n_coordinates}`.
+        Number of samples to take from the set `{0, 1, 2, ..., n_coordinates - 1}`.
     probs : array, optional
-        A vector with the probability weights for each coordinate.
+        The probability weights for each coordinate.
         (the default is None, which results in uniform sampling)
     replace: bool, optional
         Sample with replacement. (default is False)
@@ -34,7 +34,8 @@ def sample_coordinates(n_coordinates, n_samples, probs=None, replace=False):
     Returns
     -------
     array
-        The indices of the sampled coordinates
+        The indices of the sampled coordinates from the set 
+        `{0, 1, 2, ..., n_coordinates - 1}`.
         
     """
     
@@ -49,7 +50,7 @@ def sample_coordinates(n_coordinates, n_samples, probs=None, replace=False):
 
 def sample_coordinates_bernoulli(n_coordinates, probs=None):
     r"""
-    Sample coordinates using Bernoulli selectors
+    Sample coordinates using Bernoulli selectors.
 
     Parameters
     ----------
@@ -63,6 +64,11 @@ def sample_coordinates_bernoulli(n_coordinates, probs=None):
     -------
     array
         The indices of the sampled coordinates
+        
+    Notes
+    -----
+    This sampling is always without replacement, but the number of samples is a random
+    variable.
         
     """
     
@@ -81,7 +87,7 @@ def sample_coordinates_bernoulli(n_coordinates, probs=None):
 
 def uniform_vertex(graph, n_samples, replace=False):
     r"""
-    Uniform sampling over the vertices
+    Sample vertices uniformly at random.
 
     Parameters
     ----------
@@ -107,7 +113,7 @@ def uniform_vertex(graph, n_samples, replace=False):
 
 def degree_vertex(graph, n_samples, replace=False):
     r"""
-    Sample vertices proportionally to their degree
+    Sample vertices proportionally to their degree.
 
     Parameters
     ----------
@@ -133,7 +139,7 @@ def degree_vertex(graph, n_samples, replace=False):
 
 def inv_degree_vertex(graph, n_samples, replace=False):
     r"""
-    Sample vertices proportionally to the inverse of their degree
+    Sample vertices proportionally to the inverse of their degree.
 
     Parameters
     ----------
@@ -159,7 +165,7 @@ def inv_degree_vertex(graph, n_samples, replace=False):
 
 def inter_comm_degree_vertex(graph, n_samples, gt_signal, replace=False):
     r"""
-    Sampling proportional to connection with members of other communities
+    Sample vertices proportionally to their connection weight with members in other communities
 
     Parameters
     ----------
@@ -176,6 +182,12 @@ def inter_comm_degree_vertex(graph, n_samples, gt_signal, replace=False):
     -------
     (n_samples, ) array
         Indices of the sampled vertices
+        
+    Notes
+    -----
+    A community is defined as a level-set of the ground-truth signal. For example, if `gt_signal`
+    is {0,1}-valued, one community will contain all the vertices `i` for which `gt_signal[i]=0`,
+    while the other community will contain all the vertices `j` for which `gt_signal[i]=1`.
         
     """
 
@@ -197,9 +209,9 @@ def inter_comm_degree_vertex(graph, n_samples, gt_signal, replace=False):
                               replace=replace)
 
 
-def naive_coherence_diff_std_basis(graph, n_samples, replace=False):
+def naive_tv_coherence(graph, n_samples, replace=False):
     r"""
-    Sample vertices proportionally to the inverse of a naive measure of coherence.
+    Sample proportionally to a naive coherence measure from the TV interpolation problem.
 
     Parameters
     ----------
@@ -215,15 +227,26 @@ def naive_coherence_diff_std_basis(graph, n_samples, replace=False):
     (n_samples, ) array
         Indices of the sampled vertices.
         
+    Notes
+    -----
+    Denote by :math:`D` the graph gradient matrix, and let :math:`\{e_i\}_i` be the
+    standard basis in :math:`\mathbb{R}^n`. The vertex sampling probabilities are set as 
+    :math:`\pi_i \propto \|(D^+)^\top e_i\|_\infty \cdot \|D e_i\|_1`,
+    the product of the column-wise infinity-norm of :math:`(D^+)^\top` with
+    the column-wise l1-norm of :math:`D`.
+        
     """
     
-    graph.compute_differential_operator() # Make sure the graph has D as an attribute
-    D = graph.D.toarray().T.copy()        # The incidence matrix in graph.D is the 
-                                          # transpose of the gradient matrix
-    D_plus = np.linalg.pinv(D)            # Pseudoinverse of the gradient matrix
+    # Make sure the graph has D as an attribute
+    graph.compute_differential_operator() 
     
-    # Sampling probability weights: product of the row-wise infinity-norm of D_plus_T times
-    # the row-wise l1-norm of D
+    # The incidence matrix in graph.D is the transpose of the gradient matrix
+    D = graph.D.toarray().T.copy()    
+    
+    # Get the Moore-Penrose pseudo-inverse of the gradient matrix
+    D_plus = np.linalg.pinv(D)            
+    
+    # Set the sampling probability weights
     probs = np.max(np.abs(D_plus.T), axis=0) * np.sum(np.abs(D), axis=0)
     
     return sample_coordinates(graph.n_vertices,
@@ -232,10 +255,10 @@ def naive_coherence_diff_std_basis(graph, n_samples, replace=False):
                               replace=replace)
 
 
-def coherence_cut_diff_std_basis(graph, n_samples, gt_signal, replace=False):
+def jump_set_tv_coherence(graph, n_samples, gt_signal, replace=False):
     r"""
-    Sample vertices proportionally to the inverse of a measure of coherence over the true cut.
-
+    Sample proportionally to a jump-set-restricted coherence measure from the TV interpolation problem.
+    
     Parameters
     ----------
     graph: :class:`pygsp.graphs.Graph`
@@ -252,18 +275,32 @@ def coherence_cut_diff_std_basis(graph, n_samples, gt_signal, replace=False):
     (n_samples, ) array
         Indices of the sampled vertices.
         
+    Notes
+    -----
+    Denote by :math:`D \in \mathbb{R}^{N \times n}` the graph gradient matrix, and by
+    :math:`x` the ground-truth signal to be sampled. Let :math:`\{e_i\}_i` be the 
+    standard basis in :math:`\mathbb{R}^n` and :math:`P_S` be the orthogonal projection
+    of vectors in :math:`\mathbb{R}^N` onto the support :math:`S`of :math:`Dx`. The 
+    vertex sampling probabilities are set as 
+    :math:`\pi_i \propto \|(D^+)^\top e_i\|_\infty \cdot \|P_S D e_i\|_1`,
+    the product of the column-wise infinity-norm of :math:`(D^+)^\top` with
+    the column-wise l1-norm of :math:`P_S D`.
+    
     """
     
-    graph.compute_differential_operator() # Make sure the graph has D as an attribute
-    D = graph.D.toarray().T.copy()        # The incidence matrix in graph.D is the 
-                                          # transpose of the gradient matrix
-    D_plus = np.linalg.pinv(D)            # Pseudoinverse of the gradient matrix
+    # Make sure the graph has D as an attribute
+    graph.compute_differential_operator() 
     
-    # Orthogonal projection matrix onto the support of the cut 
+    # The incidence matrix in graph.D is the transpose of the gradient matrix
+    D = graph.D.toarray().T.copy()    
+    
+    # Get the Moore-Penrose pseudo-inverse of the gradient matrix
+    D_plus = np.linalg.pinv(D)   
+    
+    # Get the orthogonal projection matrix onto the support of the jump-set 
     P_S = np.diag((np.abs(D @ gt_signal) > 1e-6).astype(float))
     
-    # Sampling probability weights: product of the row-wise infinity-norm of D_plus_T times
-    # the row-wise l1-norm of D
+    # Set the sampling probability weights
     probs = np.max(np.abs(D_plus.T), axis=0) * np.sum(np.abs(P_S @ D), axis=0)
     
     return sample_coordinates(graph.n_vertices,
