@@ -41,13 +41,12 @@ if __name__ == "__main__":
                         help='number of points in the measurements axis')
     parser.add_argument('-sd', action='store', nargs='?', default='uniform_vertex', 
                         type=str, choices=['uniform_vertex',
-                                          'inv_degree_vertex'],
+                                           'naive_tv_coherence',
+                                           'jump_set_tv_coherence'],
                         help='vertex sampling design')
     parser.add_argument('-rf', action='store', nargs='?', default='tv_interpolation', 
                         type=str, choices=['tv_interpolation', 
-                                           'tv_least_sq', 
-                                           'dirichlet_form_interpolation', 
-                                           'dirichlet_form_least_sq'],
+                                           'dirichlet_form_interpolation'],
                         help='recovery function')
     parser.add_argument('-fn', action='store', nargs='?', default='pt_bsds300', 
                         type=str,
@@ -61,18 +60,24 @@ if __name__ == "__main__":
     # List of parameters in the horizontal axis of the grid
     # (Number of measurements)
     list_m = np.linspace(0, 1, args.nm) # Relative to the number of pixels in each image
-
-    # Sampling design
-    smp_design = utils.select_sampling_design(args.sd, replace = True)
     
     # Parameter evaluation function
     def param_eval(idx, m): 
         
         # Draw graph and indicator vectors
-        graph, _ = gs.bsds300(idx, path=args.p, graph_type=args.gtype, k=3, use_flann=True)
+        graph, _ = gs.bsds300(idx, 
+                              path=args.p, 
+                              graph_type=args.gtype, 
+                              k=3, 
+                              use_flann=True)
     
         # Set signal to be recovered
         gt_signal = graph.info['node_com'] # Segmentation labels
+        
+        # Sampling design
+        smp_design = utils.select_sampling_design(args.sd, 
+                                                  gt_signal, 
+                                                  replace = True)
         
         # Recovery function
         rec_fun = utils.select_recovery_function(args.rf, 

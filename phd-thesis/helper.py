@@ -8,7 +8,7 @@
 import matplotlib as mpl
 
 
-def set_latex__mpl_preamble():
+def set_latex_mpl_preamble():
     r"""
     Set `matplotlib` to typeset LaTeX with specific settings.
     """

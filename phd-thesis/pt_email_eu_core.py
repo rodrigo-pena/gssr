@@ -38,13 +38,12 @@ if __name__ == "__main__":
                         help='number of points in the measurements axis')
     parser.add_argument('-sd', action='store', nargs='?', default='uniform_vertex', 
                         type=str, choices=['uniform_vertex',
-                                          'inv_degree_vertex'],
+                                           'naive_tv_coherence',
+                                           'jump_set_tv_coherence'],
                         help='vertex sampling design')
     parser.add_argument('-rf', action='store', nargs='?', default='tv_interpolation', 
                         type=str, choices=['tv_interpolation', 
-                                           'tv_least_sq', 
-                                           'dirichlet_form_interpolation', 
-                                           'dirichlet_form_least_sq'],
+                                           'dirichlet_form_interpolation'],
                         help='recovery function')
     parser.add_argument('-fn', action='store', nargs='?', default='pt_email_eu_core', 
                         type=str,
@@ -73,7 +72,7 @@ if __name__ == "__main__":
     list_m = np.linspace(0, args.nv, args.nm)
     
     # Sampling design
-    smp_design = utils.select_sampling_design(args.sd, replace = True)
+    smp_design = utils.select_sampling_design(args.sd, gt_signal, replace = True)
     
     # Recovery function
     rec_fun = utils.select_recovery_function(args.rf, 

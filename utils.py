@@ -9,6 +9,22 @@ import pickle
 import numpy as np
 
 
+def save_obj(obj, path):
+    r"""
+    Save Python object to disk as a pickle file.
+    """
+    with open(path, 'wb') as f:
+        pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
+
+        
+def load_obj(path):
+    r"""
+    Load pickle file from disk.
+    """
+    with open(path, 'rb') as f:
+        return pickle.load(f)
+
+    
 def interpolation_projection(signal, sampled_vertices, sampled_values):
     r"""
     Orthogonal projection of a vector onto the interpolation set.
@@ -25,6 +41,7 @@ def sampling_restriction(signal, sampled_vertices):
     """
     return signal[sampled_vertices]
 
+
 def sampling_embedding(embedding_dim, sampled_values, sampled_vertices):
     r"""
     Embed a sampling-restricted vector into a higher-dimension ambient space.
@@ -33,6 +50,7 @@ def sampling_embedding(embedding_dim, sampled_values, sampled_vertices):
     embedding[sampled_vertices] = sampled_values
     return embedding
 
+
 def nan_off_sample(n_vertices, sampled_vertices, sampled_values):
     r"""
     Insert `np.nan` values at the un-sampled coordinates.
@@ -40,20 +58,7 @@ def nan_off_sample(n_vertices, sampled_vertices, sampled_values):
     sampled_signal_with_nan = np.nan * np.ones(n_vertices,)
     sampled_signal_with_nan[sampled_vertices] = sampled_values
     return sampled_signal_with_nan
-
-def save_obj(obj, path):
-    r"""
-    Save Python object to disk as a pickle file.
-    """
-    with open(path, 'wb') as f:
-        pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
-
-def load_obj(path):
-    r"""
-    Load pickle file from disk.
-    """
-    with open(path, 'rb') as f:
-        return pickle.load(f)
+ 
     
 def get_diff_op(graph):
     r"""
@@ -74,6 +79,80 @@ def get_diff_op(graph):
         graph.estimate_lmax()
     op_specnorm = np.sqrt(graph.lmax)
     return op_direct, op_adjoint, op_specnorm
+
+
+def spectral_norm(shape, L, Lt):
+    r"""
+    Estimate largest singular value of L using ARPACK as an eigensolver.
+
+    Parameters
+    ----------
+    shape : tuple
+        Dimensions of the linear map (dim(range L), dim(dom L)).
+    L : callable
+        A function representing a linear mapping between vector spaces.
+    Lt : callable
+        A function representing the adjoint linear mapping.
+
+    Returns
+    -------
+    Largest singular value of L.
+
+    Notes
+    -----
+    This function can be unstable and diverge.
+
+    """
+    
+    from scipy.sparse.linalg import LinearOperator, svds
+    
+    lin_op = LinearOperator(shape=shape, matvec=L, rmatvec=Lt)
+    
+    try:
+        spec_norm = svds(lin_op, k=1, which='LM', 
+                         return_singular_vectors=False)[0]
+    except:
+        raise ValueError('The spectral norm estimate did not converge')
+    
+    return spec_norm
+
+    
+def select_recovery_function(name, **kwargs):
+    
+    import recovery as rec
+    
+    if name == 'tv_interpolation':
+        return lambda g, s_ver, s_val: rec.tv_interpolation(g, s_ver, s_val, **kwargs)
+
+    elif name == 'tv_least_sq':
+        return lambda g, s_ver, s_val: rec.tv_least_sq(g, s_ver, s_val, **kwargs)
+
+    elif name == 'dirichlet_form_interpolation':
+        return lambda g, s_ver, s_val: rec.dirichlet_form_interpolation(g, s_ver, s_val, **kwargs)
+
+    elif name == 'dirichlet_form_least_sq':
+        return lambda g, s_ver, s_val: rec.dirichlet_form_least_sq(g, s_ver, s_val, **kwargs)
+    
+    else:
+        raise ValueError("There is no recovery function with this name.")
+
+    
+def select_sampling_design(name, *args, **kwargs):
+    
+    import sampling as smp
+        
+    if name == 'uniform_vertex':
+        return lambda g, m: smp.uniform_vertex(g, m, **kwargs)
+    
+    elif name == 'naive_tv_coherence':
+        return lambda g, m: smp.naive_tv_coherence(g, m, **kwargs)
+    
+    elif name == 'jump_set_tv_coherence':
+        return lambda g, m: smp.jump_set_tv_coherence(g, m, *args, **kwargs)
+    
+    else:
+        raise ValueError("There is no sampling design with this name.")
+        
 
 def standard_pipeline(graph, gt_signal, m, smp_design, rec_fun):
     r"""
@@ -115,41 +194,8 @@ def standard_pipeline(graph, gt_signal, m, smp_design, rec_fun):
     
     return recovered_signal, rel_err
 
-def spectral_norm(shape, L, Lt):
-    r"""
-    Estimate largest singular value of L using ARPACK as an eigensolver.
-
-    Parameters
-    ----------
-    shape : tuple
-        Dimensions of the linear map (dim(range L), dim(dom L)).
-    L : callable
-        A function representing a linear mapping between vector spaces.
-    Lt : callable
-        A function representing the adjoint linear mapping.
-
-    Returns
-    -------
-    Largest singular value of L.
-
-    Notes
-    -----
-    This function can be unstable and diverge.
-
-    """
-    
-    from scipy.sparse.linalg import LinearOperator, svds
-    
-    lin_op = LinearOperator(shape=shape, matvec=L, rmatvec=Lt)
-    
-    try:
-        spec_norm = svds(lin_op, k=1, which='LM', 
-                         return_singular_vectors=False)[0]
-    except:
-        raise ValueError('The spectral norm estimate did not converge')
-    
-    return spec_norm
-
+        
+## BSDS300 ##
 
 def get_bsds300_id_list(path='data/BSDS300/', subset='train'):
     r"""
@@ -217,43 +263,8 @@ def get_bsds300_subset(img_id, path='data/BSDS300/'):
         raise 'unknown'
       
     
-def select_recovery_function(name, **kwargs):
-    
-    import recovery as rec
-    
-    if name == 'tv_interpolation':
-        return lambda g, s_ver, s_val: rec.tv_interpolation(g, s_ver, s_val, **kwargs)
+## swiss-national-council ##
 
-    elif name == 'tv_least_sq':
-        return lambda g, s_ver, s_val: rec.tv_least_sq(g, s_ver, s_val, **kwargs)
-
-    elif name == 'dirichlet_form_interpolation':
-        return lambda g, s_ver, s_val: rec.dirichlet_form_interpolation(g, s_ver, s_val, **kwargs)
-
-    elif name == 'dirichlet_form_least_sq':
-        return lambda g, s_ver, s_val: rec.dirichlet_form_least_sq(g, s_ver, s_val, **kwargs)
-    
-    else:
-        raise ValueError("There is no recovery function with this name.")
-
-    
-def select_sampling_design(name, *args, **kwargs):
-    
-    import sampling as smp
-        
-    if name == 'uniform_vertex':
-        return lambda g, m: smp.uniform_vertex(g, m, **kwargs)
-    
-    elif name == 'naive_tv_coherence':
-        return lambda g, m: smp.naive_tv_coherence(g, m, **kwargs)
-    
-    elif name == 'jump_set_tv_coherence':
-        return lambda g, m: smp.jump_set_tv_coherence(g, m, *args, **kwargs)
-    
-    else:
-        raise ValueError("There is no sampling design with this name.")
-
-        
 def get_parliament_quadrant_coordinates(n_chairs, quadrant_angle=np.pi/4, flipped=False):
     r"""
     Get coordinates in analogy to the positions of the chairs on a quadrant of the Swiss parliament.
