@@ -72,7 +72,7 @@ def pt_grid(grid, ax=None, add_cbar=True, vmin=None, vmax=None):
     return fig, ax    
     
 
-def snc_with_party_labels(graph, ax=None):
+def snc_with_party_labels(graph, ax=None, **kwargs):
     r"""
     Scatter plot of the Swiss National Council members.
 
