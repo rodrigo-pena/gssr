@@ -5,6 +5,7 @@
 
 """
 
+from collections import Counter
 
 import numpy as np
 import pandas as pd
@@ -198,7 +199,6 @@ def swiss_national_council(path='data/swiss-national-council/',
     voting_matrix = pd.read_csv(os.path.join(path, voting_matrix_fn)).values
     
     # Get parties and member counts
-    from collections import Counter
     party_count = Counter(councillors['PartyAbbreviation'])
     parties = np.asarray(list(party_count.keys())).astype(str)
     members_per_party = np.asarray(list(party_count.values())).astype(int)
@@ -278,11 +278,14 @@ def email_eu_core(path='data/email-EU-core/'):
     
     edgelist = np.loadtxt(path + 'email-Eu-core.txt')
     labels = np.loadtxt(path + 'email-Eu-core-department-labels.txt').astype(int)[:,1]
-
+    
+    # Build graph
     graph_nx = nx.from_edgelist(edgelist)
     graph_nx.remove_edges_from(graph_nx.selfloop_edges())
+    
+    adjacency = nx.adj_matrix(graph_nx)
 
-    graph = pygsp.graphs.Graph(adjacency=nx.adj_matrix(graph_nx))
+    graph = pygsp.graphs.Graph(adjacency=adjacency)
     graph.info = {'node_com': labels, 
                   'comm_sizes': np.bincount(labels), 
                   'world_rad': 3 * np.sqrt(graph.n_vertices)}
@@ -475,7 +478,6 @@ def high_school_social_network(path='data/high-school/', kind='contact'):
     meta_df = meta_df.sort_values(by=['id']).reset_index(drop = True)
     
     # Get class and people counts
-    from collections import Counter
     class_count = Counter(meta_df['class'])
     classes = np.asarray(list(class_count.keys())).astype(str)
     people_per_class = np.asarray(list(class_count.values())).astype(int)

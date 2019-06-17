@@ -240,13 +240,14 @@ def naive_tv_coherence(graph, n_samples, replace=False):
     graph.compute_differential_operator() 
     
     # The incidence matrix in graph.D is the transpose of the gradient matrix
-    D = graph.D.toarray().T.copy()    
+    D = graph.D.T    
     
     # Get the Moore-Penrose pseudo-inverse of the gradient matrix
-    D_plus = np.linalg.pinv(D)            
+    # Note: `np.linalg.pinv` can be quite slow for large graphs
+    D_plus = np.linalg.pinv(D.toarray())            
     
     # Set the sampling probability weights
-    probs = np.max(np.abs(D_plus.T), axis=0) * np.sum(np.abs(D), axis=0)
+    probs = np.max(np.abs(D_plus.T), axis=0) * np.sum(np.abs(D).toarray(), axis=0)
     
     return sample_coordinates(graph.n_vertices,
                               n_samples,
@@ -291,16 +292,18 @@ def jump_set_tv_coherence(graph, n_samples, gt_signal, replace=False):
     graph.compute_differential_operator() 
     
     # The incidence matrix in graph.D is the transpose of the gradient matrix
-    D = graph.D.toarray().T.copy()    
+    D = graph.D.T
     
     # Get the Moore-Penrose pseudo-inverse of the gradient matrix
-    D_plus = np.linalg.pinv(D)   
+    # Note: `np.linalg.pinv` can be quite slow for large graphs
+    D_plus = np.linalg.pinv(D.toarray())   
     
     # Get the orthogonal projection matrix onto the support of the jump-set 
-    P_S = np.diag((np.abs(D @ gt_signal) > 1e-6).astype(float))
+    from scipy.sparse import diags
+    P_S = diags((np.abs(D @ gt_signal) > 1e-6).astype(float))
     
     # Set the sampling probability weights
-    probs = np.max(np.abs(D_plus.T), axis=0) * np.sum(np.abs(P_S @ D), axis=0)
+    probs = np.max(np.abs(D_plus.T), axis=0) * np.sum(np.abs(P_S @ D).toarray(), axis=0)
     
     return sample_coordinates(graph.n_vertices,
                               n_samples,
