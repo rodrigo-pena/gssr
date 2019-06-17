@@ -28,3 +28,11 @@ def set_latex_mpl_preamble():
          ]
     }
     mpl.rcParams.update(pgf_with_custom_preamble)
+    
+    
+def vanish_frame(ax):
+    for spine in ax.spines.values():
+        spine.set_visible(False)
+        
+def vanish_ticks(ax, axis='both'):
+    ax.tick_params(axis=axis, length=0, labelsize=0)

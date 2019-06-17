@@ -17,7 +17,7 @@ from mpl_toolkits.axes_grid1.axes_divider import make_axes_locatable
 from mpl_toolkits.axes_grid1.colorbar import colorbar
 
 
-def pt_grid(grid, ax=None, add_cbar=True, vmin=None, vmax=None):
+def pt_grid(grid, ax=None, with_cbar=False, vmin=None, vmax=None):
     r"""
     Plot in the style of a phase transition grid.
     
@@ -27,8 +27,8 @@ def pt_grid(grid, ax=None, add_cbar=True, vmin=None, vmax=None):
         The pixel grid to plot.
     ax : :class:`matplotlib.axes.Axes`, optional
         Container for figure elements.
-    add_cbar : bool, optional
-        Include colorbar on plot. (default is True)
+    with_cbar : bool, optional
+        Include colorbar on plot. (default is False)
     vmin : float, optional
         Minimum value in `matplotlib.pyplot.imshow`.
     vmax : float, optional
@@ -41,6 +41,9 @@ def pt_grid(grid, ax=None, add_cbar=True, vmin=None, vmax=None):
     
     ax : :class:`matplotlib.axes.Axes`
         Container for figure elements. Sets the coordinate system.
+        
+    cb : :class:`matplotlib.colorbar.Colorbar`
+        Colorbar object. Only returned if `colorbar = True`.
 
     """
     
@@ -55,21 +58,24 @@ def pt_grid(grid, ax=None, add_cbar=True, vmin=None, vmax=None):
         fig = plt.gcf()
         
     im = ax.imshow(grid, 
-                   cmap='Reds', 
                    interpolation='none', 
                    origin='lower', 
+                   aspect='equal',
                    vmin=vmin, 
                    vmax=vmax)
     
-    if add_cbar:
+    if with_cbar:
         divider = make_axes_locatable(ax)
         cax = divider.append_axes("right", size="5%", pad=0.05) # Fix height
         cb = colorbar(im, cax=cax, ticks=mpl.ticker.MaxNLocator(nbins=2))
+        cb.ax.tick_params(length=0)
         
-    ax.xaxis.set_major_locator(plt.NullLocator())
-    ax.yaxis.set_major_locator(plt.NullLocator())
+    ax.tick_params(length=0)
         
-    return fig, ax    
+    if with_cbar:
+        return fig, ax, cb
+    else:
+        return fig, ax    
     
 
 def snc_with_party_labels(graph, ax=None, **kwargs):
