@@ -8,29 +8,27 @@
 import matplotlib as mpl
 
 
-def set_latex_mpl_preamble():
+def set_pgf_preamble():
     r"""
     Set `matplotlib` to typeset LaTeX with specific settings.
     """
     
-    mpl.use("pgf")
-    pgf_with_custom_preamble = {
-        "font.family": "serif", # use serif/main font for text elements
-        "text.usetex": True,    # use inline math for ticks
-        "pgf.rcfonts": False,   # don't setup fonts from rc parameters
+    from matplotlib.backends.backend_pgf import FigureCanvasPgf
+    mpl.backend_bases.register_backend('pdf', FigureCanvasPgf)
+    
+    pgf_setup = {
+        "pgf.rcfonts": False,                 # setup fonts from rc parameters
         "pgf.texsystem": "pdflatex",
         "pgf.preamble": [
-             "\\usepackage[utf8]{inputenc}",
              "\\usepackage[T1]{fontenc}",
-             "\\usepackage{fourier}",         # load additional packages
-             "\\usepackage{unicode-math}",  # unicode math setup
-             "\\setmainfont{Utopia}", # serif font via preamble
+             "\\usepackage[utf8]{inputenc}",
+             "\\usepackage{fourier}"  
          ]
     }
-    mpl.rcParams.update(pgf_with_custom_preamble)
     
+    mpl.rcParams.update(pgf_setup)
     
-def vanish_frame(ax):
+def vanish_spines(ax):
     for spine in ax.spines.values():
         spine.set_visible(False)
         

@@ -17,7 +17,14 @@ from mpl_toolkits.axes_grid1.axes_divider import make_axes_locatable
 from mpl_toolkits.axes_grid1.colorbar import colorbar
 
 
-def pt_grid(grid, ax=None, with_cbar=False, vmin=None, vmax=None):
+def add_colorbar(im, ax, position='right'):
+    divider = make_axes_locatable(ax)
+    cax = divider.append_axes(position, size="5%", pad=0.05)
+    return colorbar(im, cax=cax, ticks=mpl.ticker.MaxNLocator(nbins=2))
+
+
+def pt_grid(grid, ax=None, with_cbar=False, 
+            vmin=None, vmax=None):
     r"""
     Plot in the style of a phase transition grid.
     
@@ -47,28 +54,17 @@ def pt_grid(grid, ax=None, with_cbar=False, vmin=None, vmax=None):
 
     """
     
-    # Global settings
-    figsize = (8.3, 8.3) # Width (in inches) of an A4 paper
-    dpi = 300            # Good for printing
     fig = None
     
     if ax is None:
-        fig, ax = plt.subplots(figsize=figsize, ncols=1) 
+        fig, ax = plt.subplots(ncols=1) 
     else:
         fig = plt.gcf()
         
-    im = ax.imshow(grid, 
-                   interpolation='none', 
-                   origin='lower', 
-                   aspect='equal',
-                   vmin=vmin, 
-                   vmax=vmax)
+    im = ax.imshow(grid, vmin=vmin, vmax=vmax)
     
     if with_cbar:
-        divider = make_axes_locatable(ax)
-        cax = divider.append_axes("right", size="5%", pad=0.05) # Fix height
-        cb = colorbar(im, cax=cax, ticks=mpl.ticker.MaxNLocator(nbins=2))
-        cb.ax.tick_params(length=0)
+        cb = add_colorbar(im, ax)
         
     ax.tick_params(length=0)
         
