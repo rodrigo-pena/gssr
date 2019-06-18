@@ -246,8 +246,8 @@ axes.formatter.offset_threshold : 4     ## When useoffset is True, the offset
                                          ## digits from tick labels.
 axes.spines.left   : True   ## display axis spines
 axes.spines.bottom : True
-axes.spines.top    : True
-axes.spines.right  : True
+axes.spines.top    : False
+axes.spines.right  : False
 axes.unicode_minus  : True    ## use unicode for the minus symbol
                                ## rather than hyphen.  See
                                ## http://en.wikipedia.org/wiki/Plus_and_minus_signs#Character_codes
