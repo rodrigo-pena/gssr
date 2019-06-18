@@ -108,7 +108,7 @@ def grid_evaluation(param_list_one, param_list_two, param_eval, n_trials=16,
         return experiment
     
     # Set a pool of workers
-    nb_workers = mp.cpu_count()
+    nb_workers = min(mp.cpu_count(), 24)
     print('Working with {} processes.'.format(nb_workers))
     pool = mp.Pool(nb_workers)
     
