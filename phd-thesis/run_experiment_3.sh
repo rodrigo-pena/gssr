@@ -1,6 +1,7 @@
 #!/bin/bash
 
 echo "Experiment 3: phase transitions from naive coherence sampling and TV interpolation."
+export OMP_NUM_THREADS=24
 
 # swiss-national-council #
 echo "swiss-national-council"

@@ -1,10 +1,11 @@
 #!/bin/bash
 
 echo "Experiment 4: phase transitions from jump-set coherence sampling and TV interpolation."
+export OMP_NUM_THREADS=24
 
 # swiss-national-council #
-echo "swiss-national-council"
-python3 pt_swiss_national_council.py -nt 51 -nm 101 -sd "jump_set_tv_coherence" -rf "tv_interpolation" -fn "pt_snc_jump_set_coherence_samp_tv_interp"
+#echo "swiss-national-council"
+#python3 pt_swiss_national_council.py -nt 51 -nm 101 -sd "jump_set_tv_coherence" -rf "tv_interpolation" -fn "pt_snc_jump_set_coherence_samp_tv_interp"
 
 # BSDS300 #
 echo "BSDS300"

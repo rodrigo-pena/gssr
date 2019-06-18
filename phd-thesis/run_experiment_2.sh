@@ -1,6 +1,7 @@
 #!/bin/bash
 
 echo "Experiment 2: phase transitions from uniform sampling and Dirichlet interpolation."
+export OMP_NUM_THREADS=24
 
 # swiss-national-council #
 echo "swiss-national-council"
