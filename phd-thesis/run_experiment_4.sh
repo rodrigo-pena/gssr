@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Experiment 4: phase transitions from jump-set coherence sampling and TV interpolation."
-export OMP_NUM_THREADS=24
+export OMP_NUM_THREADS=1
 
 # swiss-national-council #
 #echo "swiss-national-council"
