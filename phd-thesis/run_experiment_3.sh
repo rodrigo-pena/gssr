@@ -4,12 +4,12 @@ echo "Experiment 3: phase transitions from naive coherence sampling and TV inter
 export OMP_NUM_THREADS=1
 
 # swiss-national-council #
-echo "swiss-national-council"
-python3 pt_swiss_national_council.py -nt 51 -nm 101 -sd "naive_tv_coherence" -rf "tv_interpolation" -fn "pt_snc_naive_coherence_samp_tv_interp"
+#echo "swiss-national-council"
+#python3 pt_swiss_national_council.py -nt 51 -nm 101 -sd "naive_tv_coherence" -rf "tv_interpolation" -fn "pt_snc_naive_coherence_samp_tv_interp"
 
 # BSDS300 #
-echo "BSDS300"
-python3 pt_bsds.py -sub 'both' -gtype 'grid_and_patches' -nt 15 -nm 25 -sd "naive_tv_coherence" -rf "tv_interpolation" -fn "pt_bsds300_naive_coherence_samp_tv_interp"
+#echo "BSDS300"
+#python3 pt_bsds.py -sub 'both' -gtype 'grid_and_patches' -nt 15 -nm 25 -sd "naive_tv_coherence" -rf "tv_interpolation" -fn "pt_bsds300_naive_coherence_samp_tv_interp"
 
 # 2-SSBM #
 echo "2-SSBM"

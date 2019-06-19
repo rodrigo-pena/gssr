@@ -99,7 +99,7 @@ def plot_sbm_pt(experiment, ax=None):
     connect_thresh = ax.axhline(y=-0.3, 
                                 xmin=0, 
                                 xmax=1, 
-                                linestyle='dashed', 
+                                linestyle='solid', 
                                 linewidth=2,
                                 color=epfl_colors['leman'], 
                                 dash_capstyle='butt')
@@ -107,7 +107,7 @@ def plot_sbm_pt(experiment, ax=None):
     exact_thresh = ax.axhline(y=len(experiment['rows'])/2 - .5, 
                               xmin=0, 
                               xmax=1, 
-                              linestyle='dashed', 
+                              linestyle='solid', 
                               linewidth=2, 
                               color=epfl_colors['canard'], 
                               dash_capstyle='butt')
