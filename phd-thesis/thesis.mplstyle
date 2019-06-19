@@ -292,8 +292,8 @@ xtick.labelbottom    : True   ## draw label on the bottom
 #xtick.minor.size     : 2      ## minor tick size in points
 #xtick.major.width    : 0.8    ## major tick width in points
 #xtick.minor.width    : 0.6    ## minor tick width in points
-xtick.major.pad      : 0.0    ## distance to major tick label in points
-xtick.minor.pad      : 0.0    ## distance to the minor tick label in points
+xtick.major.pad      : 0.5    ## distance to major tick label in points
+xtick.minor.pad      : 0.5    ## distance to the minor tick label in points
 #xtick.color          : black  ## color of the tick labels
 #xtick.labelsize      : medium ## fontsize of the tick labels
 #xtick.direction      : out    ## direction: in, out, or inout
@@ -312,8 +312,8 @@ ytick.labelright     : False  ## draw tick labels on the right side
 #ytick.minor.size     : 2      ## minor tick size in points
 #ytick.major.width    : 0.8    ## major tick width in points
 #ytick.minor.width    : 0.6    ## minor tick width in points
-ytick.major.pad      : 0.0    ## distance to major tick label in points
-ytick.minor.pad      : 0.0    ## distance to the minor tick label in points
+ytick.major.pad      : 0.5    ## distance to major tick label in points
+ytick.minor.pad      : 0.5    ## distance to the minor tick label in points
 #ytick.color          : black  ## color of the tick labels
 #ytick.labelsize      : medium ## fontsize of the tick labels
 #ytick.direction      : out    ## direction: in, out, or inout

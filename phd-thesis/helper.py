@@ -14,7 +14,6 @@ import matplotlib.ticker as ticker
 from mpl_toolkits.axes_grid1.axes_divider import make_axes_locatable
 from mpl_toolkits.axes_grid1.colorbar import colorbar
 
-mpl.use('pgf')
 
 def figsize(scale):
     r""" Figure scaled according to default \textwidth.
@@ -38,8 +37,10 @@ def set_pgf_preamble():
     Set `matplotlib` to typeset LaTeX with specific settings.
     """
     
-    #from matplotlib.backends.backend_pgf import FigureCanvasPgf
-    #mpl.backend_bases.register_backend('pdf', FigureCanvasPgf)
+    #mpl.use('pgf')
+    
+    from matplotlib.backends.backend_pgf import FigureCanvasPgf
+    mpl.backend_bases.register_backend('pdf', FigureCanvasPgf)
     
     pgf_setup = {
         "font.serif": "serif",
@@ -63,6 +64,7 @@ def set_pgf_preamble():
     
     mpl.rcParams.update(pgf_setup)
     
+    
 def vanish_spines(ax):
     for spine in ax.spines.values():
         spine.set_visible(False)
@@ -76,9 +78,80 @@ def add_colorbar(im, ax, position='right'):
     divider = make_axes_locatable(ax)
     cax = divider.append_axes(position, size="5%", pad=0.05)
     return colorbar(im, cax=cax, ticks=mpl.ticker.MaxNLocator(nbins=2))
+
+
+def plot_colorbar(ax=None, pos=[0.0, 0.0, 0.05, 1.0],
+                  vmin=0.0, vmax=1.0, cmap=mpl.cm.Reds, **kwargs):
+    norm = mpl.colors.Normalize(vmin=vmin, vmax=vmax)
+    
+    if ax is None:
+        fig = plt.figure()
+        ax = fig.add_axes(pos)
+        
+    cb = mpl.colorbar.ColorbarBase(ax=ax, cmap=cmap, norm=norm, **kwargs)
+    
+    return cb
+
+
+def draw_arrow_text(target_coords, text_coords, text_str, ax=None):
+    x_target = target_coords[0]
+    y_target = target_coords[1]
+    
+    x_text = text_coords[0]
+    y_text = text_coords[1]
+    
+    x_arrow_increment = x_target - x_text
+    y_arrow_increment = y_target - y_text
+    
+    if ax is None:
+        fig, ax = plt.subplots(ncols=1) 
+
+    ax.arrow(x_text, 
+             y_text, 
+             x_arrow_increment, 
+             y_arrow_increment, 
+             linewidth=0.5, 
+             overhang=0.5,
+             width=0.0, 
+             head_width=1, 
+             head_length=1,
+             facecolor='k',
+             edgecolor='k')
+
+    ax.text(x_text, 
+            y_text, 
+            text_str,
+            ha='left', 
+            va='bottom', 
+            size=8, 
+            color='k',
+            bbox=dict(facecolor='w', edgecolor='w', alpha=0.0, pad=0.0),
+            rotation=0)
+
+
+def indicate_ssbm_thresholds(experiment, ax, text_height=3, text_width=23):
+    
+    y_top = len(experiment['rows']) 
+    y_mid = len(experiment['rows']) / 2
+    y_bottom = 0
+
+    x_right = len(experiment['rows'])
+    x_left = 0
+
+    text_height = 3 # In pixels
+    text_width = 23 # In pixels
+
+    target_coords = (x_left, y_mid)
+    text_coords = (x_right - text_width, 2 * y_mid - text_height)
+    draw_arrow_text(target_coords, text_coords, "Exact recovery threshold", ax=ax)
+
+    target_coords = (x_left, y_bottom)
+    text_coords = (x_right - text_width, y_mid - text_height)
+    
+    draw_arrow_text(target_coords, text_coords, "Connectivity threshold", ax=ax)
     
     
-def plot_sbm_pt(experiment, ax=None):
+def plot_sbm_pt(experiment, ax=None, with_colorbar=False, with_thresholds=False):
     r"""Plot SBM phase transition experiment."""
     
     epfl_colors = utils.load_obj('epfl_colors_hex.pkl')
@@ -92,33 +165,10 @@ def plot_sbm_pt(experiment, ax=None):
         
     im = ax.imshow(experiment['grid'], vmin=0, vmax=1)
     
-    cb = add_colorbar(im, ax)
-    vanish_spines(cb.ax)
-    cb.ax.tick_params(axis='both', length=0)
-    
-    connect_thresh = ax.axhline(y=-0.3, 
-                                xmin=0, 
-                                xmax=1, 
-                                linestyle='solid', 
-                                linewidth=2,
-                                color=epfl_colors['leman'], 
-                                dash_capstyle='butt')
-
-    exact_thresh = ax.axhline(y=len(experiment['rows'])/2 - .5, 
-                              xmin=0, 
-                              xmax=1, 
-                              linestyle='solid', 
-                              linewidth=2, 
-                              color=epfl_colors['canard'], 
-                              dash_capstyle='butt')
-
-    leg = ax.legend(handles=[exact_thresh, connect_thresh], 
-                    labels=["Exact recovery threshold", "Connectivity threshold"], 
-                    frameon=False, 
-                    facecolor='inherit',
-                    loc='upper right',
-                    bbox_to_anchor=(0.76, 1.16), 
-                    borderaxespad=0.)
+    if with_colorbar:
+        cb = add_colorbar(im, ax)
+        vanish_spines(cb.ax)
+        cb.ax.tick_params(axis='both', length=0)
 
     x = experiment['cols'].astype(int)
     
@@ -139,5 +189,31 @@ def plot_sbm_pt(experiment, ax=None):
     ax.set_yticklabels(["{0:.1f}".format(y[0]),
                         "{0:.1f}".format(np.median(y)),
                         "{0:.1f}".format(y[-1])])
+    
+    if with_thresholds:
+        indicate_ssbm_thresholds(experiment, ax=ax)
 
-    return fig, ax, cb, leg, exact_thresh, connect_thresh    
+    if with_colorbar:
+        return fig, ax, cb
+    else:
+        return fig, ax
+    
+    
+def plot_line_pt(experiment, ax=None, label='', **kwargs):
+    
+    fig = None
+    if ax is None:
+        fig, ax = plt.subplots(1)
+    else:
+        fig = plt.gcf()
+
+    ax.plot(experiment['cols'], 
+            experiment['line'], 
+            label=label,  
+            **kwargs)
+
+    ax.set_ylim(bottom=-0.1, top=1.1)
+
+    ax.set(aspect='auto',
+           xlabel='\# Measurements (m)', 
+           ylabel=r'Relative $\ell_2$ error')
