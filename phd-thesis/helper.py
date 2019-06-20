@@ -15,7 +15,7 @@ from mpl_toolkits.axes_grid1.axes_divider import make_axes_locatable
 from mpl_toolkits.axes_grid1.colorbar import colorbar
 
 
-def figsize(scale):
+def figsize_from_textwidth(scale):
     r""" Figure scaled according to default \textwidth.
     
     Notes
@@ -48,10 +48,11 @@ def set_pgf_preamble():
         "font.monospace": [],
         "axes.labelsize": 11,               # LaTeX default is 10pt font.
         "font.size": 11,
+        "axes.titlesize": 13,
         "legend.fontsize": 11,               # Make the legend/label fonts a little smaller
         "xtick.labelsize": 11,
         "ytick.labelsize": 11,
-        "figure.figsize": figsize(0.9),   
+        "figure.figsize": figsize_from_textwidth(0.9),   
         "text.usetex": True,
         "pgf.rcfonts": False,                 # Disable setting up fonts from rcParams
         "pgf.texsystem": "pdflatex",
@@ -133,19 +134,19 @@ def indicate_ssbm_thresholds(experiment, ax, text_height=3, text_width=23):
     
     y_top = len(experiment['rows']) 
     y_mid = len(experiment['rows']) / 2
-    y_bottom = 0
+    y_bottom = 0.0
 
     x_right = len(experiment['rows'])
-    x_left = 0
+    x_left = 0.0
 
     text_height = 3 # In pixels
     text_width = 23 # In pixels
 
-    target_coords = (x_left, y_mid)
+    target_coords = (x_left + 0.7, y_mid)
     text_coords = (x_right - text_width, 2 * y_mid - text_height)
     draw_arrow_text(target_coords, text_coords, "Exact recovery threshold", ax=ax)
 
-    target_coords = (x_left, y_bottom)
+    target_coords = (x_left + 0.7, y_bottom + 0.5)
     text_coords = (x_right - text_width, y_mid - text_height)
     
     draw_arrow_text(target_coords, text_coords, "Connectivity threshold", ax=ax)
@@ -167,13 +168,11 @@ def plot_sbm_pt(experiment, ax=None, with_colorbar=False, with_thresholds=False)
     
     if with_colorbar:
         cb = add_colorbar(im, ax)
-        vanish_spines(cb.ax)
-        cb.ax.tick_params(axis='both', length=0)
 
     x = experiment['cols'].astype(int)
     
     ax.grid(False)
-    vanish_spines(ax)
+    #vanish_spines(ax)
     
     
     ax.set_xlabel('\# Measurements (m)')
@@ -217,3 +216,18 @@ def plot_line_pt(experiment, ax=None, label='', **kwargs):
     ax.set(aspect='auto',
            xlabel='\# Measurements (m)', 
            ylabel=r'Relative $\ell_2$ error')
+    
+    
+def set_cmap(choice='default'):
+    
+    from matplotlib import rcParams
+    
+    if choice == 'default':
+        rcParams['image.cmap'] = 'Reds'
+    elif choice == 'signal':
+        rcParams['image.cmap'] = 'cividis'
+    elif choice == 'quantized':
+        rcParams['image.cmap'] = 'tab10'
+    else:
+        raise ValueError("Possible colormap choices are {'default', 'signal', 'quantized'}")
+    
