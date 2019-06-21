@@ -8,8 +8,10 @@ export OMP_NUM_THREADS=1
 #python3 pt_swiss_national_council.py -nt 51 -nm 101 -sd "jump_set_tv_coherence" -rf "tv_interpolation" -fn "pt_snc_jump_set_coherence_samp_tv_interp"
 
 # BSDS300 #
-#echo "BSDS300"
-python3 pt_bsds.py -sub 'test' -gtype 'grid_and_patches' -nt 15 -nm 25 -sd "jump_set_tv_coherence" -rf "tv_interpolation" -fn "pt_bsds300_jump_set_coherence_samp_tv_interp"
+echo "BSDS300"
+#python3 pt_bsds.py -sub 'test' -gtype 'grid_and_patches' -nt 15 -nm 25 -sd "jump_set_tv_coherence" -rf "tv_interpolation" -fn "pt_bsds300_jump_set_coherence_samp_tv_interp"
+# This one has to be split between train and test because it was taking too long.
+python3 pt_bsds.py -sub 'train' -gtype 'grid_and_patches' -nt 15 -nm 25 -sd "jump_set_tv_coherence" -rf "tv_interpolation" -fn "pt_bsds300_jump_set_coherence_samp_tv_interp"
 
 # 2-SSBM #
 #echo "2-SSBM"
