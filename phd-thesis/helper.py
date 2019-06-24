@@ -49,7 +49,7 @@ def set_pgf_preamble():
         "axes.labelsize": 11,               # LaTeX default is 10pt font.
         "font.size": 11,
         "axes.titlesize": 13,
-        "legend.fontsize": 11,               # Make the legend/label fonts a little smaller
+        "legend.fontsize": 8,               # Make the legend/label fonts a little smaller
         "xtick.labelsize": 11,
         "ytick.labelsize": 11,
         "figure.figsize": figsize_from_textwidth(0.9),   
@@ -183,7 +183,7 @@ def plot_sbm_pt(experiment, ax=None, with_colorbar=False, with_thresholds=False)
 
     y = experiment['rows']
     
-    ax.set_ylabel('Connection probability factor (a)')
+    ax.set_ylabel(r'Connection probability factor ($a$)')
     ax.yaxis.set_major_locator(ticker.LinearLocator(3))
     ax.set_yticklabels(["{0:.1f}".format(y[0]),
                         "{0:.1f}".format(np.median(y)),
@@ -214,7 +214,7 @@ def plot_line_pt(experiment, ax=None, label='', **kwargs):
     ax.set_ylim(bottom=-0.1, top=1.1)
 
     ax.set(aspect='auto',
-           xlabel='\# Measurements (m)', 
+           xlabel=r'\# Measurements ($m$)', 
            ylabel=r'Relative $\ell_2$ error')
     
     

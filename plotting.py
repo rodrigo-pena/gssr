@@ -26,6 +26,9 @@ def plot_graph(graph, *args, ax=None, **kwargs):
     else:
         fig = plt.gcf()
     
+    graph.plotting['vertex_size'] = 22
+    graph.plotting['edge_color'] = (0.5, 0.5, 0.5, 0.05)
+    
     graph.plot(*args, ax=ax, **kwargs)
     
     ax.set(title='')

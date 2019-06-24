@@ -91,7 +91,6 @@ def sbm(n_vertices, n_communities, n_vert_per_comm=None, comm_prob_mat=None, int
                                               M=comm_prob_mat, p=p, q=q, seed=seed)
     graph.set_coordinates(kind='community2D')
     graph.info['n_communities'] = n_communities
-    graph.plotting['edge_color'] = (0.5, 0.5, 0.5, 0.05)
     
     # Assemble the indicator vectors from the community labels
     indicator_vectors = np.zeros((n_communities, n_vertices))
@@ -245,9 +244,6 @@ def swiss_national_council(path='data/swiss-national-council/',
     
     graph.coords = utils.get_parliament_coordinates(n_councillors=graph.n_vertices)
     
-    graph.plotting['vertex_size'] = 150
-    graph.plotting['edge_color'] = (0.5, 0.5, 0.5, 0.05)
-    
     return graph, indicator_vectors
 
 
@@ -293,7 +289,6 @@ def email_eu_core(path='data/email-EU-core/'):
     
     n_communities = len(graph.info['comm_sizes'])
     graph.info['n_communities'] = n_communities
-    graph.plotting['edge_color'] = (0.5, 0.5, 0.5, 0.05)
     
     indicator_vectors = np.zeros((n_communities, graph.n_vertices))
     
@@ -423,7 +418,6 @@ def bsds300(img_id, path='data/BSDS300/', seg_subset='color', subsample_factor=1
         'img_subset' : utils.get_bsds300_subset(img_id, path),
         'seg_subset' : seg_subset
     }
-    graph.plotting['edge_color'] = (0.5, 0.5, 0.5, 0.05)
     
     # Indicator vectors #
     
@@ -570,7 +564,6 @@ def high_school_social_network(path='data/high-school/', kind='contact'):
         'world_rad' : 1.5 * np.sqrt(graph.n_vertices),
         'kind' : kind
     }
-    graph.plotting['edge_color'] = (0.5, 0.5, 0.5, 0.05)
     graph.set_coordinates(kind='community2D')
     
     return graph, indicator_vectors
