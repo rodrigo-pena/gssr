@@ -11,3 +11,5 @@ data/BSDS300/images/
 data/BSDS300/iids_test.txt
 data/BSDS300/iids_train.txt
 
+phd-thesis/figures/*
+
