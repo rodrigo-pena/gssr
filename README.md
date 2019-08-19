@@ -24,7 +24,7 @@ This repository contains utilities to conveniently load graphs and signals, and 
 
 ## Content
 
-- `graphs_signals.py`: Functions related to loading and representing graphs and their signals. See the `data/` folder in this repository for information on the relevant datasets.
+- `graphs_signals.py`: Functions related to loading and representing graphs and their signals. See the `data/` folder in this repository for information on the relevant datasets. You need to follow the instructions therein to download the required files for working with each dataset.
 - `sampling.py`: Functions related to vertex sampling designs.
 - `recovery.py`: Functions related to recovery programs (decoders). 
 - `phase_transition.py`: Functions related to the phase transition experiments commonly done in [Compressed Sensing][cs]. They allow one to observe how the recovery error varies with a set of parameters (normally the number of measurements).

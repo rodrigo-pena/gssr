@@ -18,6 +18,9 @@ from mpl_toolkits.axes_grid1.colorbar import colorbar
 
 
 def plot_graph(graph, *args, ax=None, **kwargs):
+    r"""
+    Call :func:`pygsp.graphs.Graph.plot` with custom settings.
+    """
     
     fig = None
     

@@ -118,6 +118,9 @@ def spectral_norm(shape, L, Lt):
 
 
 def select_recovery_function(name, **kwargs):
+    r"""
+    Use a string to select sampling designs in `recovery`.
+    """
 
     import recovery as rec
 
@@ -138,6 +141,9 @@ def select_recovery_function(name, **kwargs):
 
 
 def select_sampling_design(name, *args, **kwargs):
+    r"""
+    Use a string to select sampling designs in `sampling`.
+    """
 
     import sampling as smp
 

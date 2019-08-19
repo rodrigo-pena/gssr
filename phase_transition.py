@@ -18,9 +18,6 @@ import pathos.multiprocessing as mp
 
 from tqdm import tqdm
 
-#import logging
-#logging.basicConfig(level=logging.DEBUG, format=' %(asctime)s - %(levelname)s - %(message)s')
-
 
 ## MAIN FUNCTIONS ##
 
