@@ -2,11 +2,11 @@
 
 [Python][python] functionality for recovering graph signals from subsampled measurements. 
 
-Currently maintained by [Rodrigo Pena](https://rodrigo-pena.github.io).
+Currently maintained by [Rodrigo C. G. Pena](https://rodrigo-pena.github.io).
 
 The [installation guide](#installation) below contains instructions for setting up your environment to use the tools in the repository.
 
-
+[![DOI](https://zenodo.org/badge/188842504.svg)](https://zenodo.org/badge/latestdoi/188842504)
 
 ## Description
 
@@ -20,8 +20,6 @@ To recover $\mathbf{x}$, the signal of interest, from its measurements $\mathbf{
 
 This repository contains utilities to conveniently load graphs and signals, and implement sampling designs and decoders.
 
-
-
 ## Content
 
 - `graphs_signals.py`: Functions related to loading and representing graphs and their signals. See the `data/` folder in this repository for information on the relevant datasets. You need to follow the instructions therein to download the required files for working with each dataset.
@@ -31,14 +29,11 @@ This repository contains utilities to conveniently load graphs and signals, and 
 - `plotting.py`: Functions related to plotting of graphs and signals. 
 - `utils.py`: A miscellaneous collection of helper functions.
 
-
-
 ## Installation guide
 
 *Remark:*  You can also click the binder badge below to run the included notebooks from your browser without installing anything.
 
 [![Binder](https://mybinder.org/badge.svg)][binder]
-
 
 For a local installation, you will need [git], [python >= 3.6][python], [jupyter], and packages from the [python scientific stack][scipy]. I recommend using [conda] for creating and managing a separate environment for this repository. If unfamiliar with this process, you can follow the instructions below.
 
@@ -51,8 +46,6 @@ For a local installation, you will need [git], [python >= 3.6][python], [jupyter
 1. You should notice `gssr` typed somewhere on the newest terminal line, indicating that you are within the environment. Install the required packages by running `conda install -c conda-forge python=3.6 jupyterlab` and then `pip install -r requirements.txt`.
 1. Run `python test_install.py` to check if all the requirements have been correctly installed.
 
-
-
 ## Using the repository
 
 After the (one-time) creation of the environment, you can do the following every time you want to work with this repository:
@@ -64,8 +57,6 @@ After the (one-time) creation of the environment, you can do the following every
 
 You can check `standard_pipeline.ipynb` for a basic idea of how to use the function modules in the repository.
 
-
-
 ## Acknowledgments
 
 The contents of this repository benefitted from the following resources:
@@ -75,13 +66,24 @@ The contents of this repository benefitted from the following resources:
 * [Voting patterns in the Swiss National Council][swiss_council].
 * [Finding Continents from a Flight Routes Network][flight_routes].
 
-
-
 ## License
 
 The content is released under the terms of the [MIT License](LICENSE.txt).
 
+## Attribution
 
+If you are using this software for your research, for the sake of reproducibility, please cite the version you used as indexed by its
+[Zenodo record](https://doi.org/10.5281/zenodo.1003157). Alternatively, you may cite it generically as
+
+```
+@software{rodrigo_c_g_pena_2022_6566207,
+  author       = {Rodrigo C. G. Pena},
+  title        = {Graph Signal Sampling and Recovery (GSSR)},
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.6566207},
+  url          = {https://github.com/rodrigo-pena/gssr}
+}
+```
 
 [anaconda]: https://www.anaconda.com/distribution/
 [conda]: https://conda.io
