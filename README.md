@@ -76,7 +76,7 @@ If you are using this software for your research, for the sake of reproducibilit
 [Zenodo record](https://doi.org/10.5281/zenodo.1003157). Alternatively, you may cite it generically as
 
 ```
-@software{rodrigo_c_g_pena_2022_6566207,
+@software{gssr,
   author       = {Rodrigo C. G. Pena},
   title        = {Graph Signal Sampling and Recovery (GSSR)},
   publisher    = {Zenodo},
