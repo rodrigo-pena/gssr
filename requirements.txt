@@ -3,7 +3,7 @@ networkx==2.3
 numpy==1.22.0
 pandas==0.24.2
 pathos==0.2.3
-Pillow==10.0.1
+Pillow==10.2.0
 pyflann3==1.8.4.1
 git+https://github.com/epfl-lts2/pygsp.git@8ce5bde39206129287375af24fdbcd7edddca8c5#egg=PyGSP
 git+https://github.com/epfl-lts2/pyunlocbox.git@b22ae58596802f9298abb48e17d41b846f524b43#egg=PyUNLocBoX
