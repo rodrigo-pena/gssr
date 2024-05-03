@@ -9,4 +9,4 @@ git+https://github.com/epfl-lts2/pygsp.git@8ce5bde39206129287375af24fdbcd7edddca
 git+https://github.com/epfl-lts2/pyunlocbox.git@b22ae58596802f9298abb48e17d41b846f524b43#egg=PyUNLocBoX
 scikit-image==0.15.0
 scipy==1.10.0
-tqdm==4.32.1
+tqdm==4.66.3
